@@ -9,6 +9,7 @@ public enum BlockType
 {
     Common,
     Giant,
+    Split,
     Double,
     BottomIgnore,
 }

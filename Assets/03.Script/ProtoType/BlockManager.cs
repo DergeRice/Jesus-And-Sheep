@@ -20,6 +20,9 @@ public class BlockManager : MonoBehaviour
 
     private int levelCount = 1;
 
+    public GameObject heartParticle;
+
+
     
 
     [ContextMenu("SpawnBlock")]
@@ -42,6 +45,8 @@ public class BlockManager : MonoBehaviour
 
         var tempBlock = Instantiate(blockPrefab, blockParent);
         tempBlock.Init(30);
+        tempBlock.ballCollsionEffect = SpawnHeartParticle;
+        tempBlock.allBlockBrokenCheck = CheckAllBlockBroken;
         blockGrid[xIndex, yIndex] = tempBlock;
         tempBlock.transform.localPosition = new Vector3(gridX[xIndex], gridY[yIndex], 0);
     }
@@ -121,6 +126,8 @@ public class BlockManager : MonoBehaviour
 
             // 해당 위치에 블록 생성
             var tempBlock = Instantiate(blockPrefab, blockParent);
+            tempBlock.ballCollsionEffect = SpawnHeartParticle;
+            tempBlock.allBlockBrokenCheck = CheckAllBlockBroken;
             tempBlock.Init(levelCount);
             blockGrid[x, topRowYIndex] = tempBlock;
 
@@ -244,6 +251,19 @@ public class BlockManager : MonoBehaviour
                     plusItemGrid[x, nextY].transform.localPosition = new Vector3(gridX[x], gridY[nextY], 0);
                 }
             }
+        }
+    }
+
+    public void SpawnHeartParticle(Vector3 pos)
+    {
+        Instantiate(heartParticle,pos,Quaternion.identity);
+    }
+
+    public void CheckAllBlockBroken()
+    {
+        if(blockParent.childCount == 1)
+        {
+            GameLogicManager.instance.GetAllBallDown();
         }
     }
 }

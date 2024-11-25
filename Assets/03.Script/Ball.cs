@@ -11,9 +11,13 @@ public class Ball : MonoBehaviour
 {
     public float speed = 10f; // 공의 이동 속도
     public Vector3 moveDirection; // 이동 방향 벡터
-    public Action<Ball,float> ballDownAction;
+    public Action<Ball, float> ballDownAction;
 
     public Rigidbody2D rb; // Rigidbody2D 참조
+    public bool speedMode = false;
+    public Action speedModeCommit;
+
+    private int bounceTime;
 
     void Start()
     {
@@ -36,9 +40,14 @@ public class Ball : MonoBehaviour
 
         if (collision.transform.CompareTag("BottomLine"))
         {
-            ballDownAction?.Invoke(this,transform.position.x); // 공이 아래쪽에 닿으면 동작 실행
+            ballDownAction?.Invoke(this, transform.position.x); // 공이 아래쪽에 닿으면 동작 실행
             Destroy(rb);
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+            return;
         }
+
+        bounceTime++;
+        if (bounceTime > 20) speedModeCommit.Invoke();
 
         Vector2 moveDirection = rb.linearVelocity.normalized; // linearVelocity가 아니라 velocity 사용
         float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg - 90f;
@@ -58,6 +67,19 @@ public class Ball : MonoBehaviour
 
         // Z축 회전 적용
         transform.rotation = Quaternion.Euler(0, 0, angle);
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if (collision.transform.CompareTag("BottomLine"))
+        {
+            ballDownAction?.Invoke(this, transform.position.x); // 공이 아래쪽에 닿으면 동작 실행
+            Destroy(rb);
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+            return;
+        }
 
     }
 }

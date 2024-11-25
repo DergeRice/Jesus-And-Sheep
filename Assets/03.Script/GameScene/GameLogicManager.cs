@@ -36,10 +36,13 @@ public class GameLogicManager : MonoBehaviour
     public Vector2 currentDirection;  // CircleCast 방향
     public float radius = 0.3f;       // CircleCast 반지름
 
+    public GameCanvas gameCanvas;
     private void Start()
     {
         instance = this;
         debugBall.transform.position = Vector3.one * 300f;
+        gameCanvas.getBallDownAction = GetAllBallDown;
+        gameCanvas.getBallDownButton.gameObject.SetActive(false);
     }
 
     void Update()
@@ -67,7 +70,7 @@ public class GameLogicManager : MonoBehaviour
         {
             dragEnd = GetMouseWorldPosition();
             Vector3 launchDirection = (dragEnd - spawnPoint.transform.position).normalized;
-
+            gameCanvas.getBallDownButton.gameObject.SetActive(true);
             StartCoroutine(SpawnBallCount(launchDirection,ballCount));
             //SpawnBall(launchDirection); // 공 생성 및 방향 설정
             ClearTrajectory();
@@ -94,7 +97,8 @@ public class GameLogicManager : MonoBehaviour
 
         Ball ballScript = ball.GetComponent<Ball>();
         ballList.Add(ballScript);
-        ballScript.ballDownAction += BallComeDown;
+        ballScript.ballDownAction = BallComeDown;
+        ballScript.speedModeCommit = BallBounceOverTime;
 
         if (ballScript != null)
         {
@@ -192,34 +196,28 @@ public class GameLogicManager : MonoBehaviour
         isPlayerTurn = true;
 
         nextXvalue = Mathf.Clamp(nextXvalue ,- 2.5f,2.5f);
-
+        gameCanvas.getBallDownButton.gameObject.SetActive(false);
         jesus.transform.DOMove(new Vector3(nextXvalue, jesus.transform.position.y,0),0.7f).SetEase(Ease.Linear);
     }
 
-
-    //private void OnDrawGizmos()
-    //{
-    //    // CircleCast 시뮬레이션
-    //    RaycastHit2D hit = Physics2D.CircleCast(currentPoint, 0.15f, currentDirection.normalized, Mathf.Infinity, collisionLayer);
-
-    //    // 기즈모 색상 설정
-    //    Gizmos.color = Color.green;
-
-    //    // CircleCast 시작 지점 (원)
-    //    Gizmos.DrawWireSphere(currentPoint, 0.15f);
-
-    //    // CircleCast 진행 방향 (선)
-    //    Vector2 direction = currentDirection.normalized; // 한 번만 정규화
-    //    Vector2 endPoint = currentPoint + direction * (hit.collider != null ? hit.distance : 10f);
-
-    //    Gizmos.color = Color.blue;
-    //    Gizmos.DrawLine(currentPoint, endPoint);
-
-    //    // 충돌 지점 (원)
-    //    if (hit.collider != null)
-    //    {
-    //        Gizmos.color = Color.red;
-    //        Gizmos.DrawWireSphere(hit.point, 0.3f);
-    //    }
-    //}
+    public void BallBounceOverTime()
+    {
+        foreach (var ball in ballList)
+        {
+            if (ball.speedMode == false)
+            {
+                ball.rb.linearVelocity = ball.moveDirection * ball.speed * 2;
+                ball.speedMode = true;
+            }
+        }
+    }
+    
+    public void GetAllBallDown()
+    {
+        foreach (var ball in ballList)
+        {
+            ball.GetComponent<CircleCollider2D>().isTrigger = true;
+            ball.rb.linearVelocity = Vector2.down * 10;
+        }
+    }
 }
