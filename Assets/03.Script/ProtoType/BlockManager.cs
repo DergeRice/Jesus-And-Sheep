@@ -10,8 +10,8 @@ public class BlockManager : MonoBehaviour
     public GameObject plusItemPrefab;
 
     public Transform blockParent;
-    public Block[,] blockGrid = new Block[6, 7];
-    public GameObject[,] plusItemGrid = new GameObject[6, 7]; // plusItem의 위치를 추적하기 위한 배열 추가
+    public Block[,] blockGrid = new Block[7, 9];
+    public GameObject[,] plusItemGrid = new GameObject[7,9]; // plusItem의 위치를 추적하기 위한 배열 추가
 
     public float[] gridX = new float[]{
         -5.6f, -4.65f, -3.72f, -2.78f, -1.86f, -0.94f};
@@ -35,8 +35,8 @@ public class BlockManager : MonoBehaviour
 
         do
         {
-            xIndex = Random.Range(0, 6);
-            yIndex = Random.Range(0, 7);
+            xIndex = Random.Range(0, 7);
+            yIndex = Random.Range(0, 9);
         }
         while (blockGrid[xIndex, yIndex] != null); // 해당 위치에 블록이 있으면 다시 랜덤 위치를 찾음
 
@@ -60,8 +60,8 @@ public class BlockManager : MonoBehaviour
 
         do
         {
-            xIndex = Random.Range(0, 6);
-            yIndex = Random.Range(0, 7);
+            xIndex = Random.Range(0, 7);
+            yIndex = Random.Range(0, 9);
         }
         while (blockGrid[xIndex, yIndex] != null); // 해당 위치에 블록이 있으면 다시 랜덤 위치를 찾음
 
