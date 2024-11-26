@@ -9,7 +9,7 @@ public class PanelBase : MonoBehaviour
 
     public void Start()
     {
-        close.onClick.AddListener(()=> { SetActive(false); });
+        if(close != null) close.onClick.AddListener(()=> { SetActive(false); });
     }
 
     public void SetActive(bool _active)

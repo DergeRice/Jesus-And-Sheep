@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 public enum EVibrate
 {
     weak,
@@ -13,9 +15,30 @@ public enum BlockType
     Double,
     BottomIgnore,
 }
+public enum BallType
+{
+    Common,
+    Cross,
+    Bomb,
+    Vertical,
+    Horizontal,
+    Arrow
+}
+
 
 
 public class EnumClass
 {
     
+}
+[System.Serializable]
+public class GameEvent : GameEventBase
+{
+    public string eventName;
+    public string explaination;
+    public Texture icon;
+}
+public class GameEventBase
+{
+    public Action action;
 }

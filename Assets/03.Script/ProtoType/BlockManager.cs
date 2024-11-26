@@ -23,7 +23,7 @@ public class BlockManager : MonoBehaviour
     public GameObject heartParticle;
 
 
-    
+    public int doubleSheepHpCount = 0;
 
     [ContextMenu("SpawnBlock")]
     public void SpawnBlock()
@@ -44,7 +44,7 @@ public class BlockManager : MonoBehaviour
         while (blockGrid[xIndex, yIndex] != null); // 해당 위치에 블록이 있으면 다시 랜덤 위치를 찾음
 
         var tempBlock = Instantiate(blockPrefab, blockParent);
-        tempBlock.Init(30);
+        tempBlock.Init(GameLogicManager.instance.currentLevel);
         tempBlock.ballCollsionEffect = SpawnHeartParticle;
         tempBlock.allBlockBrokenCheck = CheckAllBlockBroken;
         blockGrid[xIndex, yIndex] = tempBlock;
@@ -76,10 +76,9 @@ public class BlockManager : MonoBehaviour
         plusItem.transform.localPosition = new Vector3(gridX[xIndex], gridY[yIndex], 0);
     }
 
-    [ContextMenu("Spawn5Block")]
-    public void Spawn5Blocks()
+    public void SpawnCountBlocks(int count)
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < count; i++)
         {
             SpawnBlock();
         }
@@ -128,7 +127,14 @@ public class BlockManager : MonoBehaviour
             var tempBlock = Instantiate(blockPrefab, blockParent);
             tempBlock.ballCollsionEffect = SpawnHeartParticle;
             tempBlock.allBlockBrokenCheck = CheckAllBlockBroken;
-            tempBlock.Init(levelCount);
+
+            int sheepHp = levelCount;
+            if (doubleSheepHpCount > 0)
+            {
+                sheepHp *= 2;
+                doubleSheepHpCount--;
+            }
+            tempBlock.Init(sheepHp);
             blockGrid[x, topRowYIndex] = tempBlock;
 
             // 블록 위치 설정
@@ -266,4 +272,113 @@ public class BlockManager : MonoBehaviour
             GameLogicManager.instance.GetAllBallDown();
         }
     }
+
+    public List<Block> GetAvailableBlocks()
+    {
+        List<Block> availableBlocks = new List<Block>();
+
+        // blockGrid 배열에서 null이 아닌 Block을 찾기
+        foreach (Block block in blockGrid)
+        {
+            if (block != null)
+            {
+                availableBlocks.Add(block);
+            }
+        }
+
+        return availableBlocks;
+    }
+
+    public List<Block> GetRandomBlock(int count)
+    {
+        List<Block> availableBlocks = GetAvailableBlocks(); // 가능한 블록들 가져오기
+
+        // 랜덤하게 선택할 수 있는 Block이 부족하면 가능한 것만 반환
+        List<Block> randomBlocks = new List<Block>();
+        int numberOfBlocksToSelect = Mathf.Min(count, availableBlocks.Count);
+
+        // 가능한 Block이 count보다 많으면 그 중에서 랜덤하게 선택
+        for (int i = 0; i < numberOfBlocksToSelect; i++)
+        {
+            int randomIndex = Random.Range(0, availableBlocks.Count);
+            randomBlocks.Add(availableBlocks[randomIndex]);
+            availableBlocks.RemoveAt(randomIndex); // 이미 선택한 Block은 리스트에서 제거
+        }
+
+        return randomBlocks;
+    }
+    public List<Block> GetBlocksWithCountLessThan(int value)
+    {
+        List<Block> availableBlocks = GetAvailableBlocks(); // 가능한 블록들 가져오기
+        List<Block> filteredBlocks = new List<Block>();
+
+        foreach (Block block in availableBlocks)
+        {
+            // Block의 count가 value보다 작은지 확인
+            if (block.count < value)
+            {
+                filteredBlocks.Add(block);
+            }
+        }
+
+        return filteredBlocks;
+    }
+
+    public List<Block> GetBlocksInSameYLineWithMaxY()
+    {
+        // 가장 큰 y값을 찾기 위한 변수
+        int maxY = int.MinValue;
+        Block maxYBlock = null;
+
+        // 가장 큰 y값을 가진 Block을 찾는다
+        for (int x = 0; x < blockGrid.GetLength(0); x++)  // x 방향 순회
+        {
+            for (int y = 0; y < blockGrid.GetLength(1); y++)  // y 방향 순회
+            {
+                Block currentBlock = blockGrid[x, y];
+
+                // Null이 아니고, y 값이 더 크면 갱신
+                if (currentBlock != null && y > maxY)
+                {
+                    maxY = y;
+                    maxYBlock = currentBlock;
+                }
+            }
+        }
+
+        // 만약 유효한 Block이 없으면 빈 리스트 반환
+        if (maxYBlock == null)
+        {
+            return new List<Block>();
+        }
+
+        // 최대 y 값을 가진 Block의 y 값
+        int targetY = -1;
+        for (int x = 0; x < blockGrid.GetLength(0); x++)  // x 방향 순회
+        {
+            for (int y = 0; y < blockGrid.GetLength(1); y++)  // y 방향 순회
+            {
+                if (blockGrid[x, y] == maxYBlock)
+                {
+                    targetY = y;
+                    break;
+                }
+            }
+            if (targetY != -1) break;  // y 값 찾으면 반복문 종료
+        }
+
+        // 이제 targetY와 같은 y 값을 가진 Block들 반환
+        List<Block> blocksInSameYLine = new List<Block>();
+        for (int x = 0; x < blockGrid.GetLength(0); x++)  // x 방향 순회
+        {
+            Block blockInSameLine = blockGrid[x, targetY];
+            if (blockInSameLine != null)
+            {
+                blocksInSameYLine.Add(blockInSameLine);
+            }
+        }
+
+        return blocksInSameYLine;
+    }
 }
+

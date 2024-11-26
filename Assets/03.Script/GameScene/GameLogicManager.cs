@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Collections;
 using DG.Tweening;
+using UnityEngine.UI;
+using TMPro;
 
 public class GameLogicManager : MonoBehaviour
 {
@@ -38,11 +40,10 @@ public class GameLogicManager : MonoBehaviour
 
     public GameCanvas gameCanvas;
 
+    private Vector3 clampedDragDirection;
 
-[SerializeField] private float minAngle = 30f;
-[SerializeField] private float maxAngle = 150f;
+    public TMP_Text ballCountText, currentLevelText;
 
-    bool needToWait;
     private void Start()
     {
         instance = this;
@@ -54,6 +55,8 @@ public class GameLogicManager : MonoBehaviour
     void Update()
     {
         if (isPlayerTurn == true) HandleInput();
+        ballCountText.text = ballCount.ToString();
+        currentLevelText.text = currentLevel.ToString();
     }
 
     private void HandleInput()
@@ -65,50 +68,53 @@ public class GameLogicManager : MonoBehaviour
         }
         else if (Input.GetMouseButton(0) && isDragging) // 드래그 중
         {
+            float width = trajectoryLine.startWidth;
+            trajectoryLine.material.mainTextureScale = new Vector2(1f / width, 1.0f);
+
             Vector3 currentDragPosition = GetMouseWorldPosition();
             Vector3 dragDirection = currentDragPosition - spawnPoint.transform.position;
 
-            // 기준 벡터 (위쪽 방향)
-            Vector3 baseDirection = Vector3.up;
+            // 드래그 방향의 각도 계산 (SignedAngle로 계산, 기준 벡터는 오른쪽)
+            float angle = Mathf.Atan2(dragDirection.y, dragDirection.x) * Mathf.Rad2Deg;
 
-            // 드래그 방향과 기준 벡터의 각도 계산
-            float angle = Vector3.SignedAngle(baseDirection, dragDirection, Vector3.forward);
+            // 각도를 0 ~ 360도로 정규화
+            angle = (angle + 360) % 360;
 
-            // 각도 제한
-            angle = Mathf.Clamp(angle, minAngle, maxAngle);
+            // 각도를 170도 ~ 10도 범위로 제한
+            if (angle > 170f || angle < 10f)
+            {
+                if (angle > 180f)
+                {
+                    angle = 170f; // 상한 제한
+                }
+                else
+                {
+                    angle = 10f;  // 하한 제한
+                }
+            }
 
-            // 제한된 각도에 맞게 드래그 방향 보정
-            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            dragDirection = rotation * baseDirection;
+            // 제한된 각도로 방향 재계산
+            float angleInRadians = angle * Mathf.Deg2Rad;
+            dragDirection = new Vector3(Mathf.Cos(angleInRadians), Mathf.Sin(angleInRadians), 0f);
+
+            // 제한된 방향을 저장 (드래그 끝날 때 사용)
+            clampedDragDirection = dragDirection;
+
+            // 디버그 출력
+            Debug.Log($"Clamped Angle: {angle}");
 
             // 궤적 그리기
-            float width = trajectoryLine.startWidth;
-            trajectoryLine.material.mainTextureScale = new Vector2(1f / width, 1.0f);
-            DrawTrajectory(spawnPoint.transform.position, dragDirection);
+            DrawTrajectory(spawnPoint.transform.position, dragDirection * dragDirection.magnitude);
             trajectoryLine.enabled = true;
         }
         else if (Input.GetMouseButtonUp(0) && isDragging) // 드래그 끝
         {
-            dragEnd = GetMouseWorldPosition();
-            Vector3 launchDirection = (dragEnd - spawnPoint.transform.position).normalized;
+            // 제한된 방향으로 발사
+            Vector3 launchDirection = clampedDragDirection.normalized;
 
-            // 기준 벡터 (위쪽 방향)
-            Vector3 baseDirection = Vector3.up;
-
-            // 발사 방향과 기준 벡터의 각도 계산
-            float angle = Vector3.SignedAngle(baseDirection, launchDirection, Vector3.forward);
-
-            // 각도 제한
-            angle = Mathf.Clamp(angle, minAngle, maxAngle);
-
-            // 제한된 각도에 맞게 발사 방향 보정
-            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            launchDirection = rotation * baseDirection;
-
-            // 발사 처리
+            // 공 생성 코루틴 시작
             gameCanvas.getBallDownButton.gameObject.SetActive(true);
             StartCoroutine(SpawnBallCount(launchDirection, ballCount));
-
             ClearTrajectory();
 
             isPlayerTurn = false;
@@ -135,7 +141,6 @@ public class GameLogicManager : MonoBehaviour
         Ball ballScript = ball.GetComponent<Ball>();
         ballList.Add(ballScript);
         ballScript.ballDownAction = BallComeDown;
-        ballScript.speedModeCommit = BallBounceOverTime;
 
         if (ballScript != null)
         {
@@ -239,17 +244,6 @@ public class GameLogicManager : MonoBehaviour
         Utils.DelayCall( ()=>{ isPlayerTurn = true;},0.7f);
     }
 
-    public void BallBounceOverTime()
-    {
-        foreach (var ball in ballList)
-        {
-            if (ball.speedMode == false)
-            {
-                ball.rb.linearVelocity = ball.moveDirection * ball.speed * 2;
-                ball.speedMode = true;
-            }
-        }
-    }
     
     public void GetAllBallDown()
     {

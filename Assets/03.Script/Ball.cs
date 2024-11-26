@@ -15,7 +15,7 @@ public class Ball : MonoBehaviour
 
     public Rigidbody2D rb; // Rigidbody2D 참조
     public bool speedMode = false;
-    public Action speedModeCommit;
+    //public Action speedModeCommit;
 
     private int bounceTime;
 
@@ -47,7 +47,7 @@ public class Ball : MonoBehaviour
         }
 
         bounceTime++;
-        if (bounceTime > 20) speedModeCommit.Invoke();
+
 
         Vector2 moveDirection = rb.linearVelocity.normalized; // linearVelocity가 아니라 velocity 사용
         float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg - 90f;
@@ -67,6 +67,12 @@ public class Ball : MonoBehaviour
 
         // Z축 회전 적용
         transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        if (bounceTime > 20 && speedMode == false)
+        {
+            rb.linearVelocity = moveDirection * speed * 2;
+            speedMode = true;
+        }
 
     }
 
