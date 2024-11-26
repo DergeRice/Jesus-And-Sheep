@@ -24,6 +24,7 @@ public class EventManager : MonoBehaviour
     public GameEvent 반반확률로_공5추가_블록3개소환;
     public GameEvent 반반확률로_특수공1추가_공2감소;
     public GameEvent 반반확률로_특수공1추가_블록5개소환;
+    public int zaebal;
 
     private void Start()
     {
