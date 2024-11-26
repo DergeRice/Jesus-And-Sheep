@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Jesus-And-Children.sln"
+    "dotnet.defaultSolution": "Jesus-And-Sheep.sln"
 }

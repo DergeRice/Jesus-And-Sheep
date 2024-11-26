@@ -141,6 +141,7 @@ MonoBehaviour:
   speed: 10
   moveDirection: {x: 0, y: 0, z: 0}
   rb: {fileID: 0}
+  speedMode: 0
 --- !u!50 &8988787097122279480
 Rigidbody2D:
   serializedVersion: 5
@@ -164,7 +165,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 1
+  m_Interpolate: 2
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 0

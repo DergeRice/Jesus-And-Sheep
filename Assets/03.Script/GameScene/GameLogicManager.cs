@@ -37,6 +37,12 @@ public class GameLogicManager : MonoBehaviour
     public float radius = 0.3f;       // CircleCast 반지름
 
     public GameCanvas gameCanvas;
+
+
+[SerializeField] private float minAngle = 30f;
+[SerializeField] private float maxAngle = 150f;
+
+    bool needToWait;
     private void Start()
     {
         instance = this;
@@ -59,20 +65,50 @@ public class GameLogicManager : MonoBehaviour
         }
         else if (Input.GetMouseButton(0) && isDragging) // 드래그 중
         {
+            Vector3 currentDragPosition = GetMouseWorldPosition();
+            Vector3 dragDirection = currentDragPosition - spawnPoint.transform.position;
+
+            // 기준 벡터 (위쪽 방향)
+            Vector3 baseDirection = Vector3.up;
+
+            // 드래그 방향과 기준 벡터의 각도 계산
+            float angle = Vector3.SignedAngle(baseDirection, dragDirection, Vector3.forward);
+
+            // 각도 제한
+            angle = Mathf.Clamp(angle, minAngle, maxAngle);
+
+            // 제한된 각도에 맞게 드래그 방향 보정
+            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            dragDirection = rotation * baseDirection;
+
+            // 궤적 그리기
             float width = trajectoryLine.startWidth;
             trajectoryLine.material.mainTextureScale = new Vector2(1f / width, 1.0f);
-
-            Vector3 currentDragPosition = GetMouseWorldPosition();
-            DrawTrajectory(spawnPoint.transform.position, currentDragPosition - spawnPoint.transform.position);
+            DrawTrajectory(spawnPoint.transform.position, dragDirection);
             trajectoryLine.enabled = true;
         }
         else if (Input.GetMouseButtonUp(0) && isDragging) // 드래그 끝
         {
             dragEnd = GetMouseWorldPosition();
             Vector3 launchDirection = (dragEnd - spawnPoint.transform.position).normalized;
+
+            // 기준 벡터 (위쪽 방향)
+            Vector3 baseDirection = Vector3.up;
+
+            // 발사 방향과 기준 벡터의 각도 계산
+            float angle = Vector3.SignedAngle(baseDirection, launchDirection, Vector3.forward);
+
+            // 각도 제한
+            angle = Mathf.Clamp(angle, minAngle, maxAngle);
+
+            // 제한된 각도에 맞게 발사 방향 보정
+            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            launchDirection = rotation * baseDirection;
+
+            // 발사 처리
             gameCanvas.getBallDownButton.gameObject.SetActive(true);
-            StartCoroutine(SpawnBallCount(launchDirection,ballCount));
-            //SpawnBall(launchDirection); // 공 생성 및 방향 설정
+            StartCoroutine(SpawnBallCount(launchDirection, ballCount));
+
             ClearTrajectory();
 
             isPlayerTurn = false;
@@ -80,6 +116,7 @@ public class GameLogicManager : MonoBehaviour
             isDragging = false;
             debugBall.transform.position = Vector3.one * 300f;
         }
+
     }
 
     private Vector3 GetMouseWorldPosition()
@@ -193,11 +230,13 @@ public class GameLogicManager : MonoBehaviour
         currentLevel++;
         blockManager.BlockGetDown(currentLevel);
         Debug.Log("MyTurn");
-        isPlayerTurn = true;
+        
 
         nextXvalue = Mathf.Clamp(nextXvalue ,- 2.5f,2.5f);
         gameCanvas.getBallDownButton.gameObject.SetActive(false);
         jesus.transform.DOMove(new Vector3(nextXvalue, jesus.transform.position.y,0),0.7f).SetEase(Ease.Linear);
+
+        Utils.DelayCall( ()=>{ isPlayerTurn = true;},0.7f);
     }
 
     public void BallBounceOverTime()
@@ -214,6 +253,7 @@ public class GameLogicManager : MonoBehaviour
     
     public void GetAllBallDown()
     {
+        isPlayerTurn = false;
         foreach (var ball in ballList)
         {
             ball.GetComponent<CircleCollider2D>().isTrigger = true;

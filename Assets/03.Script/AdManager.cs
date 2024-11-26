@@ -2,11 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GoogleMobileAds.Api;
+// using GoogleMobileAds.Api;
 
 public class AdManager : MonoBehaviour
 {
-    private RewardedAd rewardedAd;
+    // private RewardedAd rewardedAd;s
 
 
     // #if UNITY_ANDROID

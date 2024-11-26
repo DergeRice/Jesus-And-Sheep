@@ -26,23 +26,23 @@ public class Block : MonoBehaviour
         count = _count;
         if (countText != null)  countText.text = count.ToString();
 
-        if(GameLogicManager.instance.currentLevel > 30 && Random.value > 0.1f)
+        if(GameLogicManager.instance.currentLevel > 30 && Random.value < 0.1f)
         {
             blockType = BlockType.Double;
         }else
 
-        if (GameLogicManager.instance.currentLevel > 60 && Random.value > 0.1f)
+        if (GameLogicManager.instance.currentLevel > 60 && Random.value < 0.1f)
         {
             blockType = BlockType.Giant;
         }
         else
 
-        if (GameLogicManager.instance.currentLevel > 90 && Random.value > 0.1f)
+        if (GameLogicManager.instance.currentLevel > 90 && Random.value < 0.1f)
         {
             blockType = BlockType.Split;
         }
         else
-        if (GameLogicManager.instance.currentLevel > 120 && Random.value > 0.1f)
+        if (GameLogicManager.instance.currentLevel > 120 && Random.value < 0.1f)
         {
             blockType = BlockType.BottomIgnore;
         }
