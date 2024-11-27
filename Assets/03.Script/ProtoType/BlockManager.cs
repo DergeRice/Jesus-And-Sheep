@@ -11,7 +11,7 @@ public class BlockManager : MonoBehaviour
 
     public Transform blockParent;
     public Block[,] blockGrid = new Block[7, 9];
-    public GameObject[,] plusItemGrid = new GameObject[7,9]; // plusItemÀÇ À§Ä¡¸¦ ÃßÀûÇÏ±â À§ÇÑ ¹è¿­ Ãß°¡
+    public GameObject[,] plusItemGrid = new GameObject[7,9]; // plusItemï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­ ï¿½ß°ï¿½
 
     public float[] gridX = new float[]{
         -5.6f, -4.65f, -3.72f, -2.78f, -1.86f, -0.94f};
@@ -30,7 +30,7 @@ public class BlockManager : MonoBehaviour
     {
         if (IsGridFull())
         {
-            Debug.Log("¸ðµç ±×¸®µå°¡ Â÷ ÀÖ¾î ºí·ÏÀ» »ý¼ºÇÏÁö ¾Ê½À´Ï´Ù.");
+            Debug.Log("ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½å°¡ ï¿½ï¿½ ï¿½Ö¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.");
             return;
         }
 
@@ -41,7 +41,7 @@ public class BlockManager : MonoBehaviour
             xIndex = Random.Range(0, 7);
             yIndex = Random.Range(0, 9);
         }
-        while (blockGrid[xIndex, yIndex] != null); // ÇØ´ç À§Ä¡¿¡ ºí·ÏÀÌ ÀÖÀ¸¸é ´Ù½Ã ·£´ý À§Ä¡¸¦ Ã£À½
+        while (blockGrid[xIndex, yIndex] != null); // ï¿½Ø´ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ Ã£ï¿½ï¿½
 
         var tempBlock = Instantiate(blockPrefab, blockParent);
         tempBlock.Init(GameLogicManager.instance.currentLevel);
@@ -54,10 +54,10 @@ public class BlockManager : MonoBehaviour
     [ContextMenu("SpawnPlusItem")]
     public void SpawnPlusItem()
     {
-        // plusItemPrefabÀ» ºó ±×¸®µå À§Ä¡¿¡ »ý¼º
+        // plusItemPrefabï¿½ï¿½ ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (IsGridFull())
         {
-            Debug.Log("±×¸®µå°¡ °¡µæ Â÷ ÀÖ¾î Ãß°¡ ¾ÆÀÌÅÛÀ» »ý¼ºÇÒ ¼ö ¾ø½À´Ï´Ù.");
+            Debug.Log("ï¿½×¸ï¿½ï¿½å°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö¾ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
             return;
         }
 
@@ -68,9 +68,9 @@ public class BlockManager : MonoBehaviour
             xIndex = Random.Range(0, 7);
             yIndex = Random.Range(0, 9);
         }
-        while (blockGrid[xIndex, yIndex] != null); // ÇØ´ç À§Ä¡¿¡ ºí·ÏÀÌ ÀÖÀ¸¸é ´Ù½Ã ·£´ý À§Ä¡¸¦ Ã£À½
+        while (blockGrid[xIndex, yIndex] != null); // ï¿½Ø´ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ Ã£ï¿½ï¿½
 
-        // ºó °÷¿¡ plusItem »ý¼º
+        // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ plusItem ï¿½ï¿½ï¿½ï¿½
         var plusItem = Instantiate(plusItemPrefab, blockParent);
         plusItemGrid[xIndex, yIndex] = plusItem;
         plusItem.transform.localPosition = new Vector3(gridX[xIndex], gridY[yIndex], 0);
@@ -95,35 +95,35 @@ public class BlockManager : MonoBehaviour
         {
             for (int y = 0; y < blockGrid.GetLength(1); y++)
             {
-                if (blockGrid[x, y] == null) // ºñ¾îÀÖ´Â ±×¸®µå°¡ ÀÖÀ¸¸é false ¹ÝÈ¯
+                if (blockGrid[x, y] == null) // ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½×¸ï¿½ï¿½å°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ false ï¿½ï¿½È¯
                     return false;
             }
         }
-        return true; // ¸ðµç ±×¸®µå°¡ Â÷ ÀÖÀ¸¸é true ¹ÝÈ¯
+        return true; // ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½å°¡ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ true ï¿½ï¿½È¯
     }
 
     public void SpawnTopLane(int amount)
     {
-        int topRowYIndex = 1; // ¸Ç À­ÁÙÀÇ yIndex
+        int topRowYIndex = 1; // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ yIndex
 
-        // amount°¡ ±×¸®µåÀÇ °¡·Î Å©±â¸¦ ÃÊ°úÇÏÁö ¾Êµµ·Ï Á¦ÇÑ
+        // amountï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å©ï¿½â¸¦ ï¿½Ê°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         amount = Mathf.Min(amount, blockGrid.GetLength(0));
 
         int spawnedCount = 0;
-        HashSet<int> usedXIndices = new HashSet<int>(); // Áßº¹µÈ x°ªÀ» ¹æÁöÇÏ±â À§ÇÑ Set
+        HashSet<int> usedXIndices = new HashSet<int>(); // ï¿½ßºï¿½ï¿½ï¿½ xï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ Set
 
         while (spawnedCount < amount)
         {
-            // ·£´ýÇÑ xÁÂÇ¥ ¼±ÅÃ
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ xï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½
             int x = Random.Range(0, blockGrid.GetLength(0));
 
-            // ÀÌ¹Ì ÇØ´ç xÁÂÇ¥¿¡ ºí·ÏÀÌ ÀÖÀ¸¸é °Ç³Ê¶Ù±â
+            // ï¿½Ì¹ï¿½ ï¿½Ø´ï¿½ xï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç³Ê¶Ù±ï¿½
             if (blockGrid[x, topRowYIndex] != null || usedXIndices.Contains(x))
                 continue;
 
-            usedXIndices.Add(x); // »ç¿ëÇÑ xÁÂÇ¥¸¦ ±â·Ï
+            usedXIndices.Add(x); // ï¿½ï¿½ï¿½ï¿½ï¿½ xï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½
 
-            // ÇØ´ç À§Ä¡¿¡ ºí·Ï »ý¼º
+            // ï¿½Ø´ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             var tempBlock = Instantiate(blockPrefab, blockParent);
             tempBlock.ballCollsionEffect = SpawnHeartParticle;
             tempBlock.allBlockBrokenCheck = CheckAllBlockBroken;
@@ -137,18 +137,18 @@ public class BlockManager : MonoBehaviour
             tempBlock.Init(sheepHp);
             blockGrid[x, topRowYIndex] = tempBlock;
 
-            // ºí·Ï À§Ä¡ ¼³Á¤
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
             tempBlock.transform.localPosition = new Vector3(gridX[x], gridY[topRowYIndex], 0);
 
-            spawnedCount++; // »ý¼ºµÈ ºí·Ï ¼ö Áõ°¡
+            spawnedCount++; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
 
-        // ¾ÆÀÌÅÛ Ãß°¡: ºó Ä­À» Ã£°í, ·£´ýÇÑ À§Ä¡¿¡ ÇÑ °³ »ý¼º
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½: ï¿½ï¿½ Ä­ï¿½ï¿½ Ã£ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         List<int> emptyXIndices = new List<int>();
 
         for (int x = 0; x < blockGrid.GetLength(0); x++)
         {
-            if (blockGrid[x, topRowYIndex] == null) // ºñ¾î ÀÖ´Â Ä­¸¸ ¼öÁý
+            if (blockGrid[x, topRowYIndex] == null) // ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ Ä­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             {
                 emptyXIndices.Add(x);
             }
@@ -156,14 +156,14 @@ public class BlockManager : MonoBehaviour
 
         if (emptyXIndices.Count > 0)
         {
-            // ºó Ä­ Áß ·£´ýÇÑ À§Ä¡ ¼±ÅÃ
+            // ï¿½ï¿½ Ä­ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
             int randomX = emptyXIndices[Random.Range(0, emptyXIndices.Count)];
 
-            // ¾ÆÀÌÅÛ »ý¼º
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             var tempItem = Instantiate(plusItemPrefab, blockParent);
             tempItem.transform.localPosition = new Vector3(gridX[randomX], gridY[topRowYIndex], 0);
 
-            //blockGrid¿¡ Ãß°¡ÇÏ·Á¸é ¾Æ·¡ ÄÚµå È°¼ºÈ­(¾ÆÀÌÅÛÀÌ ÀÌµ¿ ´ë»óÀÎ °æ¿ì ÇÊ¿ä)
+            //blockGridï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ ï¿½Úµï¿½ È°ï¿½ï¿½È­(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½)
              blockGrid[randomX, topRowYIndex] = tempItem.GetComponent<Block>();
         }
     }
@@ -172,13 +172,13 @@ public class BlockManager : MonoBehaviour
     {
         levelCount = level;
         StartCoroutine(BlockGetDownCo());
-        Utils.DelayCall(() => SpawnTopLane(Random.Range(1, 5)), 1f);
+        Utils.DelayCall(() => SpawnTopLane(Random.Range(2, 6)), 1f);
     }
 
     IEnumerator BlockGetDownCo()
     {
         List<Block> blocksToMove = new List<Block>();
-        List<GameObject> itemsToMove = new List<GameObject>(); // plusItemÀ» À§ÇÑ ¸®½ºÆ® Ãß°¡
+        List<GameObject> itemsToMove = new List<GameObject>(); // plusItemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ß°ï¿½
 
         for (int x = 0; x < blockGrid.GetLength(0); x++)
         {
@@ -198,7 +198,7 @@ public class BlockManager : MonoBehaviour
 
         float timeElapsed = 0f;
         List<Vector3> blockTargetPositions = new List<Vector3>();
-        List<Vector3> itemTargetPositions = new List<Vector3>(); // plusItemÀÇ ¸ñÇ¥ À§Ä¡ ¸®½ºÆ®
+        List<Vector3> itemTargetPositions = new List<Vector3>(); // plusItemï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½Æ®
 
         foreach (var block in blocksToMove)
         {
@@ -236,7 +236,7 @@ public class BlockManager : MonoBehaviour
             yield return null;
         }
 
-        // ±×¸®µå »óÅÂ °»½Å
+        // ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         for (int x = 0; x < blockGrid.GetLength(0); x++)
         {
             for (int y = blockGrid.GetLength(1) - 2; y >= 0; y--)
@@ -277,7 +277,7 @@ public class BlockManager : MonoBehaviour
     {
         List<Block> availableBlocks = new List<Block>();
 
-        // blockGrid ¹è¿­¿¡¼­ nullÀÌ ¾Æ´Ñ BlockÀ» Ã£±â
+        // blockGrid ï¿½è¿­ï¿½ï¿½ï¿½ï¿½ nullï¿½ï¿½ ï¿½Æ´ï¿½ Blockï¿½ï¿½ Ã£ï¿½ï¿½
         foreach (Block block in blockGrid)
         {
             if (block != null)
@@ -291,30 +291,30 @@ public class BlockManager : MonoBehaviour
 
     public List<Block> GetRandomBlock(int count)
     {
-        List<Block> availableBlocks = GetAvailableBlocks(); // °¡´ÉÇÑ ºí·Ïµé °¡Á®¿À±â
+        List<Block> availableBlocks = GetAvailableBlocks(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-        // ·£´ýÇÏ°Ô ¼±ÅÃÇÒ ¼ö ÀÖ´Â BlockÀÌ ºÎÁ·ÇÏ¸é °¡´ÉÇÑ °Í¸¸ ¹ÝÈ¯
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ Blockï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Í¸ï¿½ ï¿½ï¿½È¯
         List<Block> randomBlocks = new List<Block>();
         int numberOfBlocksToSelect = Mathf.Min(count, availableBlocks.Count);
 
-        // °¡´ÉÇÑ BlockÀÌ countº¸´Ù ¸¹À¸¸é ±× Áß¿¡¼­ ·£´ýÇÏ°Ô ¼±ÅÃ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Blockï¿½ï¿½ countï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ß¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½
         for (int i = 0; i < numberOfBlocksToSelect; i++)
         {
             int randomIndex = Random.Range(0, availableBlocks.Count);
             randomBlocks.Add(availableBlocks[randomIndex]);
-            availableBlocks.RemoveAt(randomIndex); // ÀÌ¹Ì ¼±ÅÃÇÑ BlockÀº ¸®½ºÆ®¿¡¼­ Á¦°Å
+            availableBlocks.RemoveAt(randomIndex); // ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Blockï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
 
         return randomBlocks;
     }
     public List<Block> GetBlocksWithCountLessThan(int value)
     {
-        List<Block> availableBlocks = GetAvailableBlocks(); // °¡´ÉÇÑ ºí·Ïµé °¡Á®¿À±â
+        List<Block> availableBlocks = GetAvailableBlocks(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         List<Block> filteredBlocks = new List<Block>();
 
         foreach (Block block in availableBlocks)
         {
-            // BlockÀÇ count°¡ valueº¸´Ù ÀÛÀºÁö È®ÀÎ
+            // Blockï¿½ï¿½ countï¿½ï¿½ valueï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
             if (block.count < value)
             {
                 filteredBlocks.Add(block);
@@ -326,18 +326,18 @@ public class BlockManager : MonoBehaviour
 
     public List<Block> GetBlocksInSameYLineWithMaxY()
     {
-        // °¡Àå Å« y°ªÀ» Ã£±â À§ÇÑ º¯¼ö
+        // ï¿½ï¿½ï¿½ï¿½ Å« yï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         int maxY = int.MinValue;
         Block maxYBlock = null;
 
-        // °¡Àå Å« y°ªÀ» °¡Áø BlockÀ» Ã£´Â´Ù
-        for (int x = 0; x < blockGrid.GetLength(0); x++)  // x ¹æÇâ ¼øÈ¸
+        // ï¿½ï¿½ï¿½ï¿½ Å« yï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Blockï¿½ï¿½ Ã£ï¿½Â´ï¿½
+        for (int x = 0; x < blockGrid.GetLength(0); x++)  // x ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
         {
-            for (int y = 0; y < blockGrid.GetLength(1); y++)  // y ¹æÇâ ¼øÈ¸
+            for (int y = 0; y < blockGrid.GetLength(1); y++)  // y ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
             {
                 Block currentBlock = blockGrid[x, y];
 
-                // NullÀÌ ¾Æ´Ï°í, y °ªÀÌ ´õ Å©¸é °»½Å
+                // Nullï¿½ï¿½ ï¿½Æ´Ï°ï¿½, y ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 if (currentBlock != null && y > maxY)
                 {
                     maxY = y;
@@ -346,17 +346,17 @@ public class BlockManager : MonoBehaviour
             }
         }
 
-        // ¸¸¾à À¯È¿ÇÑ BlockÀÌ ¾øÀ¸¸é ºó ¸®½ºÆ® ¹ÝÈ¯
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¿ï¿½ï¿½ Blockï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½È¯
         if (maxYBlock == null)
         {
             return new List<Block>();
         }
 
-        // ÃÖ´ë y °ªÀ» °¡Áø BlockÀÇ y °ª
+        // ï¿½Ö´ï¿½ y ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Blockï¿½ï¿½ y ï¿½ï¿½
         int targetY = -1;
-        for (int x = 0; x < blockGrid.GetLength(0); x++)  // x ¹æÇâ ¼øÈ¸
+        for (int x = 0; x < blockGrid.GetLength(0); x++)  // x ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
         {
-            for (int y = 0; y < blockGrid.GetLength(1); y++)  // y ¹æÇâ ¼øÈ¸
+            for (int y = 0; y < blockGrid.GetLength(1); y++)  // y ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
             {
                 if (blockGrid[x, y] == maxYBlock)
                 {
@@ -364,12 +364,12 @@ public class BlockManager : MonoBehaviour
                     break;
                 }
             }
-            if (targetY != -1) break;  // y °ª Ã£À¸¸é ¹Ýº¹¹® Á¾·á
+            if (targetY != -1) break;  // y ï¿½ï¿½ Ã£ï¿½ï¿½ï¿½ï¿½ ï¿½Ýºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
 
-        // ÀÌÁ¦ targetY¿Í °°Àº y °ªÀ» °¡Áø Blockµé ¹ÝÈ¯
+        // ï¿½ï¿½ï¿½ï¿½ targetYï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ y ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Blockï¿½ï¿½ ï¿½ï¿½È¯
         List<Block> blocksInSameYLine = new List<Block>();
-        for (int x = 0; x < blockGrid.GetLength(0); x++)  // x ¹æÇâ ¼øÈ¸
+        for (int x = 0; x < blockGrid.GetLength(0); x++)  // x ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
         {
             Block blockInSameLine = blockGrid[x, targetY];
             if (blockInSameLine != null)

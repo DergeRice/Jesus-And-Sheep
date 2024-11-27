@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 public enum EVibrate
 {
@@ -31,14 +32,24 @@ public class EnumClass
 {
     
 }
+
+public enum GameEventType
+{
+    NextDoubleCount,
+    FirstLineErase,
+    RandomSelect,
+    RandomBlockSpawn,
+
+}
+
 [System.Serializable]
-public class GameEvent : GameEventBase
+public class GameEvent
 {
     [SerializeField] private string eventName;
     public string explaination;
+
+    // public GameEventType gameEventType;
+
+    public UnityEvent unityAction;
     public Texture icon;
-}
-public class GameEventBase
-{
-    public Action action;
 }

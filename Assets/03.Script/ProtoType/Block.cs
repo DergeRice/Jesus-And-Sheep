@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using Random = UnityEngine.Random;
+using DG.Tweening;
 
 public class Block : MonoBehaviour
 {
@@ -62,7 +63,7 @@ public class Block : MonoBehaviour
             if (count <= 0) 
             {
                 allBlockBrokenCheck.Invoke();
-                Destroy(gameObject);
+                DestroyAnimation();
             }
         }
     }
@@ -85,5 +86,12 @@ public class Block : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public void DestroyAnimation()
+    {
+        GetComponent<Collider2D>().enabled = false;
+        transform.DOShakeScale(0.5f);
+        Destroy(gameObject,0.5f);
     }
 }

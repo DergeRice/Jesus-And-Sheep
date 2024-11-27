@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class EventManager : MonoBehaviour
 {
     public Texture commonTexture;
+    GameLogicManager gameLogicManager;
 
     public List<GameEvent> gameEvents = new List<GameEvent>();
     //[Header(" 공5개_추가_다음3턴_양체력2배")]
@@ -29,24 +30,66 @@ public class EventManager : MonoBehaviour
     //[Header(" 반반확률로_공5추가_블록3개소환")]
     //[Header(" 반반확률로_특수공1추가_공2감소")]
     //[Header(" 반반확률로_특수공1추가_블록5개소환")]
-
-
+    /// <summary>
+    /// Start is called on the frame when a script is enabled just before
+    /// any of the Update methods is called the first time.
+    /// </summary>
     private void Start()
     {
-        //공5개_추가_다음3턴_양체력2배.explaination =
-        //    "공 5개를 추가하고, 다음 3턴 동안 나오는 양들의 체력이 2배가 됩니다.";
-        //공5개_추가_다음3턴_양체력2배.action += () =>
-        //{
-        //    GameLogicManager.instance.ballCount += 5;
-        //    GameLogicManager.instance.blockManager.doubleSheepHpCount = 3;
-        //};
-
-        //가장_앞줄양들_전부구원_공5개감소.explaination =
-        //    "가장 앞에 있는 줄의 양들을 모두 즉시 구원합니다. 공 5개 감소";
-        //가장_앞줄양들_전부구원_공5개감소.action += () =>
-        //{
-        //    GameLogicManager.instance.ballCount += 5;
-        //    //var blockList = GameLogicManager.instance.blockManager.GetBlocksInSameYLineWithMaxY() = 3;
-        //};
+        gameLogicManager = GameLogicManager.instance;
     }
+
+
+    public void BallCountChange(int amount)
+    {
+        gameLogicManager.ballCount  += amount;
+    }
+    public void BallCountChange(float amount)
+    {
+        gameLogicManager.ballCount  = (int)(gameLogicManager.ballCount * amount);
+    }
+
+    public void NextDouble(int amount)
+    {
+        gameLogicManager.blockManager.doubleSheepHpCount += amount;
+    }
+
+    public void EraseFirstLine()
+    {
+       var temp = gameLogicManager.blockManager.GetBlocksInSameYLineWithMaxY();
+       
+       foreach (var item in temp)
+       {
+            item.DestroyAnimation();
+       }
+    }
+
+    public void EraseAllBlocks()
+    {
+       var temp = gameLogicManager.blockManager.GetAvailableBlocks();
+       
+       foreach (var item in temp)
+       {
+            item.DestroyAnimation();
+       }
+    }
+    
+    public void SetDoubleHpAllBlock()
+    {
+        var temp = gameLogicManager.blockManager.GetAvailableBlocks();
+       
+       foreach (var item in temp)
+       {
+            item.count *= 2 ;
+       }
+    }
+
+    public void SetWaitForTurn(int turnAmount)
+    {
+        for (int i = 0; i < turnAmount; i++)
+        {
+            gameLogicManager.GetAllBallDown();
+        }
+    }
+
 }
