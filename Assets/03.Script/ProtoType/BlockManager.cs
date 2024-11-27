@@ -3,11 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using RandomElementsSystem.Types;
 
 public class BlockManager : MonoBehaviour
 {
     public Block blockPrefab;
-    public GameObject plusItemPrefab;
+    public GameObject plusItemPrefab,boxItemPrefab;
+
+
+    public MinMaxRandomInt selectiveRandom;
 
     public Transform blockParent;
     public Block[,] blockGrid = new Block[7, 9];
@@ -76,6 +80,30 @@ public class BlockManager : MonoBehaviour
         plusItem.transform.localPosition = new Vector3(gridX[xIndex], gridY[yIndex], 0);
     }
 
+    public void SpawnBoxItem()
+    {
+        // plusItemPrefab�� �� �׸��� ��ġ�� ����
+        if (IsGridFull())
+        {
+            Debug.Log("�׸��尡 ���� �� �־� �߰� �������� ������ �� �����ϴ�.");
+            return;
+        }
+
+        int xIndex, yIndex;
+
+        do
+        {
+            xIndex = Random.Range(0, 7);
+            yIndex = Random.Range(0, 9);
+        }
+        while (blockGrid[xIndex, yIndex] != null); // �ش� ��ġ�� ������ ������ �ٽ� ���� ��ġ�� ã��
+
+        // �� ���� plusItem ����
+        var boxItem = Instantiate(boxItemPrefab, blockParent);
+        plusItemGrid[xIndex, yIndex] = boxItem;
+        boxItem.transform.localPosition = new Vector3(gridX[xIndex], gridY[yIndex], 0);
+    }
+
     public void SpawnCountBlocks(int count)
     {
         for (int i = 0; i < count; i++)
@@ -104,6 +132,7 @@ public class BlockManager : MonoBehaviour
 
     public void SpawnTopLane(int amount)
     {
+        if (GameLogicManager.instance.currentLevel % 10 == 0) SpawnBoxItem();
         int topRowYIndex = 1; // �� ������ yIndex
 
         // amount�� �׸����� ���� ũ�⸦ �ʰ����� �ʵ��� ����
@@ -379,6 +408,11 @@ public class BlockManager : MonoBehaviour
         }
 
         return blocksInSameYLine;
+    }
+
+    public void IncreaseHardLevelWeigh()
+    {
+        
     }
 }
 

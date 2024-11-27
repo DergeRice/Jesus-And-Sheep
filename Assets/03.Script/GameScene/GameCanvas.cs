@@ -9,8 +9,12 @@ public class GameCanvas : CanvasBase
     public Button getBallDownButton;
     public Action getBallDownAction;
 
+    public SelectPanel selectPanel;
+
     private void Start()
     {
         getBallDownButton.onClick.AddListener(()=>getBallDownAction.Invoke());
     }
+
+    
 }

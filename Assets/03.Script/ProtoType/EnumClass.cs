@@ -51,5 +51,5 @@ public class GameEvent
     // public GameEventType gameEventType;
 
     public UnityEvent unityAction;
-    public Texture icon;
+    public Sprite icon;
 }

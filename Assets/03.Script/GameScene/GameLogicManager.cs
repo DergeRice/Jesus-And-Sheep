@@ -6,6 +6,7 @@ using System.Collections;
 using DG.Tweening;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class GameLogicManager : MonoBehaviour
 {
@@ -44,7 +45,11 @@ public class GameLogicManager : MonoBehaviour
 
     public TMP_Text ballCountText, currentLevelText;
 
-    private void Start()
+    public Action turnEndAction;
+
+    public EventManager eventManager;
+
+    private void Awake()
     {
         instance = this;
         debugBall.transform.position = Vector3.one * 300f;
@@ -101,7 +106,7 @@ public class GameLogicManager : MonoBehaviour
             clampedDragDirection = dragDirection;
 
             // 디버그 출력
-            Debug.Log($"Clamped Angle: {angle}");
+            //Debug.Log($"Clamped Angle: {angle}");
 
             // 궤적 그리기
             DrawTrajectory(spawnPoint.transform.position, dragDirection * dragDirection.magnitude);
@@ -241,7 +246,12 @@ public class GameLogicManager : MonoBehaviour
         gameCanvas.getBallDownButton.gameObject.SetActive(false);
         jesus.transform.DOMove(new Vector3(nextXvalue, jesus.transform.position.y,0),0.7f).SetEase(Ease.Linear);
 
-        Utils.DelayCall( ()=>{ isPlayerTurn = true;},0.7f);
+        Utils.DelayCall( ()=>
+        { 
+            isPlayerTurn = true;
+            turnEndAction?.Invoke();
+            turnEndAction = null;
+        },0.7f);
     }
 
     
@@ -253,5 +263,15 @@ public class GameLogicManager : MonoBehaviour
             ball.GetComponent<CircleCollider2D>().isTrigger = true;
             ball.rb.linearVelocity = Vector2.down * 10;
         }
+    }
+
+    public void GetRandomSpecialBall(int amount)
+    {
+        Debug.Log($"you Got{amount} special ball");
+    }
+
+    public void ShowSelectPanel(GameEvent a, GameEvent b)
+    {
+        gameCanvas.selectPanel.ShowPanel(a,b);
     }
 }
