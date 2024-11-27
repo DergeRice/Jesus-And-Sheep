@@ -1257,84 +1257,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   commonTexture: {fileID: 0}
-  "\uACF55\uAC1C_\uCD94\uAC00_\uB2E4\uC74C3\uD134_\uC591\uCCB4\uB8252\uBC30":
-    eventName: 
-    explaination: 
-    icon: {fileID: 0}
-  "\uAC00\uC7A5_\uC55E\uC904\uC591\uB4E4_\uC804\uBD80\uAD6C\uC6D0_\uACF55\uAC1C\uAC10\uC18C":
-    eventName: 
-    explaination: 
-    icon: {fileID: 0}
-  "\uACF5_\uC808\uBC18\uB9CC_\uB0A8\uAE30\uACE0_\uC804\uBD80_\uAD6C\uC6D0":
-    eventName: 
-    explaination: 
-    icon: {fileID: 0}
-  "\uD654\uBA74\uC5D0\uC788\uB294_\uBAA8\uB4E0\uC591\uB4E4_\uCCB4\uB8252\uBC30_\uACF53\uAC1C\uCD94\uAC00":
-    eventName: 
-    explaination: 
-    icon: {fileID: 0}
-  "\uB79C\uB364_10\uAC1C_\uBE14\uB85D_\uCCB4\uB825_2\uBC30_\uACF55\uAC1C\uCD94\uAC00":
-    eventName: 
-    explaination: 
-    icon: {fileID: 0}
-  "\uD55C\uD134\uC26C\uACE0_\uACF55\uAC1C\uCD94\uAC00":
-    eventName: 
-    explaination: 
-    icon: {fileID: 0}
-  "\uB450\uD134\uC26C\uACE0_\uACF510\uAC1C\uCD94\uAC00":
-    eventName: 
-    explaination: 
-    icon: {fileID: 0}
-  "\uC138\uD134\uC26C\uACE0_\uACF515\uAC1C\uCD94\uAC00":
-    eventName: 
-    explaination: 
-    icon: {fileID: 0}
-  "\uB79C\uB364_\uD55C\uAC1C_\uBE14\uB85D_\uCCB4\uB825_3\uBC30_\uACF53\uAC1C\uCD94\uAC00":
-    eventName: 
-    explaination: 
-    icon: {fileID: 0}
-  "\uCCB4\uB82530\uBBF8\uB9CC_\uC591\uB4E4_\uC989\uC2DC\uAD6C\uC6D0_\uACF51\uAC1C\uAC10\uC18C":
-    eventName: 
-    explaination: 
-    icon: {fileID: 0}
-  "\uCCB4\uB825100\uBBF8\uB9CC_\uC591\uB4E4_\uC989\uC2DC\uAD6C\uC6D0_\uACF510\uAC1C\uAC10\uC18C":
-    eventName: 
-    explaination: 
-    icon: {fileID: 0}
-  "\uBAA8\uB4E0\uC560\uB4E4\uC5D0\uAC8C50\uB370\uBBF8\uC9C0_\uACF55\uAC1C\uAC10\uC18C":
-    eventName: 
-    explaination: 
-    icon: {fileID: 0}
-  "\uBAA8\uB4E0\uC560\uB4E4\uC5D0\uAC8C10\uB370\uBBF8\uC9C0_\uACF51\uAC1C\uAC10\uC18C":
-    eventName: 
-    explaination: 
-    icon: {fileID: 0}
-  "\uB79C\uB3643\uAC1C\uBE14\uB85D_100\uB370\uBBF8\uC9C0_\uACF53\uAC1C\uAC10\uC18C":
-    eventName: 
-    explaination: 
-    icon: {fileID: 0}
-  "\uB79C\uB364\uC73C\uB85C\uBE14\uB85D5\uAC1C\uC124\uCE58_\uACF55\uAC1C\uCD94\uAC00":
-    eventName: 
-    explaination: 
-    icon: {fileID: 0}
-  "\uB79C\uB364\uC73C\uB85C\uBE14\uB85D10\uAC1C\uC124\uCE58_\uB79C\uB364\uD2B9\uC218\uACF51\uAC1C\uCD94\uAC00":
-    eventName: 
-    explaination: 
-    icon: {fileID: 0}
-  "\uBC18\uBC18\uD655\uB960\uB85C_\uACF55\uCD94\uAC00_\uACF52\uAC10\uC18C":
-    eventName: 
-    explaination: 
-    icon: {fileID: 0}
-  "\uBC18\uBC18\uD655\uB960\uB85C_\uACF55\uCD94\uAC00_\uBE14\uB85D3\uAC1C\uC18C\uD658":
-    eventName: 
-    explaination: 
-    icon: {fileID: 0}
-  "\uBC18\uBC18\uD655\uB960\uB85C_\uD2B9\uC218\uACF51\uCD94\uAC00_\uACF52\uAC10\uC18C":
-    eventName: 
-    explaination: 
-    icon: {fileID: 0}
-  "\uBC18\uBC18\uD655\uB960\uB85C_\uD2B9\uC218\uACF51\uCD94\uAC00_\uBE14\uB85D5\uAC1C\uC18C\uD658":
-    eventName: 
+  gameEvents:
+  - eventName: umjunsiuck
     explaination: 
     icon: {fileID: 0}
 --- !u!1 &136062267
@@ -10780,7 +10704,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 6.9999995, y: 9}
+  m_AnchoredPosition: {x: 7, y: 9}
   m_SizeDelta: {x: 211.01013, y: 1176.61}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1046821901

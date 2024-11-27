@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 5a5c5be2fb76a1449885ad6a6b70890d
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 273727
+  packageName: Random Elements System - Flexible Weighted & Ranged Randomizer
+  packageVersion: 1.0.1
+  assetPath: Assets/vodoleystudio/RandomElementsSystemDomain/Examples/MinMaxExample/Scenes/MinMaxExample.unity
+  uploadId: 649383

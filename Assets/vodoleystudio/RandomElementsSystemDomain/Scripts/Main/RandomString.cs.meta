@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 9cdbdeb1e4efe15408906d149a01747a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 273727
+  packageName: Random Elements System - Flexible Weighted & Ranged Randomizer
+  packageVersion: 1.0.1
+  assetPath: Assets/vodoleystudio/RandomElementsSystemDomain/Scripts/Main/RandomString.cs
+  uploadId: 649383

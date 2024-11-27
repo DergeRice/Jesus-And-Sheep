@@ -34,7 +34,7 @@ public class EnumClass
 [System.Serializable]
 public class GameEvent : GameEventBase
 {
-    public string eventName;
+    [SerializeField] private string eventName;
     public string explaination;
     public Texture icon;
 }

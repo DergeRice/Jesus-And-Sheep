@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 9c8fe07f6cb3de64bba7a411535bec7b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 273727
+  packageName: Random Elements System - Flexible Weighted & Ranged Randomizer
+  packageVersion: 1.0.1
+  assetPath: Assets/vodoleystudio/RandomElementsSystemDomain/Examples/NewTypesExample/Scripts/MyNewClassType/WeightPropertyMyNewClassType.cs
+  uploadId: 649383

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 35725e23ee7f70c4cbaa40695740f099
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 273727
+  packageName: Random Elements System - Flexible Weighted & Ranged Randomizer
+  packageVersion: 1.0.1
+  assetPath: Assets/vodoleystudio/RandomElementsSystemDomain/Scripts/Types/Selective/SelectiveRandomWeightQuaternion.cs
+  uploadId: 649383

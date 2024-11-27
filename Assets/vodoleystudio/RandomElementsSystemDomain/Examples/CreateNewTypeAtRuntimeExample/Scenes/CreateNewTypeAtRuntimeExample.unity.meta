@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: cd7926232057a414e94d2529d2386dbd
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 273727
+  packageName: Random Elements System - Flexible Weighted & Ranged Randomizer
+  packageVersion: 1.0.1
+  assetPath: Assets/vodoleystudio/RandomElementsSystemDomain/Examples/CreateNewTypeAtRuntimeExample/Scenes/CreateNewTypeAtRuntimeExample.unity
+  uploadId: 649383

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: d4dea52f1397902458c7741712c3f50b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 273727
+  packageName: Random Elements System - Flexible Weighted & Ranged Randomizer
+  packageVersion: 1.0.1
+  assetPath: Assets/vodoleystudio/RandomElementsSystemDomain/Editor/SelectiveRandomWeightPropertyBasePropertyDrawer.cs
+  uploadId: 649383
