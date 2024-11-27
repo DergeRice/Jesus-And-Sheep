@@ -8,14 +8,14 @@ using RandomElementsSystem.Types;
 public class BlockManager : MonoBehaviour
 {
     public Block blockPrefab;
-    public GameObject plusItemPrefab,boxItemPrefab;
+    public GameObject plusItemPrefab, boxItemPrefab;
 
 
     public MinMaxRandomInt selectiveRandom;
 
     public Transform blockParent;
     public Block[,] blockGrid = new Block[7, 9];
-    public GameObject[,] plusItemGrid = new GameObject[7,9]; // plusItem�� ��ġ�� �����ϱ� ���� �迭 �߰�
+    public GameObject[,] plusItemGrid = new GameObject[7, 9]; // plusItem�� ��ġ�� �����ϱ� ���� �迭 �߰�
 
     public float[] gridX = new float[]{
         -5.6f, -4.65f, -3.72f, -2.78f, -1.86f, -0.94f};
@@ -43,7 +43,7 @@ public class BlockManager : MonoBehaviour
         do
         {
             xIndex = Random.Range(0, 7);
-            yIndex = Random.Range(0, 9);
+            yIndex = Random.Range(1, 8);
         }
         while (blockGrid[xIndex, yIndex] != null); // �ش� ��ġ�� ������ ������ �ٽ� ���� ��ġ�� ã��
 
@@ -132,27 +132,60 @@ public class BlockManager : MonoBehaviour
 
     public void SpawnTopLane(int amount)
     {
-        if (GameLogicManager.instance.currentLevel % 10 == 0) SpawnBoxItem();
-        int topRowYIndex = 1; // �� ������ yIndex
+        int topRowYIndex = 1; // 위쪽 줄의 yIndex
 
-        // amount�� �׸����� ���� ũ�⸦ �ʰ����� �ʵ��� ����
+        // amount를 그리드의 최대 크기를 초과하지 않도록 제한
         amount = Mathf.Min(amount, blockGrid.GetLength(0));
 
-        int spawnedCount = 0;
-        HashSet<int> usedXIndices = new HashSet<int>(); // �ߺ��� x���� �����ϱ� ���� Set
+        HashSet<int> usedXIndices = new HashSet<int>(); // 중복된 x좌표 방지용 Set
 
-        while (spawnedCount < amount)
+        // 빈 공간 찾기: 비어있는 칸의 x좌표를 리스트에 추가
+        List<int> emptyXIndices = new List<int>();
+        for (int x = 0; x < blockGrid.GetLength(0); x++)
         {
-            // ������ x��ǥ ����
-            int x = Random.Range(0, blockGrid.GetLength(0));
+            if (blockGrid[x, topRowYIndex] == null) // 블록이 없는 칸만 추가
+            {
+                emptyXIndices.Add(x);
+            }
+        }
 
-            // �̹� �ش� x��ǥ�� ������ ������ �ǳʶٱ�
-            if (blockGrid[x, topRowYIndex] != null || usedXIndices.Contains(x))
-                continue;
+        // 1. 우선순위가 높은 plusItemPrefab 생성
+        if (emptyXIndices.Count > 0)
+        {
+            int randomX = emptyXIndices[Random.Range(0, emptyXIndices.Count)];
+            emptyXIndices.Remove(randomX); // 해당 위치를 사용했으므로 제거
 
-            usedXIndices.Add(x); // ����� x��ǥ�� ���
+            var tempItem = Instantiate(plusItemPrefab, blockParent);
+            tempItem.transform.localPosition = new Vector3(gridX[randomX], gridY[topRowYIndex], 0);
 
-            // �ش� ��ġ�� ���� ����
+            // blockGrid에 추가 (아이템도 블록처럼 처리할 경우에만 활성화)
+            blockGrid[randomX, topRowYIndex] = tempItem.GetComponent<Block>();
+        }
+
+        // 2. 우선순위가 높은 boxItemPrefab 생성 (currentLevel이 10으로 나누어떨어질 때만)
+        if (GameLogicManager.instance.currentLevel % 10 == 0)
+        {
+            int boxItemCount = 1; // 최대 생성 가능 개수
+            for (int i = 0; i < boxItemCount; i++)
+            {
+                int randomX = emptyXIndices[Random.Range(0, emptyXIndices.Count)];
+                emptyXIndices.Remove(randomX); // 해당 위치를 사용했으므로 제거
+
+                var tempBox = Instantiate(boxItemPrefab, blockParent);
+                tempBox.transform.localPosition = new Vector3(gridX[randomX], gridY[topRowYIndex], 0);
+
+                // blockGrid에 추가 (아이템도 블록처럼 처리할 경우에만 활성화)
+                blockGrid[randomX, topRowYIndex] = tempBox.GetComponent<Block>();
+            }
+        }
+
+        // 3. 나머지 공간에 일반 블록(blockPrefab) 생성
+        int spawnedCount = 0;
+        while (spawnedCount < amount && emptyXIndices.Count > 0)
+        {
+            int randomX = emptyXIndices[Random.Range(0, emptyXIndices.Count)];
+            emptyXIndices.Remove(randomX); // 해당 위치를 사용했으므로 제거
+
             var tempBlock = Instantiate(blockPrefab, blockParent);
             tempBlock.ballCollsionEffect = SpawnHeartParticle;
             tempBlock.allBlockBrokenCheck = CheckAllBlockBroken;
@@ -161,40 +194,36 @@ public class BlockManager : MonoBehaviour
             if (doubleSheepHpCount > 0)
             {
                 sheepHp *= 2;
-                doubleSheepHpCount--;
             }
             tempBlock.Init(sheepHp);
-            blockGrid[x, topRowYIndex] = tempBlock;
+            blockGrid[randomX, topRowYIndex] = tempBlock;
 
-            // ���� ��ġ ����
-            tempBlock.transform.localPosition = new Vector3(gridX[x], gridY[topRowYIndex], 0);
+            // 생성된 블록의 위치 설정
+            tempBlock.transform.localPosition = new Vector3(gridX[randomX], gridY[topRowYIndex], 0);
 
-            spawnedCount++; // ������ ���� �� ����
+            spawnedCount++; // 생성된 블록 수 증가
         }
-
-        // ������ �߰�: �� ĭ�� ã��, ������ ��ġ�� �� �� ����
-        List<int> emptyXIndices = new List<int>();
+        if (doubleSheepHpCount > 0) doubleSheepHpCount--;
+    }
+    public bool CheckGameOver()
+    {
+        for (int x = 0; x < blockGrid.GetLength(0); x++)
+        {
+            if (blockGrid[x, 7] != null && blockGrid[x, 7].blockType == BlockType.Item)
+            {
+                Destroy(blockGrid[x, 7].gameObject);
+            }
+        }
 
         for (int x = 0; x < blockGrid.GetLength(0); x++)
         {
-            if (blockGrid[x, topRowYIndex] == null) // ��� �ִ� ĭ�� ����
+            if (blockGrid[x, 7] != null) // 블록이 차 있다면
             {
-                emptyXIndices.Add(x);
+                return true;
+                break;
             }
         }
-
-        if (emptyXIndices.Count > 0)
-        {
-            // �� ĭ �� ������ ��ġ ����
-            int randomX = emptyXIndices[Random.Range(0, emptyXIndices.Count)];
-
-            // ������ ����
-            var tempItem = Instantiate(plusItemPrefab, blockParent);
-            tempItem.transform.localPosition = new Vector3(gridX[randomX], gridY[topRowYIndex], 0);
-
-            //blockGrid�� �߰��Ϸ��� �Ʒ� �ڵ� Ȱ��ȭ(�������� �̵� ����� ��� �ʿ�)
-             blockGrid[randomX, topRowYIndex] = tempItem.GetComponent<Block>();
-        }
+        return false;
     }
 
     public void BlockGetDown(int level)
@@ -202,6 +231,8 @@ public class BlockManager : MonoBehaviour
         levelCount = level;
         StartCoroutine(BlockGetDownCo());
         Utils.DelayCall(() => SpawnTopLane(Random.Range(2, 6)), 1f);
+
+        if (CheckGameOver()) GameLogicManager.instance.gameCanvas.ShowGameOver();
     }
 
     IEnumerator BlockGetDownCo()
@@ -291,14 +322,15 @@ public class BlockManager : MonoBehaviour
 
     public void SpawnHeartParticle(Vector3 pos)
     {
-        Instantiate(heartParticle,pos,Quaternion.identity);
+        Instantiate(heartParticle, pos, Quaternion.identity);
     }
 
     public void CheckAllBlockBroken()
     {
-        if(blockParent.childCount == 1)
+        if (blockParent.childCount == 1)
         {
             GameLogicManager.instance.GetAllBallDown();
+            GameLogicManager.instance.gameCanvas.ShowGreat();
         }
     }
 
@@ -344,7 +376,7 @@ public class BlockManager : MonoBehaviour
         foreach (Block block in availableBlocks)
         {
             // Block�� count�� value���� ������ Ȯ��
-            if (block.count < value)
+            if (block.Count < value)
             {
                 filteredBlocks.Add(block);
             }
@@ -412,7 +444,7 @@ public class BlockManager : MonoBehaviour
 
     public void IncreaseHardLevelWeigh()
     {
-        
+
     }
 }
 

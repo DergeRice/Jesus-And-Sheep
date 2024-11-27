@@ -7,7 +7,22 @@ using DG.Tweening;
 
 public class Block : MonoBehaviour
 {
-    public int count = 300;
+    private int _count = 300; // 실제 데이터를 저장할 필드
+
+    public int Count
+    {
+        get => _count; // 값 반환
+        set
+        {
+            _count = value; // 값 설정
+            if(countText != null) countText.text = _count.ToString();
+            if (_count < 0) // 조건 검사
+            {
+                _count = 0;
+                DestroyAnimation();
+            }
+        }
+    }
 
     public BlockType blockType;
     
@@ -19,13 +34,17 @@ public class Block : MonoBehaviour
 
     private void Start()
     {
-         if(countText != null) countText.text = count.ToString();
+         if(countText != null) countText.text = Count.ToString();
+
+        var tempScale = transform.localScale;
+        transform.localScale = new Vector3(0.1f,0.1f,0.1f);
+        transform.DOScale(tempScale, 0.2f);
     }
 
     public void Init(int _count)
     {
-        count = _count;
-        if (countText != null)  countText.text = count.ToString();
+        Count = _count;
+        if (countText != null)  countText.text = Count.ToString();
 
         if(GameLogicManager.instance.currentLevel > 30 && Random.value < 0.1f)
         {
@@ -58,9 +77,9 @@ public class Block : MonoBehaviour
         {
             SoundManager.VibrateGame(EVibrate.weak);
             ballCollsionEffect.Invoke(collision.contacts[0].point);
-            count--;
-            if (countText != null) countText.text = count.ToString();
-            if (count <= 0) 
+            Count--;
+            if (countText != null) countText.text = Count.ToString();
+            if (Count <= 0) 
             {
                 allBlockBrokenCheck.Invoke();
                 DestroyAnimation();
@@ -79,7 +98,7 @@ public class Block : MonoBehaviour
             case BlockType.Split:
                 break;
             case BlockType.Double:
-                count *= 2;
+                Count *= 2;
                 break;
             case BlockType.BottomIgnore:
                 break;

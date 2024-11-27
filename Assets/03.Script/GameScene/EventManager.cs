@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 using RandomElementsSystem.Types;
+using System.Collections;
 
 public class EventManager : MonoBehaviour
 {
@@ -35,7 +36,7 @@ public class EventManager : MonoBehaviour
 
             if (secondValue != randomValue)
             {
-                gameLogicManager.ShowSelectPanel(gameEvents[randomValue],gameEvents[secondValue]);
+                gameLogicManager.ShowSelectPanel(gameEvents[randomValue], gameEvents[secondValue]);
                 break;
             }
         }
@@ -43,144 +44,152 @@ public class EventManager : MonoBehaviour
     }
 
 
-        public void SetBallCountIncrease(int amount)
-        {
-            gameLogicManager.ballCount += amount;
-        }
-        public void SetBallCountMultifly(float amount)
-        {
-            gameLogicManager.ballCount = (int)(gameLogicManager.ballCount * amount);
-        }
+    public void SetBallCountIncrease(int amount)
+    {
+        gameLogicManager.ballCount += amount;
 
-        public void SetNextSheepHpDouble(int amount)
-        {
-            gameLogicManager.blockManager.doubleSheepHpCount += amount;
-        }
-
-        public void SetFirstLineErease()
-        {
-            var temp = gameLogicManager.blockManager.GetBlocksInSameYLineWithMaxY();
-
-            foreach (var item in temp)
-            {
-                item.DestroyAnimation();
-            }
-        }
-
-        public void SetAllBlockErease()
-        {
-            var temp = gameLogicManager.blockManager.GetAvailableBlocks();
-
-            foreach (var item in temp)
-            {
-                item.DestroyAnimation();
-            }
-        }
-
-        public void SetAllBlockDoubleHp()
-        {
-            var temp = gameLogicManager.blockManager.GetAvailableBlocks();
-
-            foreach (var item in temp)
-            {
-                item.count *= 2;
-            }
-        }
-
-        public void SetWaitForTurn(int turnAmount)
-        {
-            for (int i = 0; i < turnAmount; i++)
-            {
-                gameLogicManager.GetAllBallDown();
-            }
-        }
-
-        public void SetRandomBlockTriple(int count)
-        {
-            var temp = gameLogicManager.blockManager.GetRandomBlock(count);
-
-            foreach (var item in temp)
-            {
-                item.count *= 3;
-            }
-        }
-
-        public void SetUnderHpErase(int value)
-        {
-            var temp = gameLogicManager.blockManager.GetBlocksWithCountLessThan(value);
-
-            foreach (var item in temp)
-            {
-                item.DestroyAnimation();
-            }
-        }
-
-        public void SetRandomBlockErase(int value)
-        {
-            var temp = gameLogicManager.blockManager.GetRandomBlock(value);
-
-            foreach (var item in temp)
-            {
-                item.DestroyAnimation();
-            }
-        }
-
-        public void SetAllBlockDamage(int amount)
-        {
-            var temp = gameLogicManager.blockManager.GetAvailableBlocks();
-
-            foreach (var item in temp)
-            {
-                item.count -= amount;
-            }
-        }
-
-        public void SetRandomThreeBlockDamage(int amount)
-        {
-            var temp = gameLogicManager.blockManager.GetRandomBlock(3);
-
-            foreach (var item in temp)
-            {
-                item.count -= amount;
-            }
-        }
-
-        public void SetRandomBlockDoubleHp(int amount)
-        {
-            var temp = gameLogicManager.blockManager.GetRandomBlock(amount);
-
-            foreach (var item in temp)
-            {
-                item.count *= 2;
-            }
-        }
-
-        public void SetRandomBlockGenerate(int count)
-        {
-            for (int i = 0; i < count; i++)
-            {
-                gameLogicManager.blockManager.SpawnBlock();
-            }
-        }
-
-        public void SetCoinTossCommonBallTo(int failActionIndex)
-        {
-            currentEventSuccess = Random.value > 0.5f;
-
-            if (currentEventSuccess) SetBallCountIncrease(5);
-            else failActionList[failActionIndex].Invoke();
-        }
-
-        public void SetCoinTossSpecialBallTo(int failActionIndex)
-        {
-            currentEventSuccess = Random.value > 0.5f;
-
-            if (currentEventSuccess) gameLogicManager.GetRandomSpecialBall(5);
-            else failActionList[failActionIndex].Invoke();
-        }
-
-
-
-
-
+        if (gameLogicManager.ballCount < 0) gameLogicManager.ballCount = 1;
     }
+    public void SetBallCountMultifly(float amount)
+    {
+        gameLogicManager.ballCount = (int)(gameLogicManager.ballCount * amount);
+    }
+
+    public void SetNextSheepHpDouble(int amount)
+    {
+        gameLogicManager.blockManager.doubleSheepHpCount += amount;
+    }
+
+    public void SetFirstLineErease()
+    {
+        var temp = gameLogicManager.blockManager.GetBlocksInSameYLineWithMaxY();
+
+        foreach (var item in temp)
+        {
+            item.DestroyAnimation();
+        }
+    }
+
+    public void SetAllBlockErease()
+    {
+        var temp = gameLogicManager.blockManager.GetAvailableBlocks();
+
+        foreach (var item in temp)
+        {
+            item.DestroyAnimation();
+        }
+    }
+
+    public void SetAllBlockDoubleHp()
+    {
+        var temp = gameLogicManager.blockManager.GetAvailableBlocks();
+
+        foreach (var item in temp)
+        {
+            item.Count *= 2;
+        }
+    }
+
+    public void SetWaitForTurn(int turnAmount)
+    {
+        StartCoroutine(SetWaitForTurnCoroutine(turnAmount));
+    }
+    IEnumerator SetWaitForTurnCoroutine(int turnAmount)
+    {
+        for (int i = 0; i < turnAmount; i++)
+        {
+            gameLogicManager.AllBallComeDown();
+            gameLogicManager.isPlayerTurn = false;
+            yield return gameLogicManager.isPlayerTurn == true;  
+        }
+    }
+
+    public void SetRandomBlockTriple(int count)
+    {
+        var temp = gameLogicManager.blockManager.GetRandomBlock(count);
+
+        foreach (var item in temp)
+        {
+            item.Count *= 3;
+        }
+    }
+
+    public void SetUnderHpErase(int value)
+    {
+        var temp = gameLogicManager.blockManager.GetBlocksWithCountLessThan(value);
+
+        foreach (var item in temp)
+        {
+            item.DestroyAnimation();
+        }
+    }
+
+    public void SetRandomBlockErase(int value)
+    {
+        var temp = gameLogicManager.blockManager.GetRandomBlock(value);
+
+        foreach (var item in temp)
+        {
+            item.DestroyAnimation();
+        }
+    }
+
+    public void SetAllBlockDamage(int amount)
+    {
+        var temp = gameLogicManager.blockManager.GetAvailableBlocks();
+
+        foreach (var item in temp)
+        {
+            item.Count -= amount;
+        }
+    }
+
+    public void SetRandomThreeBlockDamage(int amount)
+    {
+        var temp = gameLogicManager.blockManager.GetRandomBlock(3);
+
+        foreach (var item in temp)
+        {
+            item.Count -= amount;
+        }
+    }
+
+    public void SetRandomBlockDoubleHp(int amount)
+    {
+        var temp = gameLogicManager.blockManager.GetRandomBlock(amount);
+
+        foreach (var item in temp)
+        {
+            item.Count *= 2;
+        }
+    }
+
+    public void SetRandomBlockGenerate(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            gameLogicManager.blockManager.SpawnBlock();
+        }
+    }
+
+    public void SetCoinTossCommonBallTo(int failActionIndex)
+    {
+        currentEventSuccess = Random.value > 0.5f;
+
+        if (currentEventSuccess) SetBallCountIncrease(5);
+        else failActionList[failActionIndex].Invoke();
+    }
+
+    public void SetCoinTossSpecialBallTo(int failActionIndex)
+    {
+        currentEventSuccess = Random.value > 0.5f;
+
+        if (currentEventSuccess) gameLogicManager.GetRandomSpecialBall(5);
+        else failActionList[failActionIndex].Invoke();
+    }
+
+
+
+
+
+}

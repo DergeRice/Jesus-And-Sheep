@@ -15,6 +15,7 @@ public enum BlockType
     Split,
     Double,
     BottomIgnore,
+    Item,
 }
 public enum BallType
 {

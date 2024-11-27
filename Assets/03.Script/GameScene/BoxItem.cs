@@ -8,6 +8,7 @@ public class BoxItem : MonoBehaviour
         {
             GameLogicManager.instance.turnEndAction += () =>
             {
+                GameLogicManager.instance.isPlayerTurn = false;
                 GameLogicManager.instance.eventManager.ShowTwoSelection();
             };
             Destroy(gameObject);

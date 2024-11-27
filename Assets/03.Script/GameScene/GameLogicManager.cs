@@ -49,6 +49,7 @@ public class GameLogicManager : MonoBehaviour
 
     public EventManager eventManager;
 
+
     private void Awake()
     {
         instance = this;
