@@ -7,16 +7,16 @@ using DG.Tweening;
 
 public class Block : MonoBehaviour
 {
-    private int _count = 300; // ½ÇÁ¦ µ¥ÀÌÅÍ¸¦ ÀúÀåÇÒ ÇÊµå
+    private int _count = 300; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½
 
     public int Count
     {
-        get => _count; // °ª ¹ÝÈ¯
+        get => _count; // ï¿½ï¿½ ï¿½ï¿½È¯
         set
         {
-            _count = value; // °ª ¼³Á¤
+            _count = value; // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             if(countText != null) countText.text = _count.ToString();
-            if (_count < 0) // Á¶°Ç °Ë»ç
+            if (_count < 0) // ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
             {
                 _count = 0;
                 DestroyAnimation();
@@ -31,6 +31,8 @@ public class Block : MonoBehaviour
 
     public Action<Vector3> ballCollsionEffect;
     public Action allBlockBrokenCheck;
+
+    public bool isDisappear = false;
 
     private void Start()
     {
@@ -109,8 +111,13 @@ public class Block : MonoBehaviour
 
     public void DestroyAnimation()
     {
-        GetComponent<Collider2D>().enabled = false;
-        transform.DOShakeScale(0.5f);
-        Destroy(gameObject,0.5f);
+        if(isDisappear == false)
+        {
+            GameLogicManager.instance.blockManager.RemoveBlock(this);
+            GetComponent<Collider2D>().enabled = false;
+            transform.DOShakeScale(0.5f);
+            Destroy(gameObject,0.5f);
+            isDisappear = true;
+        }
     }
 }

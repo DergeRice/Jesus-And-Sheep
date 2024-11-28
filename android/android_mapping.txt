@@ -1,10 +1,10 @@
 # compiler: R8
 # compiler_version: 8.3.36
-# min_api: 34
+# min_api: 31
 # common_typos_disable
 # {"id":"com.android.tools.r8.mapping","version":"2.2"}
-# pg_map_id: 23deddf
-# pg_map_hash: SHA-256 23deddf23c00a9ff51cc691637d578f0d9e557bc34a5aa2577c54d627f7cffa9
+# pg_map_id: 5d26c52
+# pg_map_hash: SHA-256 5d26c52a2aa3a1966b2f399dab1e0cb117da7e1254519ae547137d97a5cbbf5d
 android.support.v4.app.RemoteActionCompatParcelizer -> android.support.v4.app.RemoteActionCompatParcelizer:
 # {"id":"sourceFile","fileName":"RemoteActionCompatParcelizer.java"}
     0:3:void <init>():11:11 -> <init>
@@ -19,6 +19,8 @@ android.support.v4.graphics.drawable.IconCompatParcelizer -> android.support.v4.
       # {"id":"com.android.tools.r8.residualsignature","signature":"(Landroidx/versionedparcelable/a;)Landroidx/core/graphics/drawable/IconCompat;"}
     0:3:void write(androidx.core.graphics.drawable.IconCompat,androidx.versionedparcelable.VersionedParcel):17:17 -> write
       # {"id":"com.android.tools.r8.residualsignature","signature":"(Landroidx/core/graphics/drawable/IconCompat;Landroidx/versionedparcelable/a;)V"}
+android.window.OnBackInvokedCallback -> android.window.OnBackInvokedCallback:
+# {"id":"com.android.tools.r8.synthesized"}
 androidx.activity.Cancellable -> androidx.activity.a:
 # {"id":"sourceFile","fileName":"Cancellable.java"}
 androidx.activity.ComponentActivity -> androidx.activity.ComponentActivity:
@@ -5745,8 +5747,10 @@ com.android.billingclient.api.zzj -> com.android.billingclient.api.zzj:
     21:25:void zza(android.content.Context,android.content.IntentFilter):2:2 -> zza
     26:31:void zza(android.content.Context,android.content.IntentFilter):3:3 -> zza
     32:50:void zza(android.content.Context,android.content.IntentFilter):4:4 -> zza
-    51:59:void zza(android.content.Context,android.content.IntentFilter):5:5 -> zza
-    60:68:void zza(android.content.Context,android.content.IntentFilter):6:6 -> zza
+    51:65:void zza(android.content.Context,android.content.IntentFilter):5:5 -> zza
+    66:69:void zza(android.content.Context,android.content.IntentFilter):6:6 -> zza
+    70:72:void zza(android.content.Context,android.content.IntentFilter):7:7 -> zza
+    73:78:void zza(android.content.Context,android.content.IntentFilter):6:6 -> zza
     1:18:void zzb(android.content.Context):1:1 -> zzb
     19:25:void zzb(android.content.Context):2:2 -> zzb
     0:13:void zzc(android.os.Bundle,com.android.billingclient.api.BillingResult,int):1:1 -> zzc
@@ -12542,7 +12546,7 @@ com.google.android.gms.common.api.internal.zao -> com.google.android.gms.common.
     com.google.android.gms.common.api.internal.zam zab -> a
       # {"id":"com.android.tools.r8.residualsignature","signature":"Lcom/google/android/gms/common/api/internal/U;"}
     com.google.android.gms.common.api.internal.zap zaa -> b
-      # {"id":"com.android.tools.r8.residualsignature","signature":"Lcom/google/android/gms/common/api/internal/X;"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"Lcom/google/android/gms/common/api/internal/Y;"}
     0:20:void run():1:1 -> run
     21:22:void run():2:2 -> run
     23:26:void run():3:3 -> run
@@ -12559,7 +12563,7 @@ com.google.android.gms.common.api.internal.zao -> com.google.android.gms.common.
     115:129:void run():13:13 -> run
     130:141:void run():14:14 -> run
     142:145:void run():15:15 -> run
-com.google.android.gms.common.api.internal.zap -> com.google.android.gms.common.api.internal.X:
+com.google.android.gms.common.api.internal.zap -> com.google.android.gms.common.api.internal.Y:
 # {"id":"sourceFile","fileName":"com.google.android.gms:play-services-base@@18.3.0"}
     boolean zaa -> a
     java.util.concurrent.atomic.AtomicReference zab -> b
@@ -12581,9 +12585,9 @@ com.google.android.gms.common.api.internal.zap -> com.google.android.gms.common.
     0:8:int zae(com.google.android.gms.common.api.internal.zam):0:0 -> e
       # {"id":"com.android.tools.r8.residualsignature","signature":"(Lcom/google/android/gms/common/api/internal/U;)I"}
     0:3:void zaf(com.google.android.gms.common.api.internal.zap,com.google.android.gms.common.ConnectionResult,int):0:0 -> f
-      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lcom/google/android/gms/common/api/internal/X;LE/a;I)V"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lcom/google/android/gms/common/api/internal/Y;LE/a;I)V"}
     0:3:void zag(com.google.android.gms.common.api.internal.zap):0:0 -> g
-      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lcom/google/android/gms/common/api/internal/X;)V"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lcom/google/android/gms/common/api/internal/Y;)V"}
     0:7:void zah(com.google.android.gms.common.ConnectionResult,int):1:1 -> h
       # {"id":"com.android.tools.r8.residualsignature","signature":"(LE/a;I)V"}
     8:20:void zah(com.google.android.gms.common.ConnectionResult,int):2:2 -> h
@@ -12619,19 +12623,24 @@ com.google.android.gms.common.api.internal.zap -> com.google.android.gms.common.
     46:55:void onSaveInstanceState(android.os.Bundle):6:6 -> onSaveInstanceState
     0:6:void onStart():1:1 -> onStart
     0:6:void onStop():1:1 -> onStop
-com.google.android.gms.common.api.internal.zza -> com.google.android.gms.common.api.internal.Y:
+com.google.android.gms.common.api.internal.zap$$ExternalSyntheticBackportWithForwarding0 -> com.google.android.gms.common.api.internal.X:
+# {"id":"sourceFile","fileName":"R8$$SyntheticClass"}
+# {"id":"com.android.tools.r8.synthesized"}
+    0:15:boolean m(java.util.concurrent.atomic.AtomicReference,java.lang.Object,java.lang.Object):0:0 -> a
+      # {"id":"com.android.tools.r8.synthesized"}
+com.google.android.gms.common.api.internal.zza -> com.google.android.gms.common.api.internal.Z:
 # {"id":"sourceFile","fileName":"com.google.android.gms:play-services-basement@@18.3.0"}
     com.google.android.gms.common.api.internal.LifecycleCallback zza -> a
     java.lang.String zzb -> b
     com.google.android.gms.common.api.internal.zzb zzc -> c
-      # {"id":"com.android.tools.r8.residualsignature","signature":"Lcom/google/android/gms/common/api/internal/Z;"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"Lcom/google/android/gms/common/api/internal/a0;"}
     0:27:void run():1:1 -> run
     28:41:void run():2:2 -> run
     42:55:void run():3:3 -> run
     56:69:void run():4:4 -> run
     70:83:void run():5:5 -> run
     84:87:void run():6:6 -> run
-com.google.android.gms.common.api.internal.zzb -> com.google.android.gms.common.api.internal.Z:
+com.google.android.gms.common.api.internal.zzb -> com.google.android.gms.common.api.internal.a0:
 # {"id":"sourceFile","fileName":"com.google.android.gms:play-services-basement@@18.3.0"}
     java.util.Map zzb -> a
     int zzc -> b
@@ -12649,14 +12658,14 @@ com.google.android.gms.common.api.internal.zzb -> com.google.android.gms.common.
     31:38:void addCallback(java.lang.String,com.google.android.gms.common.api.internal.LifecycleCallback):4:4 -> c
     39:62:void addCallback(java.lang.String,com.google.android.gms.common.api.internal.LifecycleCallback):5:5 -> c
     0:2:int zza(com.google.android.gms.common.api.internal.zzb):0:0 -> d
-      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lcom/google/android/gms/common/api/internal/Z;)I"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lcom/google/android/gms/common/api/internal/a0;)I"}
     0:4:void dump(java.lang.String,java.io.FileDescriptor,java.io.PrintWriter,java.lang.String[]):1:1 -> dump
     5:24:void dump(java.lang.String,java.io.FileDescriptor,java.io.PrintWriter,java.lang.String[]):2:2 -> dump
     25:29:void dump(java.lang.String,java.io.FileDescriptor,java.io.PrintWriter,java.lang.String[]):3:3 -> dump
     0:2:android.os.Bundle zzb(com.google.android.gms.common.api.internal.zzb):0:0 -> e
-      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lcom/google/android/gms/common/api/internal/Z;)Landroid/os/Bundle;"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lcom/google/android/gms/common/api/internal/a0;)Landroid/os/Bundle;"}
     0:11:com.google.android.gms.common.api.internal.zzb zzc(android.app.Activity):1:1 -> f
-      # {"id":"com.android.tools.r8.residualsignature","signature":"(Landroid/app/Activity;)Lcom/google/android/gms/common/api/internal/Z;"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Landroid/app/Activity;)Lcom/google/android/gms/common/api/internal/a0;"}
     12:21:com.google.android.gms.common.api.internal.zzb zzc(android.app.Activity):2:2 -> f
     22:33:com.google.android.gms.common.api.internal.zzb zzc(android.app.Activity):3:3 -> f
     34:41:com.google.android.gms.common.api.internal.zzb zzc(android.app.Activity):5:5 -> f
@@ -12689,12 +12698,12 @@ com.google.android.gms.common.api.internal.zzb -> com.google.android.gms.common.
     0:7:void onStop():1:1 -> onStop
     8:27:void onStop():2:2 -> onStop
     28:32:void onStop():3:3 -> onStop
-com.google.android.gms.common.api.internal.zzd -> com.google.android.gms.common.api.internal.a0:
+com.google.android.gms.common.api.internal.zzd -> com.google.android.gms.common.api.internal.b0:
 # {"id":"sourceFile","fileName":"com.google.android.gms:play-services-basement@@18.3.0"}
     java.util.WeakHashMap zza -> c
     0:7:void <clinit>():1:1 -> <clinit>
     0:9:com.google.android.gms.common.api.internal.zzd zzc(androidx.fragment.app.FragmentActivity):1:1 -> d
-      # {"id":"com.android.tools.r8.residualsignature","signature":"(Landroidx/fragment/app/b;)Lcom/google/android/gms/common/api/internal/a0;"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Landroidx/fragment/app/b;)Lcom/google/android/gms/common/api/internal/b0;"}
     10:16:com.google.android.gms.common.api.internal.zzd zzc(androidx.fragment.app.FragmentActivity):2:2 -> d
     17:17:com.google.android.gms.common.api.internal.zzd zzc(androidx.fragment.app.FragmentActivity):3:3 -> d
 com.google.android.gms.common.api.zae -> F.h:
@@ -14682,7 +14691,7 @@ com.google.android.gms.internal.base.zaf -> N.d:
     0:17:void <clinit>():1:1 -> <clinit>
 com.google.android.gms.internal.base.zan -> N.e:
 # {"id":"sourceFile","fileName":"com.google.android.gms:play-services-base@@18.3.0"}
-    0:1:boolean zaa():0:0 -> a
+    0:9:boolean zaa():0:0 -> a
 com.google.android.gms.internal.base.zao -> N.f:
 # {"id":"sourceFile","fileName":"com.google.android.gms:play-services-base@@18.3.0"}
     0:20:android.content.Intent zaa(android.content.Context,android.content.BroadcastReceiver,android.content.IntentFilter):1:1 -> a
@@ -22869,6 +22878,21 @@ com.unity3d.player.UnityGameState -> com.unity3d.player.UnityGameState:
 # {"id":"sourceFile","fileName":"SourceFile"}
     1:1:void setGameState(android.content.Context,boolean,int):0:0 -> setGameState
     2:2:void setGameState(android.content.Context,boolean,int,int,int):0:0 -> setGameState
+com.unity3d.player.UnityGameState$$ExternalSyntheticApiModelOutline0 -> com.unity3d.player.K1:
+# {"id":"sourceFile","fileName":"R8$$SyntheticClass"}
+# {"id":"com.android.tools.r8.synthesized"}
+    0:3:void m(android.app.GameManager,android.app.GameState):0:0 -> a
+      # {"id":"com.android.tools.r8.synthesized"}
+com.unity3d.player.UnityGameState$$ExternalSyntheticApiModelOutline1 -> com.unity3d.player.L1:
+# {"id":"sourceFile","fileName":"R8$$SyntheticClass"}
+# {"id":"com.android.tools.r8.synthesized"}
+    0:5:android.app.GameState m(boolean,int,int,int):0:0 -> a
+      # {"id":"com.android.tools.r8.synthesized"}
+com.unity3d.player.UnityGameState$$ExternalSyntheticApiModelOutline2 -> com.unity3d.player.M1:
+# {"id":"sourceFile","fileName":"R8$$SyntheticClass"}
+# {"id":"com.android.tools.r8.synthesized"}
+    0:5:android.app.GameState m(boolean,int):0:0 -> a
+      # {"id":"com.android.tools.r8.synthesized"}
 com.unity3d.player.UnityPermissions -> com.unity3d.player.UnityPermissions:
 # {"id":"sourceFile","fileName":"SourceFile"}
 com.unity3d.player.UnityPlayer -> com.unity3d.player.UnityPlayer:
@@ -23072,6 +23096,26 @@ com.unity3d.player.b -> com.unity3d.player.b:
     1:1:android.window.OnBackInvokedDispatcher a(java.lang.Object):0:0 -> a
     2:2:void a(android.window.OnBackInvokedDispatcher,int,android.window.OnBackInvokedCallback):0:0 -> a
     3:3:void a(android.window.OnBackInvokedDispatcher,android.window.OnBackInvokedCallback):0:0 -> a
+com.unity3d.player.b$$ExternalSyntheticApiModelOutline0 -> com.unity3d.player.N1:
+# {"id":"sourceFile","fileName":"R8$$SyntheticClass"}
+# {"id":"com.android.tools.r8.synthesized"}
+    0:4:android.window.OnBackInvokedDispatcher m(android.app.Activity):0:0 -> a
+      # {"id":"com.android.tools.r8.synthesized"}
+com.unity3d.player.b$$ExternalSyntheticApiModelOutline1 -> com.unity3d.player.O1:
+# {"id":"sourceFile","fileName":"R8$$SyntheticClass"}
+# {"id":"com.android.tools.r8.synthesized"}
+    0:4:android.window.OnBackInvokedDispatcher m(android.app.Dialog):0:0 -> a
+      # {"id":"com.android.tools.r8.synthesized"}
+com.unity3d.player.b$$ExternalSyntheticApiModelOutline2 -> com.unity3d.player.P1:
+# {"id":"sourceFile","fileName":"R8$$SyntheticClass"}
+# {"id":"com.android.tools.r8.synthesized"}
+    0:3:void m(android.window.OnBackInvokedDispatcher,android.window.OnBackInvokedCallback):0:0 -> a
+      # {"id":"com.android.tools.r8.synthesized"}
+com.unity3d.player.b$$ExternalSyntheticApiModelOutline3 -> com.unity3d.player.Q1:
+# {"id":"sourceFile","fileName":"R8$$SyntheticClass"}
+# {"id":"com.android.tools.r8.synthesized"}
+    0:3:void m(android.window.OnBackInvokedDispatcher,int,android.window.OnBackInvokedCallback):0:0 -> a
+      # {"id":"com.android.tools.r8.synthesized"}
 com.unity3d.player.b0 -> com.unity3d.player.b0:
 # {"id":"sourceFile","fileName":"SourceFile"}
 com.unity3d.player.b1 -> com.unity3d.player.b1:

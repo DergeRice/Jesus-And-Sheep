@@ -238,7 +238,7 @@ public class BlockManager : MonoBehaviour
     IEnumerator BlockGetDownCo()
     {
         List<Block> blocksToMove = new List<Block>();
-        List<GameObject> itemsToMove = new List<GameObject>(); // plusItem�� ���� ����Ʈ �߰�
+        // List<GameObject> itemsToMove = new List<GameObject>(); // plusItem�� ���� ����Ʈ �߰�
 
         for (int x = 0; x < blockGrid.GetLength(0); x++)
         {
@@ -249,16 +249,16 @@ public class BlockManager : MonoBehaviour
                     blocksToMove.Add(blockGrid[x, y]);
                 }
 
-                if (plusItemGrid[x, y] != null)
-                {
-                    itemsToMove.Add(plusItemGrid[x, y]);
-                }
+                // if (plusItemGrid[x, y] != null)
+                // {
+                //     itemsToMove.Add(plusItemGrid[x, y]);
+                // }
             }
         }
 
         float timeElapsed = 0f;
         List<Vector3> blockTargetPositions = new List<Vector3>();
-        List<Vector3> itemTargetPositions = new List<Vector3>(); // plusItem�� ��ǥ ��ġ ����Ʈ
+        // List<Vector3> itemTargetPositions = new List<Vector3>(); // plusItem�� ��ǥ ��ġ ����Ʈ
 
         foreach (var block in blocksToMove)
         {
@@ -267,12 +267,12 @@ public class BlockManager : MonoBehaviour
             blockTargetPositions.Add(new Vector3(block.transform.localPosition.x, gridY[nextY], 0));
         }
 
-        foreach (var item in itemsToMove)
-        {
-            int currentY = Array.IndexOf(gridY, item.transform.localPosition.y);
-            int nextY = Mathf.Min(currentY + 1, plusItemGrid.GetLength(1) - 1);
-            itemTargetPositions.Add(new Vector3(item.transform.localPosition.x, gridY[nextY], 0));
-        }
+        // foreach (var item in itemsToMove)
+        // {
+        //     int currentY = Array.IndexOf(gridY, item.transform.localPosition.y);
+        //     int nextY = Mathf.Min(currentY + 1, plusItemGrid.GetLength(1) - 1);
+        //     itemTargetPositions.Add(new Vector3(item.transform.localPosition.x, gridY[nextY], 0));
+        // }
 
         while (timeElapsed < 1f)
         {
@@ -286,12 +286,12 @@ public class BlockManager : MonoBehaviour
                 block.transform.localPosition = Vector3.Lerp(block.transform.localPosition, targetPos, lerpValue);
             }
 
-            for (int i = 0; i < itemsToMove.Count; i++)
-            {
-                var item = itemsToMove[i];
-                var targetPos = itemTargetPositions[i];
-                item.transform.localPosition = Vector3.Lerp(item.transform.localPosition, targetPos, lerpValue);
-            }
+            // for (int i = 0; i < itemsToMove.Count; i++)
+            // {
+            //     var item = itemsToMove[i];
+            //     var targetPos = itemTargetPositions[i];
+            //     item.transform.localPosition = Vector3.Lerp(item.transform.localPosition, targetPos, lerpValue);
+            // }
 
             yield return null;
         }
@@ -309,13 +309,13 @@ public class BlockManager : MonoBehaviour
                     blockGrid[x, nextY].transform.localPosition = new Vector3(gridX[x], gridY[nextY], 0);
                 }
 
-                if (plusItemGrid[x, y] != null)
-                {
-                    int nextY = y + 1;
-                    plusItemGrid[x, nextY] = plusItemGrid[x, y];
-                    plusItemGrid[x, y] = null;
-                    plusItemGrid[x, nextY].transform.localPosition = new Vector3(gridX[x], gridY[nextY], 0);
-                }
+                // if (plusItemGrid[x, y] != null)
+                // {
+                //     int nextY = y + 1;
+                //     plusItemGrid[x, nextY] = plusItemGrid[x, y];
+                //     plusItemGrid[x, y] = null;
+                //     plusItemGrid[x, nextY].transform.localPosition = new Vector3(gridX[x], gridY[nextY], 0);
+                // }
             }
         }
     }
@@ -327,7 +327,7 @@ public class BlockManager : MonoBehaviour
 
     public void CheckAllBlockBroken()
     {
-        if (blockParent.childCount == 1)
+        if (GetAvailableBlocks().Count == 1)
         {
             GameLogicManager.instance.GetAllBallDown();
             GameLogicManager.instance.gameCanvas.ShowGreat();
@@ -341,7 +341,7 @@ public class BlockManager : MonoBehaviour
         // blockGrid �迭���� null�� �ƴ� Block�� ã��
         foreach (Block block in blockGrid)
         {
-            if (block != null)
+            if (block != null && block.blockType != BlockType.Item)
             {
                 availableBlocks.Add(block);
             }
@@ -445,6 +445,21 @@ public class BlockManager : MonoBehaviour
     public void IncreaseHardLevelWeigh()
     {
 
+    }
+    public void RemoveBlock(Block target)
+    {
+        for (int x = 0; x < blockGrid.GetLength(0); x++) // x 방향 순회
+        {
+            for (int y = 0; y < blockGrid.GetLength(1); y++) // y 방향 순회
+            {
+                if (blockGrid[x, y] == target) // Block이 일치하는 경우
+                {
+                    blockGrid[x, y] = null; // 해당 위치의 Block 제거
+                    Debug.Log($"Block removed at position ({x}, {y}).");
+
+                }
+            }
+        }
     }
 }
 

@@ -101,6 +101,7 @@ public class EventManager : MonoBehaviour
             gameLogicManager.AllBallComeDown();
             gameLogicManager.isPlayerTurn = false;
             yield return gameLogicManager.isPlayerTurn == true;  
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
