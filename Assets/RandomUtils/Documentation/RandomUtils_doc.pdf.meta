@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: ced253e062aaf4c4babf8cdc9d2cf00f
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 169229
+  packageName: Random Utils
+  packageVersion: 1.0
+  assetPath: Assets/RandomUtils/Documentation/RandomUtils_doc.pdf
+  uploadId: 369397

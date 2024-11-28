@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
-using RandomElementsSystem.Types;
+using GG.Infrastructure.Utils;
 
 public class BlockManager : MonoBehaviour
 {
@@ -11,11 +11,11 @@ public class BlockManager : MonoBehaviour
     public GameObject plusItemPrefab, boxItemPrefab;
 
 
-    public MinMaxRandomInt selectiveRandom;
+    public WeightedListOfInts selectiveRandom;
 
     public Transform blockParent;
     public Block[,] blockGrid = new Block[7, 9];
-    public GameObject[,] plusItemGrid = new GameObject[7, 9]; // plusItem�� ��ġ�� �����ϱ� ���� �迭 �߰�
+    //public GameObject[,] plusItemGrid = new GameObject[7, 9]; // plusItem�� ��ġ�� �����ϱ� ���� �迭 �߰�
 
     public float[] gridX = new float[]{
         -5.6f, -4.65f, -3.72f, -2.78f, -1.86f, -0.94f};
@@ -48,6 +48,9 @@ public class BlockManager : MonoBehaviour
         while (blockGrid[xIndex, yIndex] != null); // �ش� ��ġ�� ������ ������ �ٽ� ���� ��ġ�� ã��
 
         var tempBlock = Instantiate(blockPrefab, blockParent);
+
+        tempBlock.GetComponent<Block>().curX = xIndex;
+        tempBlock.GetComponent<Block>().curY = yIndex;
         tempBlock.Init(GameLogicManager.instance.currentLevel);
         tempBlock.ballCollsionEffect = SpawnHeartParticle;
         tempBlock.allBlockBrokenCheck = CheckAllBlockBroken;
@@ -76,7 +79,10 @@ public class BlockManager : MonoBehaviour
 
         // �� ���� plusItem ����
         var plusItem = Instantiate(plusItemPrefab, blockParent);
-        plusItemGrid[xIndex, yIndex] = plusItem;
+
+        plusItem.GetComponent<Block>().curX = xIndex;
+        plusItem.GetComponent<Block>().curY = yIndex;
+        blockGrid[xIndex, yIndex] = plusItem.GetComponent<Block>();
         plusItem.transform.localPosition = new Vector3(gridX[xIndex], gridY[yIndex], 0);
     }
 
@@ -100,7 +106,11 @@ public class BlockManager : MonoBehaviour
 
         // �� ���� plusItem ����
         var boxItem = Instantiate(boxItemPrefab, blockParent);
-        plusItemGrid[xIndex, yIndex] = boxItem;
+
+        boxItem.GetComponent<Block>().curX = xIndex;
+        boxItem.GetComponent<Block>().curY = yIndex;
+        blockGrid[xIndex, yIndex] = boxItem.GetComponent<Block>();
+
         boxItem.transform.localPosition = new Vector3(gridX[xIndex], gridY[yIndex], 0);
     }
 
@@ -156,6 +166,8 @@ public class BlockManager : MonoBehaviour
             emptyXIndices.Remove(randomX); // 해당 위치를 사용했으므로 제거
 
             var tempItem = Instantiate(plusItemPrefab, blockParent);
+            tempItem.GetComponent<Block>().curX = randomX;
+            tempItem.GetComponent<Block>().curY = topRowYIndex;
             tempItem.transform.localPosition = new Vector3(gridX[randomX], gridY[topRowYIndex], 0);
 
             // blockGrid에 추가 (아이템도 블록처럼 처리할 경우에만 활성화)
@@ -172,8 +184,10 @@ public class BlockManager : MonoBehaviour
                 emptyXIndices.Remove(randomX); // 해당 위치를 사용했으므로 제거
 
                 var tempBox = Instantiate(boxItemPrefab, blockParent);
-                tempBox.transform.localPosition = new Vector3(gridX[randomX], gridY[topRowYIndex], 0);
 
+                tempBox.transform.localPosition = new Vector3(gridX[randomX], gridY[topRowYIndex], 0);
+                tempBox.GetComponent<Block>().curX = randomX;
+                tempBox.GetComponent<Block>().curY = topRowYIndex;
                 // blockGrid에 추가 (아이템도 블록처럼 처리할 경우에만 활성화)
                 blockGrid[randomX, topRowYIndex] = tempBox.GetComponent<Block>();
             }
@@ -187,6 +201,8 @@ public class BlockManager : MonoBehaviour
             emptyXIndices.Remove(randomX); // 해당 위치를 사용했으므로 제거
 
             var tempBlock = Instantiate(blockPrefab, blockParent);
+            tempBlock.GetComponent<Block>().curX = randomX;
+            tempBlock.GetComponent<Block>().curY = topRowYIndex;
             tempBlock.ballCollsionEffect = SpawnHeartParticle;
             tempBlock.allBlockBrokenCheck = CheckAllBlockBroken;
 
@@ -230,50 +246,38 @@ public class BlockManager : MonoBehaviour
     {
         levelCount = level;
         StartCoroutine(BlockGetDownCo());
-        Utils.DelayCall(() => SpawnTopLane(Random.Range(2, 6)), 1f);
+
+
+        selectiveRandom.SetWeightAtIndex(3, selectiveRandom.GetWeightAtIndex(3) * 1.03f);
+        selectiveRandom.SetWeightAtIndex(4, selectiveRandom.GetWeightAtIndex(4) * 1.04f);
+        selectiveRandom.SetWeightAtIndex(5, selectiveRandom.GetWeightAtIndex(5) * 1.05f);
+
+        selectiveRandom.Normalize();
+
+        Utils.DelayCall(() => SpawnTopLane(selectiveRandom.GetRandomByWeight()), 1f);
 
         if (CheckGameOver()) GameLogicManager.instance.gameCanvas.ShowGameOver();
     }
 
     IEnumerator BlockGetDownCo()
     {
-        List<Block> blocksToMove = new List<Block>();
-        // List<GameObject> itemsToMove = new List<GameObject>(); // plusItem�� ���� ����Ʈ �߰�
-
-        for (int x = 0; x < blockGrid.GetLength(0); x++)
-        {
-            for (int y = 0; y < blockGrid.GetLength(1); y++)
-            {
-                if (blockGrid[x, y] != null)
-                {
-                    blocksToMove.Add(blockGrid[x, y]);
-                }
-
-                // if (plusItemGrid[x, y] != null)
-                // {
-                //     itemsToMove.Add(plusItemGrid[x, y]);
-                // }
-            }
-        }
+        List<Block> blocksToMove = GetAvailableBlocks(true);
 
         float timeElapsed = 0f;
+        List<Vector3> blockStartPositions = new List<Vector3>();
         List<Vector3> blockTargetPositions = new List<Vector3>();
-        // List<Vector3> itemTargetPositions = new List<Vector3>(); // plusItem�� ��ǥ ��ġ ����Ʈ
 
+        // 초기 위치와 목표 위치 캐싱
         foreach (var block in blocksToMove)
         {
-            int currentY = Array.IndexOf(gridY, block.transform.localPosition.y);
-            int nextY = Mathf.Min(currentY + 1, blockGrid.GetLength(1) - 1);
-            blockTargetPositions.Add(new Vector3(block.transform.localPosition.x, gridY[nextY], 0));
+            int nextY = Mathf.Min(block.curY + 1, blockGrid.GetLength(1) - 1);
+
+            // 초기 위치 및 목표 위치 저장
+            blockStartPositions.Add(block.transform.localPosition);
+            blockTargetPositions.Add(new Vector3(gridX[block.curX], gridY[nextY], 0));
         }
 
-        // foreach (var item in itemsToMove)
-        // {
-        //     int currentY = Array.IndexOf(gridY, item.transform.localPosition.y);
-        //     int nextY = Mathf.Min(currentY + 1, plusItemGrid.GetLength(1) - 1);
-        //     itemTargetPositions.Add(new Vector3(item.transform.localPosition.x, gridY[nextY], 0));
-        // }
-
+        // 블록을 부드럽게 이동
         while (timeElapsed < 1f)
         {
             timeElapsed += Time.deltaTime;
@@ -282,40 +286,34 @@ public class BlockManager : MonoBehaviour
             for (int i = 0; i < blocksToMove.Count; i++)
             {
                 var block = blocksToMove[i];
+                var startPos = blockStartPositions[i];
                 var targetPos = blockTargetPositions[i];
-                block.transform.localPosition = Vector3.Lerp(block.transform.localPosition, targetPos, lerpValue);
-            }
 
-            // for (int i = 0; i < itemsToMove.Count; i++)
-            // {
-            //     var item = itemsToMove[i];
-            //     var targetPos = itemTargetPositions[i];
-            //     item.transform.localPosition = Vector3.Lerp(item.transform.localPosition, targetPos, lerpValue);
-            // }
+                // 초기 위치와 목표 위치를 기준으로 Lerp
+                block.transform.localPosition = Vector3.Lerp(startPos, targetPos, lerpValue);
+            }
 
             yield return null;
         }
 
-        // �׸��� ���� ����
-        for (int x = 0; x < blockGrid.GetLength(0); x++)
+        // 이동이 끝난 후 위치 확정 및 grid 업데이트
+        // 역순으로 탐색하여 이동
+        for (int y = blockGrid.GetLength(1) - 2; y >= 0; y--)
         {
-            for (int y = blockGrid.GetLength(1) - 2; y >= 0; y--)
+            foreach (var block in blocksToMove)
             {
-                if (blockGrid[x, y] != null)
+                if (block.curY == y)
                 {
-                    int nextY = y + 1;
-                    blockGrid[x, nextY] = blockGrid[x, y];
-                    blockGrid[x, y] = null;
-                    blockGrid[x, nextY].transform.localPosition = new Vector3(gridX[x], gridY[nextY], 0);
-                }
+                    int nextY = Mathf.Min(block.curY + 1, blockGrid.GetLength(1) - 1);
 
-                // if (plusItemGrid[x, y] != null)
-                // {
-                //     int nextY = y + 1;
-                //     plusItemGrid[x, nextY] = plusItemGrid[x, y];
-                //     plusItemGrid[x, y] = null;
-                //     plusItemGrid[x, nextY].transform.localPosition = new Vector3(gridX[x], gridY[nextY], 0);
-                // }
+                    // 그리드 업데이트
+                    blockGrid[block.curX, block.curY] = null;
+                    blockGrid[block.curX, nextY] = block;
+                    block.curY = nextY;
+
+                    // 정확한 위치로 이동
+                    block.transform.localPosition = new Vector3(gridX[block.curX], gridY[block.curY], 0);
+                }
             }
         }
     }
@@ -334,18 +332,19 @@ public class BlockManager : MonoBehaviour
         }
     }
 
-    public List<Block> GetAvailableBlocks()
+    public List<Block> GetAvailableBlocks(bool containItem = false)
     {
         List<Block> availableBlocks = new List<Block>();
 
-        // blockGrid �迭���� null�� �ƴ� Block�� ã��
+        // blockGrid 배열에서 null이 아닌 Block을 찾음
         foreach (Block block in blockGrid)
         {
-            if (block != null && block.blockType != BlockType.Item)
+            if (block != null && (containItem || block.blockType != BlockType.Item))
             {
                 availableBlocks.Add(block);
             }
         }
+
 
         return availableBlocks;
     }
@@ -460,6 +459,29 @@ public class BlockManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    [ContextMenu("Debug")]
+    public void DebugBlockGrid()
+    {
+        string debugOutput = ""; // 출력할 문자열 초기화
+
+        // y값이 작은 순서부터 확인
+        for (int y = 0; y < blockGrid.GetLength(1); y++)
+        {
+            for (int x = 0; x < blockGrid.GetLength(0); x++)
+            {
+                // 현재 좌표의 블록 null 여부 확인
+                string status = blockGrid[x, y] == null ? "n" : "f";
+                // 좌표와 상태를 문자열로 추가
+                debugOutput += $"({x},{y}): {status}  ";
+            }
+            // y 값마다 줄바꿈 추가
+            debugOutput += "\n";
+        }
+
+        // 최종 출력
+        Debug.Log(debugOutput);
     }
 }
 

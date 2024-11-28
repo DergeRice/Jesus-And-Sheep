@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 0eccedd49714c4a429b65401686581ce
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 169229
+  packageName: Random Utils
+  packageVersion: 1.0
+  assetPath: Assets/RandomUtils/Examples/Prefabs/SpherePurple.prefab
+  uploadId: 369397

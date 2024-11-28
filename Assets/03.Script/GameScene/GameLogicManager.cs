@@ -26,6 +26,7 @@ public class GameLogicManager : MonoBehaviour
     public LayerMask collisionLayer;    // 충돌이 발생할 레이어
 
     public List<Ball> ballList = new List<Ball>();
+    public List<Ball> shootingBallDatas = new List<Ball>();
 
     public int ballCount;
 
@@ -252,6 +253,7 @@ public class GameLogicManager : MonoBehaviour
             isPlayerTurn = true;
             turnEndAction?.Invoke();
             turnEndAction = null;
+            StopAllCoroutines();
         },0.7f);
     }
 

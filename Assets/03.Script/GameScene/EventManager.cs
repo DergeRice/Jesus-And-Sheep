@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 using RandomElementsSystem.Types;
+using GG.Infrastructure.Utils;
 using System.Collections;
 
 public class EventManager : MonoBehaviour
@@ -13,6 +14,7 @@ public class EventManager : MonoBehaviour
     GameLogicManager gameLogicManager;
 
     public SelectiveRandomWeightInt selectiveRandom;
+    public WeightedListOfInts selectiveRandomWeight;
 
     public List<GameEvent> gameEvents = new List<GameEvent>();
 
@@ -27,12 +29,12 @@ public class EventManager : MonoBehaviour
     [ContextMenu("GoRandom")]
     public void ShowTwoSelection()
     {
-        var randomValue = selectiveRandom.GetRandomValue();
+        var randomValue = selectiveRandomWeight.GetRandomByWeight();
         int secondValue = 0;
 
         for (int i = 0; i < 100; i++)
         {
-            secondValue = selectiveRandom.GetRandomValue();
+            secondValue = selectiveRandomWeight.GetRandomByWeight();
 
             if (secondValue != randomValue)
             {
@@ -101,7 +103,7 @@ public class EventManager : MonoBehaviour
             gameLogicManager.AllBallComeDown();
             gameLogicManager.isPlayerTurn = false;
             yield return gameLogicManager.isPlayerTurn == true;  
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(2f);
         }
     }
 

@@ -34,6 +34,8 @@ public class Block : MonoBehaviour
 
     public bool isDisappear = false;
 
+    public int curX, curY;
+
     private void Start()
     {
          if(countText != null) countText.text = Count.ToString();
@@ -77,7 +79,7 @@ public class Block : MonoBehaviour
     {
         if (collision.transform.CompareTag("Ball"))
         {
-            SoundManager.VibrateGame(EVibrate.weak);
+            //SoundManager.VibrateGame(EVibrate.weak);
             ballCollsionEffect.Invoke(collision.contacts[0].point);
             Count--;
             if (countText != null) countText.text = Count.ToString();

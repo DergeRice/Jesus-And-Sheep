@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f7c22f77716f9f343adb42bd3a664ec4
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 169229
+  packageName: Random Utils
+  packageVersion: 1.0
+  assetPath: Assets/RandomUtils/Examples/Materials/Green.mat
+  uploadId: 369397

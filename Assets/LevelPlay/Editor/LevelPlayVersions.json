@@ -737,6 +737,17 @@
             "dependencyXmlFileName": "ISOguryAdapterDependencies.xml",
             "isNew": true,
             "versions": {
+              "4.3.3.0": {
+                "ironSourceSdkVersion": "[8.4.0, 9.0[",
+                "android": {
+                  "adapterVersion": "4.3.1",
+                  "adNetworkVersion": "5.8.0"
+                },
+                "ios": {
+                  "adapterVersion": "4.3.2.0",
+                  "adNetworkVersion": "5.0.1"
+                }
+              },
               "4.3.2.0": {
                 "ironSourceSdkVersion": "[8.4.0, 9.0[",
                 "android": {

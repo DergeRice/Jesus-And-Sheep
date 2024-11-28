@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e7e908adae2527448855e311243a2394
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 169229
+  packageName: Random Utils
+  packageVersion: 1.0
+  assetPath: Assets/RandomUtils/Examples/Materials/Orange.mat
+  uploadId: 369397

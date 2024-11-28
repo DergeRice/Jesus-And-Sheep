@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 170fd63fdbfd8a449830e0502b2b5e0c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 169229
+  packageName: Random Utils
+  packageVersion: 1.0
+  assetPath: Assets/RandomUtils/Examples/Materials/Gray.mat
+  uploadId: 369397

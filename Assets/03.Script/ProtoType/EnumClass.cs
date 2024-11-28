@@ -24,7 +24,9 @@ public enum BallType
     Bomb,
     Vertical,
     Horizontal,
-    Arrow
+    Split,
+    Drill,
+    Holly
 }
 
 

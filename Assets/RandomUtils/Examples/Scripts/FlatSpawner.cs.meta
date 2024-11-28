@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 81e001695cfa6144aa3c9bf36281def5
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 169229
+  packageName: Random Utils
+  packageVersion: 1.0
+  assetPath: Assets/RandomUtils/Examples/Scripts/FlatSpawner.cs
+  uploadId: 369397

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 176e981b327a6f341977eb5c23f64576
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 169229
+  packageName: Random Utils
+  packageVersion: 1.0
+  assetPath: Assets/RandomUtils/Examples/Scenes/WeightedListSerializationExample.unity
+  uploadId: 369397

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: a1b50611c5266b24d94e7a7d06ada055
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 169229
+  packageName: Random Utils
+  packageVersion: 1.0
+  assetPath: Assets/RandomUtils/Examples/Scripts/WeightedListExamples.cs
+  uploadId: 369397

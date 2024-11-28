@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 84b3c910884c56c4581db4c53885ccd3
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 169229
+  packageName: Random Utils
+  packageVersion: 1.0
+  assetPath: Assets/RandomUtils/Examples/Materials/Red.mat
+  uploadId: 369397

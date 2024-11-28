@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ec7a99d2169021742805e3ec62b43b2d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 169229
+  packageName: Random Utils
+  packageVersion: 1.0
+  assetPath: Assets/RandomUtils/Examples/Materials/Blue.mat
+  uploadId: 369397

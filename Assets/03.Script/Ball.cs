@@ -13,6 +13,8 @@ public class Ball : MonoBehaviour
     public Vector3 moveDirection; // 이동 방향 벡터
     public Action<Ball, float> ballDownAction;
 
+    public BallType ballType;
+
     public Rigidbody2D rb; // Rigidbody2D 참조
     public bool speedMode = false;
     //public Action speedModeCommit;

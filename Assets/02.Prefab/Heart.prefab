@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   moveDirection: {x: 0, y: 0, z: 0}
-  rb: {fileID: 0}
+  rb: {fileID: 8988787097122279480}
   speedMode: 0
 --- !u!50 &8988787097122279480
 Rigidbody2D:

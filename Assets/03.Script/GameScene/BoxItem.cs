@@ -11,6 +11,7 @@ public class BoxItem : MonoBehaviour
                 GameLogicManager.instance.isPlayerTurn = false;
                 GameLogicManager.instance.eventManager.ShowTwoSelection();
             };
+            GameLogicManager.instance.blockManager.RemoveBlock(GetComponent<Block>());
             Destroy(gameObject);
         }
     }
