@@ -17,6 +17,7 @@ public class EventManager : MonoBehaviour
     public WeightedListOfInts selectiveRandomWeight;
 
     public List<GameEvent> gameEvents = new List<GameEvent>();
+    public List<GameEvent> specialBallEvents = new List<GameEvent>();
 
     bool currentEventSuccess;
     public List<UnityEvent> failActionList = new List<UnityEvent>();
@@ -31,6 +32,12 @@ public class EventManager : MonoBehaviour
     {
         var randomValue = selectiveRandomWeight.GetRandomByWeight();
         int secondValue = 0;
+
+        if(Random.value < 0.90f) //90%
+        {
+            gameLogicManager.ShowSelectPanel(specialBallEvents[Random.Range(1,8)],gameEvents[randomValue]);
+            return;
+        }
 
         for (int i = 0; i < 100; i++)
         {
@@ -48,9 +55,9 @@ public class EventManager : MonoBehaviour
 
     public void SetBallCountIncrease(int amount)
     {
-        gameLogicManager.ballCount += amount;
+        gameLogicManager.ChangeBallCount(amount);
 
-        if (gameLogicManager.ballCount < 0) gameLogicManager.ballCount = 1;
+        if (gameLogicManager.GetBallCount < 0) gameLogicManager.ballCount = 1;
     }
     public void SetBallCountMultifly(float amount)
     {
@@ -192,7 +199,13 @@ public class EventManager : MonoBehaviour
     }
 
 
-
-
+    public void GetCrossBall() { gameLogicManager.GetSpecialBall(BallType.Cross); }
+    public void GetBombBall() { gameLogicManager.GetSpecialBall(BallType.Bomb); }
+    public void GetVerticalBall() { gameLogicManager.GetSpecialBall(BallType.Vertical); }
+    public void GetHorizontalBall() { gameLogicManager.GetSpecialBall(BallType.Horizontal); }
+    public void GetSplitBall() { gameLogicManager.GetSpecialBall(BallType.Split); }
+    public void GetDrillBall() { gameLogicManager.GetSpecialBall(BallType.Drill); }
+    public void GetHollyBall() { gameLogicManager.GetSpecialBall(BallType.Holly); }
+    
 
 }

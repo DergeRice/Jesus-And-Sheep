@@ -7,7 +7,7 @@ public class PlusItem : MonoBehaviour
     {
         if (collision.CompareTag("Ball") && isAlreadyCollision == false)
         {
-            GameLogicManager.instance.ballCount++;
+            GameLogicManager.instance.ChangeBallCount(1);
 
             isAlreadyCollision = true;
             GameLogicManager.instance.blockManager.RemoveBlock(GetComponent<Block>());

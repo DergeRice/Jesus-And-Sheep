@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6250869802696369815}
   m_Layer: 8
   m_Name: grid
-  m_TagString: Untagged
+  m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,6 +95,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockType: 0
   countText: {fileID: 6360442708733974033}
+  isDisappear: 0
+  curX: 0
+  curY: 0
 --- !u!1 &4339105183873390830
 GameObject:
   m_ObjectHideFlags: 0

@@ -52,7 +52,6 @@ public class BlockManager : MonoBehaviour
         tempBlock.GetComponent<Block>().curX = xIndex;
         tempBlock.GetComponent<Block>().curY = yIndex;
         tempBlock.Init(GameLogicManager.instance.currentLevel);
-        tempBlock.ballCollsionEffect = SpawnHeartParticle;
         tempBlock.allBlockBrokenCheck = CheckAllBlockBroken;
         blockGrid[xIndex, yIndex] = tempBlock;
         tempBlock.transform.localPosition = new Vector3(gridX[xIndex], gridY[yIndex], 0);
@@ -203,7 +202,6 @@ public class BlockManager : MonoBehaviour
             var tempBlock = Instantiate(blockPrefab, blockParent);
             tempBlock.GetComponent<Block>().curX = randomX;
             tempBlock.GetComponent<Block>().curY = topRowYIndex;
-            tempBlock.ballCollsionEffect = SpawnHeartParticle;
             tempBlock.allBlockBrokenCheck = CheckAllBlockBroken;
 
             int sheepHp = levelCount;
@@ -318,14 +316,9 @@ public class BlockManager : MonoBehaviour
         }
     }
 
-    public void SpawnHeartParticle(Vector3 pos)
-    {
-        Instantiate(heartParticle, pos, Quaternion.identity);
-    }
-
     public void CheckAllBlockBroken()
     {
-        if (GetAvailableBlocks().Count == 1)
+        if (GetAvailableBlocks(true).Count == 0)
         {
             GameLogicManager.instance.GetAllBallDown();
             GameLogicManager.instance.gameCanvas.ShowGreat();
@@ -454,7 +447,7 @@ public class BlockManager : MonoBehaviour
                 if (blockGrid[x, y] == target) // Block이 일치하는 경우
                 {
                     blockGrid[x, y] = null; // 해당 위치의 Block 제거
-                    Debug.Log($"Block removed at position ({x}, {y}).");
+                    //Debug.Log($"Block removed at position ({x}, {y}).");
 
                 }
             }
@@ -482,6 +475,77 @@ public class BlockManager : MonoBehaviour
 
         // 최종 출력
         Debug.Log(debugOutput);
+    }
+
+    public List<Block> GetBlocksInCross(Block block)
+    {
+        List<Block> blocks = new List<Block>();
+        int x = block.curX; // Block의 X 좌표
+        int y = block.curY; // Block의 Y 좌표
+
+        // 상, 하, 좌, 우 블록 추가
+        if (IsValidPosition(x, y + 1)) blocks.Add(blockGrid[x, y + 1]); // 상
+        if (IsValidPosition(x, y - 1)) blocks.Add(blockGrid[x, y - 1]); // 하
+        if (IsValidPosition(x - 1, y)) blocks.Add(blockGrid[x - 1, y]); // 좌
+        if (IsValidPosition(x + 1, y)) blocks.Add(blockGrid[x + 1, y]); // 우
+
+        return blocks;
+    }
+
+
+    public List<Block> GetBlocksInSameColumn(Block block)
+    {
+        List<Block> blocks = new List<Block>();
+        int x = block.curX;
+
+        // 같은 X 좌표의 모든 블록 추가
+        for (int y = 0; y < blockGrid.GetLength(1); y++)
+        {
+            if (blockGrid[x, y] != null) blocks.Add(blockGrid[x, y]);
+        }
+
+        return blocks;
+    }
+
+    public List<Block> GetBlocksInSameRow(Block block)
+    {
+        List<Block> blocks = new List<Block>();
+        int y = block.curY;
+
+        // 같은 Y 좌표의 모든 블록 추가
+        for (int x = 0; x < blockGrid.GetLength(0); x++)
+        {
+            if (blockGrid[x, y] != null) blocks.Add(blockGrid[x, y]);
+        }
+
+        return blocks;
+    }
+
+    public List<Block> GetAdjacentBlocks(Block block)
+    {
+        List<Block> blocks = new List<Block>();
+        int x = block.curX;
+        int y = block.curY;
+
+        // 8방향의 블록 추가
+        for (int dx = -1; dx <= 1; dx++)
+        {
+            for (int dy = -1; dy <= 1; dy++)
+            {
+                if (dx == 0 && dy == 0) continue; // 자기 자신 제외
+                if (IsValidPosition(x + dx, y + dy))
+                {
+                    blocks.Add(blockGrid[x + dx, y + dy]);
+                }
+            }
+        }
+
+        return blocks;
+    }
+
+    public bool IsValidPosition(int x, int y)
+    {
+        return x >= 0 && x < blockGrid.GetLength(0) && y >= 0 && y < blockGrid.GetLength(1) && blockGrid[x, y] != null;
     }
 }
 

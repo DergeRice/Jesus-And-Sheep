@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d7721f1b457a44d992540b8a81a4f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dropBox: {fileID: 5958178172515102754, guid: 816c6a0bc1424f843869cddade328f3f, type: 3}
 --- !u!212 &1744901583074249507
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -137,7 +138,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.7
+  m_Radius: 0.91
 --- !u!114 &3623247767853463915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,3 +153,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockType: 5
   countText: {fileID: 0}
+  isDisappear: 0
+  curX: 0
+  curY: 0

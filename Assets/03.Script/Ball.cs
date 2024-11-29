@@ -39,6 +39,7 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.transform.CompareTag("Block")) SpawnParticle(collision.transform.GetComponent<Block>());
 
         if (collision.transform.CompareTag("BottomLine"))
         {
@@ -76,6 +77,80 @@ public class Ball : MonoBehaviour
             speedMode = true;
         }
 
+        if (bounceTime > 70) speedMode = false;
+        if (bounceTime > 70 && speedMode == false)
+        {
+            rb.linearVelocity = moveDirection * (Vector2.up * 3);
+            
+            speedMode = true;
+        }
+
+    }
+
+    private void SpawnParticle(Block block)
+    {
+        Vector3 particlePos = transform.position;
+        List<Block> affectedBlocks = new List<Block>();
+
+        switch (ballType)
+        {
+            case BallType.Common:
+                break;
+
+            case BallType.Cross:
+                particlePos = block.transform.position;
+                // Cross: 상하좌우 블록 추가
+                affectedBlocks.AddRange(GameLogicManager.instance.blockManager.GetBlocksInCross(block));
+                break;
+
+            case BallType.Bomb:
+                particlePos = block.transform.position;
+                // Bomb: 폭발 범위 추가
+                affectedBlocks.AddRange(GameLogicManager.instance.blockManager.GetAdjacentBlocks(block));
+                GameLogicManager.instance.ballList.Remove(this);
+                Destroy(gameObject);
+                break;
+
+            case BallType.Vertical:
+                particlePos = block.transform.position;
+                // Vertical: 같은 X 좌표 블록 추가
+                affectedBlocks.AddRange(GameLogicManager.instance.blockManager.GetBlocksInSameColumn(block));
+                break;
+
+            case BallType.Horizontal:
+                particlePos = block.transform.position;
+                // Horizontal: 같은 Y 좌표 블록 추가
+                affectedBlocks.AddRange(GameLogicManager.instance.blockManager.GetBlocksInSameRow(block));
+                break;
+
+            case BallType.Split:
+                var splitedBall = Instantiate(gameObject).GetComponent<Ball>();
+                splitedBall.ballType = BallType.Common;
+                ballType = BallType.Common;
+                transform.localScale = Vector3.one * 0.4f;
+                splitedBall.transform.localScale = Vector3.one * 0.4f;
+
+                GameLogicManager.instance.removeObjsAfterTurnEnd.Add(splitedBall.gameObject);
+                break;
+
+            case BallType.Drill:
+                break;
+
+            case BallType.Holly:
+                if (Random.value <= 0.01f)
+                {
+                    block.DestroyAnimation();
+                    particlePos = block.transform.position;
+                }
+                break;
+
+            default:
+                break;
+        }
+
+        // 파티클 생성 (기준 블록 위치와 ballType 전달)
+        GameLogicManager.instance.SpawnHeartParticle(particlePos, ballType);
+        GameLogicManager.instance.DamagedWithBlockList(affectedBlocks);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

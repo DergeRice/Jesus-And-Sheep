@@ -12,6 +12,7 @@ TagManager:
   - BottomLine
   - Wall
   - Item
+  - Block
   layers:
   - Default
   - TransparentFX

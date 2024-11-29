@@ -15,6 +15,7 @@ public class GameLogicManager : MonoBehaviour
     public BlockManager blockManager;
     public GameObject ballPrefab; // 공 프리팹
     public GameObject debugBall; // 디버그 공 프리팹
+    public List<GameObject> ballParticleList;
     public Transform spawnPoint; // 공 생성 위치
     public LineRenderer trajectoryLine; // 궤적을 표시하는 라인 렌더러
 
@@ -26,7 +27,7 @@ public class GameLogicManager : MonoBehaviour
     public LayerMask collisionLayer;    // 충돌이 발생할 레이어
 
     public List<Ball> ballList = new List<Ball>();
-    public List<Ball> shootingBallDatas = new List<Ball>();
+    public List<BallType> shootingBallDatas = new List<BallType>();
 
     public int ballCount;
 
@@ -50,6 +51,8 @@ public class GameLogicManager : MonoBehaviour
 
     public EventManager eventManager;
 
+    public List<GameObject> removeObjsAfterTurnEnd = new List<GameObject>();
+
 
     private void Awake()
     {
@@ -62,7 +65,7 @@ public class GameLogicManager : MonoBehaviour
     void Update()
     {
         if (isPlayerTurn == true) HandleInput();
-        ballCountText.text = ballCount.ToString();
+        ballCountText.text = shootingBallDatas.Count.ToString();
         currentLevelText.text = currentLevel.ToString();
     }
 
@@ -121,7 +124,7 @@ public class GameLogicManager : MonoBehaviour
 
             // 공 생성 코루틴 시작
             gameCanvas.getBallDownButton.gameObject.SetActive(true);
-            StartCoroutine(SpawnBallCount(launchDirection, ballCount));
+            StartCoroutine(SpawnBallCount(launchDirection, shootingBallDatas.Count));
             ClearTrajectory();
 
             isPlayerTurn = false;
@@ -132,6 +135,14 @@ public class GameLogicManager : MonoBehaviour
 
     }
 
+    public void DamagedWithBlockList(List<Block> affectedBlocks)
+    {
+        for (int i = 0; i < affectedBlocks.Count; i++)
+        {
+            affectedBlocks[i].Count--;
+        }
+    }
+
     private Vector3 GetMouseWorldPosition()
     {
         Vector3 mousePosition = Input.mousePosition; // 화면 좌표 (Screen space)
@@ -139,7 +150,7 @@ public class GameLogicManager : MonoBehaviour
         return Camera.main.ScreenToWorldPoint(mousePosition);
     }
 
-    private void SpawnBall(Vector3 direction)
+    private void SpawnBall(Vector3 direction, BallType ballType)
     {
         // 공 생성
         direction = new Vector3(direction.x, direction.y, 0).normalized;
@@ -148,6 +159,7 @@ public class GameLogicManager : MonoBehaviour
         Ball ballScript = ball.GetComponent<Ball>();
         ballList.Add(ballScript);
         ballScript.ballDownAction = BallComeDown;
+        ballScript.ballType = ballType;
 
         if (ballScript != null)
         {
@@ -159,7 +171,7 @@ public class GameLogicManager : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
         {
-            SpawnBall(direction); // 공 생성
+            SpawnBall(direction, shootingBallDatas[i]); // 공 생성
             yield return new WaitForSeconds(0.05f); // 일정 간격 대기
         }
     }
@@ -222,11 +234,11 @@ public class GameLogicManager : MonoBehaviour
         trajectoryLine.enabled = false;
     }
 
-    public void BallComeDown(Ball ball,float nextXvalue)
+    public void BallComeDown(Ball ball, float nextXvalue)
     {
         isPlayerTurn = false;
         ballList.Remove(ball);
-        Utils.DelayCall(()=> Destroy(ball.gameObject), 0.7f);
+        Utils.DelayCall(() => Destroy(ball.gameObject), 0.7f);
         ball.rb.linearVelocity = Vector2.zero;
         //Destroy(ball.gameObject);
         this.nextXvalue = nextXvalue;
@@ -244,20 +256,25 @@ public class GameLogicManager : MonoBehaviour
         Debug.Log("MyTurn");
         
 
-        nextXvalue = Mathf.Clamp(nextXvalue ,- 2.5f,2.5f);
+        nextXvalue = Mathf.Clamp(nextXvalue, -2.5f, 2.5f);
         gameCanvas.getBallDownButton.gameObject.SetActive(false);
-        jesus.transform.DOMove(new Vector3(nextXvalue, jesus.transform.position.y,0),0.7f).SetEase(Ease.Linear);
+        jesus.transform.DOMove(new Vector3(nextXvalue, jesus.transform.position.y, 0), 0.7f).SetEase(Ease.Linear);
 
-        Utils.DelayCall( ()=>
-        { 
-            isPlayerTurn = true;
-            turnEndAction?.Invoke();
-            turnEndAction = null;
-            StopAllCoroutines();
-        },0.7f);
+        Utils.DelayCall(() =>
+       {
+           isPlayerTurn = true;
+           turnEndAction?.Invoke();
+           turnEndAction = null;
+           StopAllCoroutines();
+
+           for (int i = 0; i < removeObjsAfterTurnEnd.Count; i++)
+           {
+               Destroy(removeObjsAfterTurnEnd[i]);
+           }
+       }, 0.7f);
     }
 
-    
+
     public void GetAllBallDown()
     {
         isPlayerTurn = false;
@@ -273,8 +290,58 @@ public class GameLogicManager : MonoBehaviour
         Debug.Log($"you Got{amount} special ball");
     }
 
+
     public void ShowSelectPanel(GameEvent a, GameEvent b)
     {
-        gameCanvas.selectPanel.ShowPanel(a,b);
+        gameCanvas.selectPanel.ShowPanel(a, b);
     }
+
+
+    public void SpawnHeartParticle(Vector3 pos, BallType ballType)
+    {
+        Instantiate(ballParticleList[(int)ballType], pos, Quaternion.identity);
+    }
+
+    public void ChangeBallCount(int amount)
+    {
+        if (amount > 0) GetCommonBall(amount);
+        else DelCommonBall(amount);
+    }
+
+    public int GetBallCount => ballCount;
+
+    public void GetCommonBall(int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            shootingBallDatas.Add(BallType.Common);
+        }
+    }
+
+    public void DelCommonBall(int amount)
+    {
+        int removedCount = 0;
+
+        for (int i = shootingBallDatas.Count - 1; i >= 0; i--) // 역순으로 순회
+        {
+            if (shootingBallDatas[i] == BallType.Common)
+            {
+                shootingBallDatas.RemoveAt(i);
+                removedCount++;
+
+                if (removedCount >= amount) // 지정된 개수만큼 제거했으면 종료
+                {
+                    break;
+                }
+            }
+        }
+
+    }
+
+    public void GetSpecialBall(BallType ballType)
+    {
+        shootingBallDatas.Add(ballType);
+        DelCommonBall(5);
+    }
+
 }

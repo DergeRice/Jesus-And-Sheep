@@ -16,7 +16,7 @@ public class Block : MonoBehaviour
         {
             _count = value; // �� ����
             if(countText != null) countText.text = _count.ToString();
-            if (_count < 0) // ���� �˻�
+            if (_count <= 0) // ���� �˻�
             {
                 _count = 0;
                 DestroyAnimation();
@@ -80,8 +80,7 @@ public class Block : MonoBehaviour
         if (collision.transform.CompareTag("Ball"))
         {
             //SoundManager.VibrateGame(EVibrate.weak);
-            transform.DOShakeScale(0.2f,0.2f);
-            ballCollsionEffect.Invoke(collision.contacts[0].point);
+            //transform.DOShakeScale(0.2f,0.2f);
             Count--;
             if (countText != null) countText.text = Count.ToString();
             if (Count <= 0) 
