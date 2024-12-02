@@ -135,11 +135,11 @@ public class GameLogicManager : MonoBehaviour
 
     }
 
-    public void DamagedWithBlockList(List<Block> affectedBlocks)
+    public void DamagedWithBlockList(List<Block> affectedBlocks, int amount = 1)
     {
         for (int i = 0; i < affectedBlocks.Count; i++)
         {
-            affectedBlocks[i].Count--;
+            affectedBlocks[i].Count -= amount;
         }
     }
 

@@ -225,6 +225,7 @@ public class BlockManager : MonoBehaviour
         {
             if (blockGrid[x, 7] != null && blockGrid[x, 7].blockType == BlockType.Item)
             {
+                blockGrid[x, 7] = null;
                 Destroy(blockGrid[x, 7].gameObject);
             }
         }

@@ -1601,34 +1601,36 @@ MonoBehaviour:
     - _weight: 6
       _value: 21
   selectiveRandomWeight:
-    _objects: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000100000001100000012000000130000001400000015000000
+    _objects: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000014000000150000001600000017000000
     _weights:
-    - 0.06711409
-    - 0.040268455
-    - 0.040268455
-    - 0.06711409
-    - 0.06711409
-    - 0.06711409
-    - 0.040268455
-    - 0.020134227
-    - 0.06711409
-    - 0.06711409
-    - 0.040268455
-    - 0.040268455
-    - 0.06711409
-    - 0.040268455
-    - 0.020134227
-    - 0.06711409
-    - 0.020134227
-    - 0.040268455
-    - 0.020134227
-    - 0.020134227
-    - 0.040268455
-    - 0.040268455
+    - 0.0621118
+    - 0.037267078
+    - 0.037267078
+    - 0.0621118
+    - 0.0621118
+    - 0.0621118
+    - 0.037267078
+    - 0.018633539
+    - 0.0621118
+    - 0.0621118
+    - 0.037267078
+    - 0.037267078
+    - 0.0621118
+    - 0.037267078
+    - 0.018633539
+    - 0.0621118
+    - 0.018633539
+    - 0.037267078
+    - 0.018633539
+    - 0.018633539
+    - 0.037267078
+    - 0.037267078
+    - 0.037267078
+    - 0.037267078
   gameEvents:
   - eventName: "\uACF5 5\uAC1C \uCD94\uAC00 + \uB2E4\uC74C \uD134 3\uBC88 \uC591
       2\uBC30"
-    explaination: "\uD558\uD2B8 5\uAC1C\uB97C \uCD94\uAC00\uD558\uACE0, \uB2E4\uC74C
+    explaination: "\uD558\uD2B8 4\uAC1C\uB97C \uCD94\uAC00\uD558\uACE0, \uB2E4\uC74C
       3\uD134 \uB3D9\uC548 \uB098\uC624\uB294 \uC591\uB4E4\uC758 \uCCB4\uB825\uC774
       2\uBC30\uAC00 \uB429\uB2C8\uB2E4."
     unityAction:
@@ -1641,7 +1643,7 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 5
+            m_IntArgument: 4
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -1660,7 +1662,7 @@ MonoBehaviour:
           m_CallState: 2
     icon: {fileID: 21300000, guid: a89ecb81d0b9345f29530b2b64ab2877, type: 3}
   - eventName: "\uAC00\uC7A5_\uC55E\uC904\uC591\uB4E4_\uC804\uBD80\uAD6C\uC6D0_\uACF55\uAC1C\uAC10\uC18C"
-    explaination: "\uD558\uD2B8 5\uAC1C\uB97C \uAC10\uC18C\uD558\uACE0, \uAC00\uC7A5
+    explaination: "\uD558\uD2B8 6\uAC1C\uB97C \uAC10\uC18C\uD558\uACE0, \uAC00\uC7A5
       \uC55E\uC5D0 \uC788\uB294 \uC904\uC758 \uC591\uB4E4\uC744 \uBAA8\uB450 \uC989\uC2DC
       \uAD6C\uC6D0\uD569\uB2C8\uB2E4."
     unityAction:
@@ -1685,7 +1687,7 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: -5
+            m_IntArgument: -6
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -1722,10 +1724,10 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
     icon: {fileID: 21300000, guid: 619b7fc0ab2954b5ea32430865b342a5, type: 3}
-  - eventName: "\uD654\uBA74\uC5D0\uC788\uB294_\uBAA8\uB4E0\uC591\uB4E4_\uCCB4\uB8252\uBC30_\uACF53\uAC1C\uCD94\uAC00"
+  - eventName: "\uD654\uBA74\uC5D0\uC788\uB294_\uBAA8\uB4E0\uC591\uB4E4_\uCCB4\uB8252\uBC30_\uACF55\uAC1C\uCD94\uAC00"
     explaination: "\uD654\uBA74\uC5D0 \uC788\uB294 \uBAA8\uB4E0 \uC591\uB4E4\uC758
       \uCCB4\uB825\uC744 2\uBC30\uB85C \uC99D\uAC00\uC2DC\uD0A4\uACE0, \uD558\uD2B8\uB97C
-      3\uAC1C \uC5BB\uC2B5\uB2C8\uB2E4."
+      5\uAC1C \uC5BB\uC2B5\uB2C8\uB2E4."
     unityAction:
       m_PersistentCalls:
         m_Calls:
@@ -1748,16 +1750,16 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 3
+            m_IntArgument: 5
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
     icon: {fileID: 21300000, guid: db01c5aa5a7494966b3e7f7ec1bb8dbf, type: 3}
-  - eventName: "\uB79C\uB364_10\uAC1C_\uBE14\uB85D_\uCCB4\uB825_2\uBC30_\uACF55\uAC1C\uCD94\uAC00"
+  - eventName: "\uB79C\uB364_10\uAC1C_\uBE14\uB85D_\uCCB4\uB825_2\uBC30_\uACF54\uAC1C\uCD94\uAC00"
     explaination: "\uB79C\uB364\uC73C\uB85C \uCD5C\uB300 10\uAC1C\uC758 \uC591\uB4E4\uC758
       \uCCB4\uB825\uC744 2\uBC30\uB85C \uC99D\uAC00\uC2DC\uD0A4\uACE0 \uD558\uD2B8\uB97C
-      5\uAC1C \uC5BB\uC2B5\uB2C8\uB2E4."
+      4\uAC1C \uC5BB\uC2B5\uB2C8\uB2E4."
     unityAction:
       m_PersistentCalls:
         m_Calls:
@@ -1780,15 +1782,15 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 5
+            m_IntArgument: 4
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
     icon: {fileID: 21300000, guid: c9487d0902a9e4c0b87f1b6b85302c58, type: 3}
-  - eventName: "\uD55C\uD134\uC26C\uACE0_\uACF55\uAC1C\uCD94\uAC00"
+  - eventName: "\uD55C\uD134\uC26C\uACE0_\uACF53\uAC1C\uCD94\uAC00"
     explaination: "\uD55C \uD134\uC744 \uAC74\uB108 \uB6F0\uACE0, \uD558\uD2B8\uB97C
-      4\uAC1C \uC5BB\uC2B5\uB2C8\uB2E4."
+      3\uAC1C \uC5BB\uC2B5\uB2C8\uB2E4."
     unityAction:
       m_PersistentCalls:
         m_Calls:
@@ -1811,15 +1813,15 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 4
+            m_IntArgument: 3
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
     icon: {fileID: 21300000, guid: adcd56de3ae0a48baa3acdfbd048b453, type: 3}
-  - eventName: "\uB450\uD134\uC26C\uACE0_\uACF5 8\uAC1C\uCD94\uAC00"
+  - eventName: "\uB450\uD134\uC26C\uACE0_\uACF5 6\uAC1C\uCD94\uAC00"
     explaination: "\uB450 \uD134\uC744 \uAC74\uB108 \uB6F0\uACE0, \uD558\uD2B8\uB97C
-      8\uAC1C \uC5BB\uC2B5\uB2C8\uB2E4."
+      6\uAC1C \uC5BB\uC2B5\uB2C8\uB2E4."
     unityAction:
       m_PersistentCalls:
         m_Calls:
@@ -1842,15 +1844,15 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 8
+            m_IntArgument: 6
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
     icon: {fileID: 21300000, guid: adcd56de3ae0a48baa3acdfbd048b453, type: 3}
-  - eventName: "\uC138\uD134\uC26C\uACE0_\uACF515\uAC1C\uCD94\uAC00"
+  - eventName: "\uC138\uD134\uC26C\uACE0_\uACF510\uAC1C\uCD94\uAC00"
     explaination: "\uC138 \uD134\uC744 \uAC74\uB108 \uB6F0\uACE0, \uD558\uD2B8\uB97C
-      15\uAC1C \uC5BB\uC2B5\uB2C8\uB2E4."
+      10\uAC1C \uC5BB\uC2B5\uB2C8\uB2E4."
     unityAction:
       m_PersistentCalls:
         m_Calls:
@@ -1873,15 +1875,15 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 15
+            m_IntArgument: 10
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
     icon: {fileID: 21300000, guid: adcd56de3ae0a48baa3acdfbd048b453, type: 3}
-  - eventName: "\uB79C\uB364_\uD55C\uAC1C_\uBE14\uB85D_\uCCB4\uB825_3\uBC30_\uACF53\uAC1C\uCD94\uAC00"
+  - eventName: "\uB79C\uB364_\uD55C\uAC1C_\uBE14\uB85D_\uCCB4\uB825_3\uBC30_\uACF52\uAC1C\uCD94\uAC00"
     explaination: "\uBB34\uC791\uC704 \uBE14\uB7ED\uC5D0 \uCCB4\uB825\uC744 3\uBC30\uB85C
-      \uB298\uB9AC\uACE0, \uD558\uD2B8\uB97C 3\uAC1C \uC5BB\uC2B5\uB2C8\uB2E4."
+      \uB298\uB9AC\uACE0, \uD558\uD2B8\uB97C 2\uAC1C \uC5BB\uC2B5\uB2C8\uB2E4."
     unityAction:
       m_PersistentCalls:
         m_Calls:
@@ -1904,14 +1906,14 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 3
+            m_IntArgument: 2
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
     icon: {fileID: 21300000, guid: 619b7fc0ab2954b5ea32430865b342a5, type: 3}
-  - eventName: "\uCCB4\uB82530\uBBF8\uB9CC_\uC591\uB4E4_\uC989\uC2DC\uAD6C\uC6D0_\uACF51\uAC1C\uAC10\uC18C"
-    explaination: "\uD558\uD2B8 1\uAC1C\uB97C \uAC10\uC18C\uC2DC\uD0A4\uACE0, \uCCB4\uB825
+  - eventName: "\uCCB4\uB82530\uBBF8\uB9CC_\uC591\uB4E4_\uC989\uC2DC\uAD6C\uC6D0_\uACF53\uAC1C\uAC10\uC18C"
+    explaination: "\uD558\uD2B8 4\uAC1C\uB97C \uAC10\uC18C\uC2DC\uD0A4\uACE0, \uCCB4\uB825
       30\uBBF8\uB9CC\uC758 \uC591\uB4E4\uC744 \uBAA8\uB450 \uAD6C\uC6D0\uD569\uB2C8\uB2E4. "
     unityAction:
       m_PersistentCalls:
@@ -1935,14 +1937,14 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: -1
+            m_IntArgument: -4
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
     icon: {fileID: 21300000, guid: a89ecb81d0b9345f29530b2b64ab2877, type: 3}
   - eventName: "\uCCB4\uB825100\uBBF8\uB9CC_\uC591\uB4E4_\uC989\uC2DC\uAD6C\uC6D0_\uACF510\uAC1C\uAC10\uC18C"
-    explaination: "\uD558\uD2B8 1\uAC1C\uB97C \uAC10\uC18C\uC2DC\uD0A4\uACE0, \uCCB4\uB825
+    explaination: "\uD558\uD2B8 12\uAC1C\uB97C \uAC10\uC18C\uC2DC\uD0A4\uACE0, \uCCB4\uB825
       100\uBBF8\uB9CC\uC758 \uC591\uB4E4\uC744 \uBAA8\uB450 \uAD6C\uC6D0\uD569\uB2C8\uB2E4. "
     unityAction:
       m_PersistentCalls:
@@ -1966,14 +1968,14 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: -10
+            m_IntArgument: -12
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
     icon: {fileID: 21300000, guid: a89ecb81d0b9345f29530b2b64ab2877, type: 3}
   - eventName: "\uBAA8\uB4E0\uC560\uB4E4\uC5D0\uAC8C50\uB370\uBBF8\uC9C0_\uACF55\uAC1C\uAC10\uC18C"
-    explaination: "\uD558\uD2B8 5\uAC1C\uB97C \uAC10\uC18C\uC2DC\uD0A4\uACE0, \uBAA8\uB4E0
+    explaination: "\uD558\uD2B8 7\uAC1C\uB97C \uAC10\uC18C\uC2DC\uD0A4\uACE0, \uBAA8\uB4E0
       \uC591\uB4E4\uC5D0\uAC8C 50\uB9CC\uD07C\uC758 \uC0AC\uB791\uC744 \uC90D\uB2C8\uB2E4."
     unityAction:
       m_PersistentCalls:
@@ -1997,14 +1999,14 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: -5
+            m_IntArgument: -7
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
     icon: {fileID: 21300000, guid: 619b7fc0ab2954b5ea32430865b342a5, type: 3}
   - eventName: "\uBAA8\uB4E0\uC560\uB4E4\uC5D0\uAC8C10\uB370\uBBF8\uC9C0_\uACF51\uAC1C\uAC10\uC18C"
-    explaination: "\uD558\uD2B8 1\uAC1C\uB97C \uAC10\uC18C\uC2DC\uD0A4\uACE0, \uBAA8\uB4E0
+    explaination: "\uD558\uD2B8 2\uAC1C\uB97C \uAC10\uC18C\uC2DC\uD0A4\uACE0, \uBAA8\uB4E0
       \uC591\uB4E4\uC5D0\uAC8C 10\uB9CC\uD07C\uC758 \uC0AC\uB791\uC744 \uC90D\uB2C8\uB2E4."
     unityAction:
       m_PersistentCalls:
@@ -2028,7 +2030,7 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: -1
+            m_IntArgument: -2
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -2065,9 +2067,9 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
     icon: {fileID: 21300000, guid: 6148338c961dc444584463aca9dc2b57, type: 3}
-  - eventName: "\uB79C\uB364\uC73C\uB85C\uBE14\uB85D5\uAC1C\uC124\uCE58_\uACF55\uAC1C\uCD94\uAC00"
-    explaination: "\uD558\uD2B8 5\uAC1C\uB97C \uC5BB\uACE0, \uC591\uB4E4\uC744 \uBB34\uC791\uC704\uB85C
-      5 \uB9C8\uB9AC \uC18C\uD658\uD569\uB2C8\uB2E4."
+  - eventName: "\uB79C\uB364\uC73C\uB85C\uBE14\uB85D5\uAC1C\uC124\uCE58_\uACF53\uAC1C\uCD94\uAC00"
+    explaination: "\uD558\uD2B8 3\uAC1C\uB97C \uC5BB\uACE0, \uC591\uB4E4\uC744 \uBB34\uC791\uC704\uB85C
+      6 \uB9C8\uB9AC \uC18C\uD658\uD569\uB2C8\uB2E4."
     unityAction:
       m_PersistentCalls:
         m_Calls:
@@ -2078,7 +2080,38 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 5
+            m_IntArgument: 6
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 118720121}
+          m_TargetAssemblyTypeName: EventManager, Assembly-CSharp
+          m_MethodName: SetBallCountIncrease
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 3
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    icon: {fileID: 21300000, guid: 42fa8e619ccbb4d95837d0577c7c3a96, type: 3}
+  - eventName: "\uB79C\uB364\uC73C\uB85C\uBE14\uB85D5\uAC1C\uC124\uCE58_\uACF53\uAC1C\uCD94\uAC00"
+    explaination: "\uD558\uD2B8 5\uAC1C\uB97C \uC5BB\uACE0, \uC591\uB4E4\uC744 \uBB34\uC791\uC704\uB85C
+      10 \uB9C8\uB9AC \uC18C\uD658\uD569\uB2C8\uB2E4."
+    unityAction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 118720121}
+          m_TargetAssemblyTypeName: EventManager, Assembly-CSharp
+          m_MethodName: SetRandomBlockGenerate
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 10
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -2091,6 +2124,37 @@ MonoBehaviour:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 5
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    icon: {fileID: 21300000, guid: 42fa8e619ccbb4d95837d0577c7c3a96, type: 3}
+  - eventName: "\uB79C\uB364\uC73C\uB85C\uBE14\uB85D15\uAC1C\uC124\uCE58_\uACF58\uAC1C\uCD94\uAC00"
+    explaination: "\uD558\uD2B8 8\uAC1C\uB97C \uC5BB\uACE0, \uC591\uB4E4\uC744 \uBB34\uC791\uC704\uB85C
+      15 \uB9C8\uB9AC \uC18C\uD658\uD569\uB2C8\uB2E4."
+    unityAction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 118720121}
+          m_TargetAssemblyTypeName: EventManager, Assembly-CSharp
+          m_MethodName: SetRandomBlockGenerate
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 15
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 118720121}
+          m_TargetAssemblyTypeName: EventManager, Assembly-CSharp
+          m_MethodName: SetBallCountIncrease
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 8
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -2115,7 +2179,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
     icon: {fileID: 21300000, guid: 93cd4d48449334f2fb16533153c15641, type: 3}
-  - eventName: "\uBC18\uBC18\uD655\uB960\uB85C_\uD2B9\uC218\uACF51\uCD94\uAC00_\uACF52\uAC10\uC18C"
+  - eventName: "\uBC18\uBC18\uD655\uB960\uB85C_\uD2B9\uC218\uACF51\uCD94\uAC00_\uACF55\uAC10\uC18C"
     explaination: "50% \uD655\uB960\uB85C \uD2B9\uC218 \uD558\uD2B8\uB97C 1\uAC1C
       \uC5BB\uAC70\uB098, \uD558\uD2B8\uAC00 2\uAC1C \uAC10\uC18C\uD569\uB2C8\uB2E4."
     unityAction:
@@ -2238,8 +2302,8 @@ MonoBehaviour:
         m_Calls: []
     icon: {fileID: 21300000, guid: a89ecb81d0b9345f29530b2b64ab2877, type: 3}
   - eventName: crossBall
-    explaination: "\uD558\uD2B8 5\uAC1C\uB85C [\uB2FF\uC73C\uBA74 \uC2ED\uC790\uAC00
-      \uBC94\uC704\uB85C \uC0DD\uBA85\uC744 \uC8FC\uB294 \uD558\uD2B8]\uC640 \uAD50\uD658\uD569\uB2C8\uB2E4."
+    explaination: "\uD558\uD2B8 7\uAC1C\uB85C [\uC2ED\uC790\uAC00 \uD558\uD2B8]\uC640
+      \uAD50\uD658\uD569\uB2C8\uB2E4."
     unityAction:
       m_PersistentCalls:
         m_Calls:
@@ -2257,9 +2321,7 @@ MonoBehaviour:
           m_CallState: 2
     icon: {fileID: 21300000, guid: a89ecb81d0b9345f29530b2b64ab2877, type: 3}
   - eventName: Bomb
-    explaination: "\uD558\uD2B8 5\uAC1C\uB85C [\uD55C \uBC88 \uD070 \uBC94\uC704\uB85C
-      \uD3ED\uBC1C\uC801\uC778 \uC0DD\uBA85\uC744 \uC8FC\uB294 \uD558\uD2B8]\uC640
-      \uAD50\uD658\uD569\uB2C8\uB2E4."
+    explaination: "\uD558\uD2B8 7\uAC1C\uB85C [Love Bomb]\uC640 \uAD50\uD658\uD569\uB2C8\uB2E4."
     unityAction:
       m_PersistentCalls:
         m_Calls:
@@ -2277,8 +2339,8 @@ MonoBehaviour:
           m_CallState: 2
     icon: {fileID: 21300000, guid: e908e97c9eb3d48249a8f9c081a739b4, type: 3}
   - eventName: Vertical
-    explaination: "\uD558\uD2B8 5\uAC1C\uB85C [\uB2FF\uC73C\uBA74 \uC704 \uC544\uB798\uB85C
-      \uC0DD\uBA85\uC744 \uC8FC\uB294 \uBB34\uC9C0\uAC1C \uD558\uD2B8]\uC640 \uAD50\uD658\uD569\uB2C8\uB2E4."
+    explaination: "\uD558\uD2B8 7\uAC1C\uB85C [\uC0C1\uD558 \uBB34\uC9C0\uAC1C \uD558\uD2B8]\uC640
+      \uAD50\uD658\uD569\uB2C8\uB2E4."
     unityAction:
       m_PersistentCalls:
         m_Calls:
@@ -2296,8 +2358,8 @@ MonoBehaviour:
           m_CallState: 2
     icon: {fileID: 21300000, guid: 38cdd3a5dcfc9469cac305cf9e9b4ab9, type: 3}
   - eventName: Horizontal
-    explaination: "\uD558\uD2B8 5\uAC1C\uB85C [\uB2FF\uC73C\uBA74 \uC88C\uC6B0\uB85C
-      \uC0DD\uBA85\uC744 \uC8FC\uB294  \uBB34\uC9C0\uAC1C \uD558\uD2B8]\uC640 \uAD50\uD658\uD569\uB2C8\uB2E4."
+    explaination: "\uD558\uD2B8 7\uAC1C\uB85C [\uC88C\uC6B0 \uBB34\uC9C0\uAC1C \uD558\uD2B8]\uC640
+      \uAD50\uD658\uD569\uB2C8\uB2E4."
     unityAction:
       m_PersistentCalls:
         m_Calls:
@@ -2315,8 +2377,8 @@ MonoBehaviour:
           m_CallState: 2
     icon: {fileID: 21300000, guid: 38cdd3a5dcfc9469cac305cf9e9b4ab9, type: 3}
   - eventName: Split
-    explaination: "\uD558\uD2B8 5\uAC1C\uB85C [\uD55C \uBC88 \uB2FF\uC73C\uBA74 \uB458\uB85C
-      \uCABC\uAC1C\uC9C0\uB294 \uD558\uD2B8]\uC640 \uAD50\uD658\uD569\uB2C8\uB2E4."
+    explaination: "\uD558\uD2B8 7\uAC1C\uB85C [\uBCF5\uC81C\uD558\uB294 \uD558\uD2B8]\uC640
+      \uAD50\uD658\uD569\uB2C8\uB2E4."
     unityAction:
       m_PersistentCalls:
         m_Calls:
@@ -2334,8 +2396,8 @@ MonoBehaviour:
           m_CallState: 2
     icon: {fileID: 21300000, guid: ff1e1969d081248f1b9c834da6356025, type: 3}
   - eventName: Drill
-    explaination: "\uD558\uD2B8 5\uAC1C\uB85C [\uC591\uC744 \uAD00\uD1B5\uD574 \uC0DD\uBA85\uC744
-      \uC8FC\uB294 \uD558\uD2B8]\uC640 \uAD50\uD658\uD569\uB2C8\uB2E4."
+    explaination: "\uD558\uD2B8 7\uAC1C\uB85C [\uAD00\uD1B5\uD558\uB294 \uD558\uD2B8]\uC640
+      \uAD50\uD658\uD569\uB2C8\uB2E4."
     unityAction:
       m_PersistentCalls:
         m_Calls:
@@ -2353,8 +2415,8 @@ MonoBehaviour:
           m_CallState: 2
     icon: {fileID: 21300000, guid: d4a1a2614c85643cb96b9dbdbfebef11, type: 3}
   - eventName: Holly
-    explaination: "\uD558\uD2B8 5\uAC1C\uB85C [1% \uD655\uB960\uB85C \uC989\uC2DC
-      \uAD6C\uC6D0\uD558\uB294 \uD558\uD2B8]\uC640 \uAD50\uD658\uD569\uB2C8\uB2E4."
+    explaination: "\uD558\uD2B8 7\uAC1C\uB85C [1% \uC989\uC2DC \uAD6C\uC6D0 \uD558\uD2B8]\uC640
+      \uAD50\uD658\uD569\uB2C8\uB2E4."
     unityAction:
       m_PersistentCalls:
         m_Calls:
@@ -3068,6 +3130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 171708711}
   - component: {fileID: 171708713}
+  - component: {fileID: 171708714}
   m_Layer: 0
   m_Name: Water
   m_TagString: Untagged
@@ -3113,7 +3176,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 534457249}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3145,6 +3208,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &171708714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 171708710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee158225ee1e59f4791627785501d950, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shaderTypes: 0
+  normalStrength: 5
+  normalSmoothing: 1
+  computingNormal: 0
 --- !u!1 &176769404
 GameObject:
   m_ObjectHideFlags: 0
@@ -6565,6 +6644,7 @@ GameObject:
   m_Component:
   - component: {fileID: 486235849}
   - component: {fileID: 486235850}
+  - component: {fileID: 486235851}
   m_Layer: 0
   m_Name: Water (1)
   m_TagString: Untagged
@@ -6610,7 +6690,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 1591015458}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6642,6 +6722,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &486235851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486235848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee158225ee1e59f4791627785501d950, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shaderTypes: 0
+  normalStrength: 5
+  normalSmoothing: 1
+  computingNormal: 0
 --- !u!1 &494007519
 GameObject:
   m_ObjectHideFlags: 0
@@ -7216,6 +7312,251 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &534457249
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: AllIn1SpriteShader/AllIn1SpriteShader
+  m_Shader: {fileID: 4800000, guid: a36b7719ff0465b42ab1407d67672c5f, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - DOODLE_ON
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _ColorRampTex:
+        m_Texture: {fileID: 2800000, guid: 279657edc397ece4b8029c727adf6ddc, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ColorRampTexGradient:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ColorSwapTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DistortTex:
+        m_Texture: {fileID: 2800000, guid: 7aad8c583ef292e48b06af0d1f2fab97, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FadeBurnTex:
+        m_Texture: {fileID: 2800000, guid: 677cca399782dea41aedc1d292ecb67d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FadeTex:
+        m_Texture: {fileID: 2800000, guid: 7aad8c583ef292e48b06af0d1f2fab97, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _GlowTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineDistortTex:
+        m_Texture: {fileID: 2800000, guid: 7aad8c583ef292e48b06af0d1f2fab97, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineTex:
+        m_Texture: {fileID: 2800000, guid: 74087f6d03f233e4a8a142fa01f9e5cf, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OverlayTex:
+        m_Texture: {fileID: 2800000, guid: 677cca399782dea41aedc1d292ecb67d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ShineMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Alpha: 1
+    - _AlphaCutoffValue: 0.25
+    - _AlphaOutlineBlend: 1
+    - _AlphaOutlineGlow: 5
+    - _AlphaOutlineMinAlpha: 0
+    - _AlphaOutlinePower: 1
+    - _AlphaRoundThreshold: 0.5
+    - _BillboardY: 0
+    - _BlurHD: 0
+    - _BlurIntensity: 10
+    - _Brightness: 0
+    - _ChromAberrAlpha: 0.4
+    - _ChromAberrAmount: 1
+    - _ClipUvDown: 0
+    - _ClipUvLeft: 0
+    - _ClipUvRight: 0
+    - _ClipUvUp: 0
+    - _ColorChangeLuminosity: 0
+    - _ColorChangeTolerance: 0.25
+    - _ColorChangeTolerance2: 0.25
+    - _ColorChangeTolerance3: 0.25
+    - _ColorRampBlend: 1
+    - _ColorRampLuminosity: 0
+    - _ColorRampOutline: 0
+    - _ColorSwapBlend: 1
+    - _ColorSwapBlueLuminosity: 0.5
+    - _ColorSwapGreenLuminosity: 0.5
+    - _ColorSwapRedLuminosity: 0.5
+    - _Contrast: 1
+    - _CullingOption: 0
+    - _DistortAmount: 0.5
+    - _DistortTexXSpeed: 5
+    - _DistortTexYSpeed: 5
+    - _EditorDrawers: 6
+    - _FadeAmount: -0.1
+    - _FadeBurnGlow: 2
+    - _FadeBurnTransition: 0.075
+    - _FadeBurnWidth: 0.025
+    - _FishEyeUvAmount: 0.35
+    - _FlickerAlpha: 0
+    - _FlickerFreq: 0.2
+    - _FlickerPercent: 0.05
+    - _GhostBlend: 1
+    - _GhostColorBoost: 1
+    - _GhostTransparency: 0
+    - _GlitchAmount: 3
+    - _GlitchSize: 1
+    - _Glow: 10
+    - _GlowGlobal: 1
+    - _GradBlend: 1
+    - _GradBoostX: 1.2
+    - _GradBoostY: 1.2
+    - _GradIsRadial: 0
+    - _GrassManualAnim: 1
+    - _GrassManualToggle: 0
+    - _GrassRadialBend: 0.1
+    - _GrassSpeed: 2
+    - _GrassWind: 20
+    - _GreyscaleBlend: 1
+    - _GreyscaleLuminosity: 0
+    - _GreyscaleOutline: 0
+    - _HandDrawnAmount: 10
+    - _HandDrawnSpeed: 5
+    - _HitEffectBlend: 1
+    - _HitEffectGlow: 5
+    - _HologramBlend: 1
+    - _HologramMaxAlpha: 0.75
+    - _HologramMinAlpha: 0.1
+    - _HologramStripesAmount: 0.1
+    - _HologramStripesSpeed: 4.5
+    - _HologramUnmodAmount: 0
+    - _HsvBright: 1
+    - _HsvSaturation: 1
+    - _HsvShift: 180
+    - _InnerOutlineAlpha: 1
+    - _InnerOutlineGlow: 4
+    - _InnerOutlineThickness: 1
+    - _MaxXUV: 1
+    - _MaxYUV: 1
+    - _MinXUV: 0
+    - _MinYUV: 0
+    - _MotionBlurAngle: 0.1
+    - _MotionBlurDist: 1.25
+    - _MyDstMode: 10
+    - _MySrcMode: 5
+    - _NegativeAmount: 1
+    - _OffsetUvX: 0
+    - _OffsetUvY: 0
+    - _OnlyInnerOutline: 0
+    - _OnlyOutline: 0
+    - _OutlineAlpha: 1
+    - _OutlineDistortAmount: 0.5
+    - _OutlineDistortTexXSpeed: 5
+    - _OutlineDistortTexYSpeed: 5
+    - _OutlineGlow: 1.5
+    - _OutlinePixelWidth: 1
+    - _OutlineTexXSpeed: 10
+    - _OutlineTexYSpeed: 0
+    - _OutlineWidth: 0.004
+    - _OverlayBlend: 1
+    - _OverlayGlow: 1
+    - _OverlayTextureScrollXSpeed: 0.25
+    - _OverlayTextureScrollYSpeed: 0.25
+    - _PinchUvAmount: 0.35
+    - _PixelateSize: 32
+    - _PosterizeGamma: 0.75
+    - _PosterizeNumColors: 8
+    - _PosterizeOutline: 0
+    - _RadialClip: 45
+    - _RadialClip2: 0
+    - _RadialStartAngle: 90
+    - _RandomSeed: 0
+    - _RectSize: 1
+    - _RotateUvAmount: 0
+    - _RoundWaveSpeed: 2
+    - _RoundWaveStrength: 0.7
+    - _ShadowAlpha: 0.5
+    - _ShadowX: 0.1
+    - _ShadowY: -0.05
+    - _ShakeUvSpeed: 2.5
+    - _ShakeUvX: 1.5
+    - _ShakeUvY: 1
+    - _ShineGlow: 1
+    - _ShineLocation: 0.5
+    - _ShineRotate: 0
+    - _ShineWidth: 0.1
+    - _TextureScrollXSpeed: 1
+    - _TextureScrollYSpeed: 0
+    - _TwistUvAmount: 1
+    - _TwistUvPosX: 0.5
+    - _TwistUvPosY: 0.5
+    - _TwistUvRadius: 0.75
+    - _WarpScale: 0.5
+    - _WarpSpeed: 8
+    - _WarpStrength: 0.025
+    - _WaveAmount: 7
+    - _WaveSpeed: 10
+    - _WaveStrength: 7.5
+    - _WaveX: 0
+    - _WaveY: 0.5
+    - _ZTestMode: 4
+    - _ZWrite: 0
+    - _ZoomUvAmount: 0.5
+    m_Colors:
+    - _AlphaOutlineColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorChangeNewCol: {r: 1, g: 1, b: 0, a: 1}
+    - _ColorChangeNewCol2: {r: 1, g: 1, b: 0, a: 1}
+    - _ColorChangeNewCol3: {r: 1, g: 1, b: 0, a: 1}
+    - _ColorChangeTarget: {r: 1, g: 0, b: 0, a: 1}
+    - _ColorChangeTarget2: {r: 1, g: 0, b: 0, a: 1}
+    - _ColorChangeTarget3: {r: 1, g: 0, b: 0, a: 1}
+    - _ColorSwapBlue: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorSwapGreen: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorSwapRed: {r: 1, g: 1, b: 1, a: 1}
+    - _FadeBurnColor: {r: 1, g: 1, b: 0, a: 1}
+    - _GlowColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GradBotLeftCol: {r: 0, g: 0, b: 1, a: 1}
+    - _GradBotRightCol: {r: 0, g: 1, b: 0, a: 1}
+    - _GradTopLeftCol: {r: 1, g: 0, b: 0, a: 1}
+    - _GradTopRightCol: {r: 1, g: 1, b: 0, a: 1}
+    - _GreyscaleTintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HitEffectColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HologramStripeColor: {r: 0, g: 1, b: 1, a: 1}
+    - _InnerOutlineColor: {r: 1, g: 0, b: 0, a: 1}
+    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OverlayColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ShineColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &549595863
 GameObject:
   m_ObjectHideFlags: 0
@@ -15930,7 +16271,7 @@ Transform:
   m_GameObject: {fileID: 1426314747}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: -1.0999999, y: -38, z: 0}
+  m_LocalPosition: {x: -1.0999999, y: -36.92, z: 0}
   m_LocalScale: {x: 3.8, y: 3.8, z: 3.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17920,6 +18261,251 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!21 &1591015458
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: AllIn1SpriteShader/AllIn1SpriteShader
+  m_Shader: {fileID: 4800000, guid: a36b7719ff0465b42ab1407d67672c5f, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - DOODLE_ON
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _ColorRampTex:
+        m_Texture: {fileID: 2800000, guid: 279657edc397ece4b8029c727adf6ddc, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ColorRampTexGradient:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ColorSwapTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DistortTex:
+        m_Texture: {fileID: 2800000, guid: 7aad8c583ef292e48b06af0d1f2fab97, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FadeBurnTex:
+        m_Texture: {fileID: 2800000, guid: 677cca399782dea41aedc1d292ecb67d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FadeTex:
+        m_Texture: {fileID: 2800000, guid: 7aad8c583ef292e48b06af0d1f2fab97, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _GlowTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineDistortTex:
+        m_Texture: {fileID: 2800000, guid: 7aad8c583ef292e48b06af0d1f2fab97, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineTex:
+        m_Texture: {fileID: 2800000, guid: 74087f6d03f233e4a8a142fa01f9e5cf, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OverlayTex:
+        m_Texture: {fileID: 2800000, guid: 677cca399782dea41aedc1d292ecb67d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ShineMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Alpha: 1
+    - _AlphaCutoffValue: 0.25
+    - _AlphaOutlineBlend: 1
+    - _AlphaOutlineGlow: 5
+    - _AlphaOutlineMinAlpha: 0
+    - _AlphaOutlinePower: 1
+    - _AlphaRoundThreshold: 0.5
+    - _BillboardY: 0
+    - _BlurHD: 0
+    - _BlurIntensity: 10
+    - _Brightness: 0
+    - _ChromAberrAlpha: 0.4
+    - _ChromAberrAmount: 1
+    - _ClipUvDown: 0
+    - _ClipUvLeft: 0
+    - _ClipUvRight: 0
+    - _ClipUvUp: 0
+    - _ColorChangeLuminosity: 0
+    - _ColorChangeTolerance: 0.25
+    - _ColorChangeTolerance2: 0.25
+    - _ColorChangeTolerance3: 0.25
+    - _ColorRampBlend: 1
+    - _ColorRampLuminosity: 0
+    - _ColorRampOutline: 0
+    - _ColorSwapBlend: 1
+    - _ColorSwapBlueLuminosity: 0.5
+    - _ColorSwapGreenLuminosity: 0.5
+    - _ColorSwapRedLuminosity: 0.5
+    - _Contrast: 1
+    - _CullingOption: 0
+    - _DistortAmount: 0.5
+    - _DistortTexXSpeed: 5
+    - _DistortTexYSpeed: 5
+    - _EditorDrawers: 6
+    - _FadeAmount: -0.1
+    - _FadeBurnGlow: 2
+    - _FadeBurnTransition: 0.075
+    - _FadeBurnWidth: 0.025
+    - _FishEyeUvAmount: 0.35
+    - _FlickerAlpha: 0
+    - _FlickerFreq: 0.2
+    - _FlickerPercent: 0.05
+    - _GhostBlend: 1
+    - _GhostColorBoost: 1
+    - _GhostTransparency: 0
+    - _GlitchAmount: 3
+    - _GlitchSize: 1
+    - _Glow: 10
+    - _GlowGlobal: 1
+    - _GradBlend: 1
+    - _GradBoostX: 1.2
+    - _GradBoostY: 1.2
+    - _GradIsRadial: 0
+    - _GrassManualAnim: 1
+    - _GrassManualToggle: 0
+    - _GrassRadialBend: 0.1
+    - _GrassSpeed: 2
+    - _GrassWind: 20
+    - _GreyscaleBlend: 1
+    - _GreyscaleLuminosity: 0
+    - _GreyscaleOutline: 0
+    - _HandDrawnAmount: 10
+    - _HandDrawnSpeed: 5
+    - _HitEffectBlend: 1
+    - _HitEffectGlow: 5
+    - _HologramBlend: 1
+    - _HologramMaxAlpha: 0.75
+    - _HologramMinAlpha: 0.1
+    - _HologramStripesAmount: 0.1
+    - _HologramStripesSpeed: 4.5
+    - _HologramUnmodAmount: 0
+    - _HsvBright: 1
+    - _HsvSaturation: 1
+    - _HsvShift: 180
+    - _InnerOutlineAlpha: 1
+    - _InnerOutlineGlow: 4
+    - _InnerOutlineThickness: 1
+    - _MaxXUV: 1
+    - _MaxYUV: 1
+    - _MinXUV: 0
+    - _MinYUV: 0
+    - _MotionBlurAngle: 0.1
+    - _MotionBlurDist: 1.25
+    - _MyDstMode: 10
+    - _MySrcMode: 5
+    - _NegativeAmount: 1
+    - _OffsetUvX: 0
+    - _OffsetUvY: 0
+    - _OnlyInnerOutline: 0
+    - _OnlyOutline: 0
+    - _OutlineAlpha: 1
+    - _OutlineDistortAmount: 0.5
+    - _OutlineDistortTexXSpeed: 5
+    - _OutlineDistortTexYSpeed: 5
+    - _OutlineGlow: 1.5
+    - _OutlinePixelWidth: 1
+    - _OutlineTexXSpeed: 10
+    - _OutlineTexYSpeed: 0
+    - _OutlineWidth: 0.004
+    - _OverlayBlend: 1
+    - _OverlayGlow: 1
+    - _OverlayTextureScrollXSpeed: 0.25
+    - _OverlayTextureScrollYSpeed: 0.25
+    - _PinchUvAmount: 0.35
+    - _PixelateSize: 32
+    - _PosterizeGamma: 0.75
+    - _PosterizeNumColors: 8
+    - _PosterizeOutline: 0
+    - _RadialClip: 45
+    - _RadialClip2: 0
+    - _RadialStartAngle: 90
+    - _RandomSeed: 0
+    - _RectSize: 1
+    - _RotateUvAmount: 0
+    - _RoundWaveSpeed: 2
+    - _RoundWaveStrength: 0.7
+    - _ShadowAlpha: 0.5
+    - _ShadowX: 0.1
+    - _ShadowY: -0.05
+    - _ShakeUvSpeed: 2.5
+    - _ShakeUvX: 1.5
+    - _ShakeUvY: 1
+    - _ShineGlow: 1
+    - _ShineLocation: 0.5
+    - _ShineRotate: 0
+    - _ShineWidth: 0.1
+    - _TextureScrollXSpeed: 1
+    - _TextureScrollYSpeed: 0
+    - _TwistUvAmount: 1
+    - _TwistUvPosX: 0.5
+    - _TwistUvPosY: 0.5
+    - _TwistUvRadius: 0.75
+    - _WarpScale: 0.5
+    - _WarpSpeed: 8
+    - _WarpStrength: 0.025
+    - _WaveAmount: 7
+    - _WaveSpeed: 10
+    - _WaveStrength: 7.5
+    - _WaveX: 0
+    - _WaveY: 0.5
+    - _ZTestMode: 4
+    - _ZWrite: 0
+    - _ZoomUvAmount: 0.5
+    m_Colors:
+    - _AlphaOutlineColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorChangeNewCol: {r: 1, g: 1, b: 0, a: 1}
+    - _ColorChangeNewCol2: {r: 1, g: 1, b: 0, a: 1}
+    - _ColorChangeNewCol3: {r: 1, g: 1, b: 0, a: 1}
+    - _ColorChangeTarget: {r: 1, g: 0, b: 0, a: 1}
+    - _ColorChangeTarget2: {r: 1, g: 0, b: 0, a: 1}
+    - _ColorChangeTarget3: {r: 1, g: 0, b: 0, a: 1}
+    - _ColorSwapBlue: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorSwapGreen: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorSwapRed: {r: 1, g: 1, b: 1, a: 1}
+    - _FadeBurnColor: {r: 1, g: 1, b: 0, a: 1}
+    - _GlowColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GradBotLeftCol: {r: 0, g: 0, b: 1, a: 1}
+    - _GradBotRightCol: {r: 0, g: 1, b: 0, a: 1}
+    - _GradTopLeftCol: {r: 1, g: 0, b: 0, a: 1}
+    - _GradTopRightCol: {r: 1, g: 1, b: 0, a: 1}
+    - _GreyscaleTintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HitEffectColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HologramStripeColor: {r: 0, g: 1, b: 1, a: 1}
+    - _InnerOutlineColor: {r: 1, g: 0, b: 0, a: 1}
+    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OverlayColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ShineColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &1596927063
 GameObject:
   m_ObjectHideFlags: 0

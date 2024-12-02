@@ -21,11 +21,29 @@ public class Ball : MonoBehaviour
 
     private int bounceTime;
 
+    public LayerMask passableWallLayer; // 관통 가능한 벽의 레이어
+
+
+    private Collider2D currentBlock; // 현재 충돌된 블록
+    private Collider2D previousBlock; // 이전 충돌된 블록
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         // Rigidbody2D를 초기 방향으로 설정
         rb.linearVelocity = moveDirection.normalized * speed;
+
+        if (ballType == BallType.Drill)
+        {
+            Collider2D[] passableWalls = FindObjectsOfType<Collider2D>();
+            foreach (Collider2D wall in passableWalls)
+            {
+                if (((1 << wall.gameObject.layer) & passableWallLayer) != 0)
+                {
+                    Physics2D.IgnoreCollision(wall, GetComponent<Collider2D>());
+                }
+            }
+        }
     }
 
     public void Initialize(Vector3 direction)
@@ -40,6 +58,7 @@ public class Ball : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.transform.CompareTag("Block")) SpawnParticle(collision.transform.GetComponent<Block>());
+
 
         if (collision.transform.CompareTag("BottomLine"))
         {
@@ -71,19 +90,17 @@ public class Ball : MonoBehaviour
         // Z축 회전 적용
         transform.rotation = Quaternion.Euler(0, 0, angle);
 
-        if (bounceTime > 20 && speedMode == false)
+        if (bounceTime > 20 && bounceTime <= 70 && !speedMode)
         {
             rb.linearVelocity = moveDirection * speed * 2;
             speedMode = true;
         }
 
-        if (bounceTime > 70) speedMode = false;
-        if (bounceTime > 70 && speedMode == false)
-        {
-            rb.linearVelocity = moveDirection * (Vector2.up * 3);
-            
-            speedMode = true;
-        }
+        //if (bounceTime > 70 && speedMode)
+        //{
+        //    rb.linearVelocity = moveDirection + (Vector2.up * 3);
+        //    speedMode = false; // 상태를 초기화해 반복 호출 방지
+        //}
 
     }
 
@@ -91,6 +108,8 @@ public class Ball : MonoBehaviour
     {
         Vector3 particlePos = transform.position;
         List<Block> affectedBlocks = new List<Block>();
+
+        int damage = 1;
 
         switch (ballType)
         {
@@ -108,6 +127,7 @@ public class Ball : MonoBehaviour
                 // Bomb: 폭발 범위 추가
                 affectedBlocks.AddRange(GameLogicManager.instance.blockManager.GetAdjacentBlocks(block));
                 GameLogicManager.instance.ballList.Remove(this);
+                damage = 10;
                 Destroy(gameObject);
                 break;
 
@@ -126,14 +146,16 @@ public class Ball : MonoBehaviour
             case BallType.Split:
                 var splitedBall = Instantiate(gameObject).GetComponent<Ball>();
                 splitedBall.ballType = BallType.Common;
+                splitedBall.ballDownAction = this.ballDownAction;
+
+                GameLogicManager.instance.ballList.Add(splitedBall);
                 ballType = BallType.Common;
                 transform.localScale = Vector3.one * 0.4f;
                 splitedBall.transform.localScale = Vector3.one * 0.4f;
-
-                GameLogicManager.instance.removeObjsAfterTurnEnd.Add(splitedBall.gameObject);
                 break;
 
             case BallType.Drill:
+                //따로 처리해놨음
                 break;
 
             case BallType.Holly:
@@ -142,6 +164,7 @@ public class Ball : MonoBehaviour
                     block.DestroyAnimation();
                     particlePos = block.transform.position;
                 }
+                else return;
                 break;
 
             default:
@@ -150,7 +173,7 @@ public class Ball : MonoBehaviour
 
         // 파티클 생성 (기준 블록 위치와 ballType 전달)
         GameLogicManager.instance.SpawnHeartParticle(particlePos, ballType);
-        GameLogicManager.instance.DamagedWithBlockList(affectedBlocks);
+        GameLogicManager.instance.DamagedWithBlockList(affectedBlocks, damage);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -164,5 +187,39 @@ public class Ball : MonoBehaviour
             return;
         }
 
+    }
+
+    private void Update()
+    {
+        if (ballType == BallType.Drill)
+        {
+
+            // 레이캐스트를 쏘아서 충돌된 오브젝트를 찾음
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, moveDirection, 0.3f, passableWallLayer);
+
+            // 레이캐스트가 무엇인가에 충돌했다면
+            if (hit.collider != null)
+            {
+                if (hit.collider != previousBlock)
+                {
+                    previousBlock = hit.collider;
+                    HandleBlockHit(hit.collider);
+                }
+            }
+            else
+            {
+                // 충돌된 블록이 없다면 currentBlock과 previousBlock을 null로 설정
+                currentBlock = null;
+                previousBlock = null;
+            }
+        }
+    }
+
+    // 블록 충돌 시 호출되는 함수
+    private void HandleBlockHit(Collider2D block)
+    {
+        // 블록에 대해 원하는 처리
+        Debug.Log($"Handling block: {block.name}");
+        block.GetComponent<Block>().OnDrillCall();
     }
 }
