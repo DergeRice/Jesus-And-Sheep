@@ -248,7 +248,7 @@ public class BlockManager : MonoBehaviour
 
         selectiveRandom.SetWeightAtIndex(3, selectiveRandom.GetWeightAtIndex(3) * 1.03f);
         selectiveRandom.SetWeightAtIndex(4, selectiveRandom.GetWeightAtIndex(4) * 1.04f);
-        selectiveRandom.SetWeightAtIndex(5, selectiveRandom.GetWeightAtIndex(5) * 1.05f);
+        selectiveRandom.SetWeightAtIndex(5, selectiveRandom.GetWeightAtIndex(5) * 1.035f);
 
         selectiveRandom.Normalize();
 
