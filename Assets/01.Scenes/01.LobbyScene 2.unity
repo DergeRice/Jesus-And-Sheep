@@ -5111,7 +5111,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &905201777
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8571,11 +8571,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2901014556401010176, guid: c5f1a5d8c36524086ac3ba5a75f10edf, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 152
+      value: 101
       objectReference: {fileID: 0}
     - target: {fileID: 2901014556401010176, guid: c5f1a5d8c36524086ac3ba5a75f10edf, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 152
+      value: 114
       objectReference: {fileID: 0}
     - target: {fileID: 2901014556401010176, guid: c5f1a5d8c36524086ac3ba5a75f10edf, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8607,11 +8607,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2901014556401010176, guid: c5f1a5d8c36524086ac3ba5a75f10edf, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -106.97
+      value: -100.66168
       objectReference: {fileID: 0}
     - target: {fileID: 2901014556401010176, guid: c5f1a5d8c36524086ac3ba5a75f10edf, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -245
+      value: -143.16919
       objectReference: {fileID: 0}
     - target: {fileID: 2901014556401010176, guid: c5f1a5d8c36524086ac3ba5a75f10edf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -8641,6 +8641,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7189895459042421265, guid: c5f1a5d8c36524086ac3ba5a75f10edf, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8661868647387037840, guid: c5f1a5d8c36524086ac3ba5a75f10edf, type: 3}
       propertyPath: m_Type
       value: 0
@@ -8648,7 +8652,7 @@ PrefabInstance:
     - target: {fileID: 8661868647387037840, guid: c5f1a5d8c36524086ac3ba5a75f10edf, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: db6ae97f56508604c9e4ee47f018e13b, type: 3}
+      objectReference: {fileID: 21300000, guid: 3f287973840c642f88f2e1d09e99c8f6, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
