@@ -43,13 +43,15 @@ public class ScalableBlurConfig : BlurConfig
         set { maxDepth = Max(1, value); }
     }
 
+    public override int MinExtent => (Iteration + 1) * (Iteration + 1);
+
     /// <summary>
     /// User friendly property to control the amount of blur
     /// </summary>
     ///<value>
     /// Must be non-negative
     /// </value>
-    public float Strength
+    public override float Strength
     {
         get { return strength = radius * (3 * (1 << iteration) - 2) / UNIT_VARIANCE; }
         set

@@ -1,3 +1,36 @@
+v1.10:
+ - Increase the minimum supported Unity version to 2020.3 in accordant with the store requirements
+ - Fix memory leak on domain reload in editor
+
+v1.9.1:
+ - Improve memory usage in certain cases
+
+v1.9.0:
+ - Remove Color Bleed mode. It has no longer been necessary for a while.
+ - Fix Inset mode not working correctly with certain combination of settings.
+ - Inset mode now use Color by default. You may need to change Color back to black if that's what you want.
+
+v1.8.5:
+ - Improve compatibility with custom shaders
+
+v1.8.4:
+ - Fix time delay in custom shaders
+ - Improve linear space rendering in newer Unity versions
+
+v1.8.3:
+ - Shadows now take CanvasRender color into account. This improves compatibilities with the Toggle component.
+ - Improve compatibility with Unity 2023
+
+v1.8.2:
+ - Improve compatibility with TextMesh Pro
+ - Improve documentation on TextMesh Pro
+
+v1.8.1:
+ - Fix compile error in Unity 6
+
+v1.8.0:
+ - New Accurate algorithm for thin features
+
 v1.7.1:
  - Fix shadow fade out at 0 size
 

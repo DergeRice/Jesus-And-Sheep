@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using LeTai.Effects;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
@@ -11,18 +12,20 @@ using UnityEngine.UI;
 namespace LeTai.TrueShadow
 {
 [RequireComponent(typeof(Graphic))]
-// Doesn't seem to cause problem any more. Hmm
-// [DisallowMultipleComponent]
 [HelpURL("https://leloctai.com/trueshadow/docs/articles/customize.html")]
 [ExecuteAlways]
 public partial class TrueShadow : UIBehaviour, IMeshModifier, ICanvasElement
 {
     static readonly Color DEFAULT_COLOR = new Color(0, 0, 0, .6f);
 
+    [Tooltip("Accurate algorithm doesn't miss small features, but can be much slower for large or dynamic shadows. " +
+             "Fast is recommended in most cases")]
+    [SerializeField] BlurAlgorithmSelection algorithm = BlurAlgorithmSelection.Fast;
+
     [Tooltip("Size of the shadow")]
     [SerializeField] float size = 32;
 
-    [Tooltip("Spread of the shadow")]
+    [Tooltip("Make the shadow thicker")]
     [SpreadSlider]
     [SerializeField] float spread = 0;
 
@@ -54,11 +57,8 @@ public partial class TrueShadow : UIBehaviour, IMeshModifier, ICanvasElement
     [Tooltip("Ignore the shadow caster's color, so you can choose specific color for your shadow")]
     [SerializeField] bool ignoreCasterColor = false;
 
-    [Tooltip(
-        "How to obtain the color of the area outside of the source image. " +
-        "Automatically set based on Blend Mode. You should only change this setting if you are using some very custom UI that require it"
-    )]
-    [SerializeField] ColorBleedMode colorBleedMode;
+    [Tooltip("Reduce memory use of disabled shadows in exchange for slower enable")]
+    [SerializeField] bool deallocateOnDisable;
 
     [Tooltip("Improve shadow fit on some sprites")]
     [SerializeField] bool disableFitCompensation;
@@ -73,10 +73,32 @@ public partial class TrueShadow : UIBehaviour, IMeshModifier, ICanvasElement
     [Tooltip(
         "Bake the shadow to a sprite to reduce CPU and GPU usage at runtime, at the cost of storage, memory and flexibility"
     )]
+#pragma warning disable CS0169
     [SerializeField] bool baked;
+#pragma warning restore CS0169
 #pragma warning restore 0649
 
     [SerializeField] bool modifiedFromInspector = false;
+
+    public BlurAlgorithmSelection Algorithm
+    {
+        get => algorithm;
+        set
+        {
+            var newAlgo = value;
+            if (modifiedFromInspector || algorithm != newAlgo)
+            {
+                modifiedFromInspector = false;
+
+                SetLayoutDirty();
+                SetTextureDirty();
+            }
+
+            algorithm = newAlgo;
+
+            Size = size; // validate
+        }
+    }
 
     public float Size
     {
@@ -84,6 +106,9 @@ public partial class TrueShadow : UIBehaviour, IMeshModifier, ICanvasElement
         set
         {
             var newSize = Mathf.Max(0, value);
+            if (Algorithm == BlurAlgorithmSelection.Accurate)
+                newSize = Mathf.Min(newSize, BlurHQ.MAX_RADIUS);
+
             if (modifiedFromInspector || !Mathf.Approximately(size, newSize))
             {
                 modifiedFromInspector = false;
@@ -284,37 +309,6 @@ public partial class TrueShadow : UIBehaviour, IMeshModifier, ICanvasElement
 
             blendMode = value;
             shadowRenderer.UpdateMaterial();
-
-            switch (blendMode)
-            {
-            case BlendMode.Normal:
-            case BlendMode.Additive:
-            case BlendMode.Screen:
-            case BlendMode.Multiply:
-                ColorBleedMode = ColorBleedMode.Black;
-                break;
-            default:
-                ColorBleedMode = ColorBleedMode.Black;
-                break;
-            }
-        }
-    }
-
-    /// <summary>
-    /// How to obtain the color of the area outside of the source image. Automatically set based on Blend Mode. You should only change this setting if you are using some very custom UI that require it.
-    /// </summary>
-    public ColorBleedMode ColorBleedMode
-    {
-        get => colorBleedMode;
-        set
-        {
-            if (modifiedFromInspector || colorBleedMode != value)
-            {
-                modifiedFromInspector = false;
-
-                colorBleedMode = value;
-                SetTextureDirty();
-            }
         }
     }
 
@@ -336,35 +330,22 @@ public partial class TrueShadow : UIBehaviour, IMeshModifier, ICanvasElement
         }
     }
 
+    public bool DeallocateOnDisable
+    {
+        get => deallocateOnDisable;
+        set => deallocateOnDisable = value;
+    }
+
+
     /// <summary>
     /// The area where the alpha channel = 0 can be either 0, or the color of the edge of the texture, depend on how the texture was authored.
     /// Normally this is not visible, but when blurred, the alpha in these area will become greater than 0
-    /// Depend on the blendmode, different color for this clear area may be desired.
+    /// Depend on the blend mode, different color for this clear area may be desired.
     ///
     /// You can provide custom clear color by implementing <see cref="PluginInterfaces.ITrueShadowCasterClearColorProvider"/>, and set this to Plugin
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public Color ClearColor
-    {
-        get
-        {
-            switch (colorBleedMode)
-            {
-            case ColorBleedMode.ImageColor:
-                return Graphic.color.WithA(0);
-            case ColorBleedMode.ShadowColor:
-                return Color.WithA(0);
-            case ColorBleedMode.Black:
-                return Color.clear;
-            case ColorBleedMode.White:
-                return new Color(1, 1, 1, 0);
-            case ColorBleedMode.Plugin:
-                return casterClearColorProvider?.GetTrueShadowCasterClearColor() ?? Color.clear;
-            default:
-                throw new ArgumentOutOfRangeException();
-            }
-        }
-    }
+    public Color ClearColor => casterClearColorProvider?.GetTrueShadowCasterClearColor() ?? Color.clear;
 
     /// <summary>
     /// Can't be implemented due to <see href="https://issuetracker.unity3d.com/issues/prefab-instances-sibling-index-is-not-updated-when-a-lower-index-sibling-is-deleted">Unity's bug 1280465</see>. Do not use!
@@ -394,6 +375,17 @@ public partial class TrueShadow : UIBehaviour, IMeshModifier, ICanvasElement
         }
     }
 
+    /// <summary>
+    /// Always true due to <see cref="ShadowAsSibling"/>. Do not use!
+    /// </summary>
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public bool Cutout
+
+    {
+        get => !shadowAsSibling || cutout;
+        set => cutout = value;
+    }
+
 
     /// <summary>
     /// When using a Material that can modify the shadow shape,
@@ -418,17 +410,8 @@ public partial class TrueShadow : UIBehaviour, IMeshModifier, ICanvasElement
     public bool alwaysRender;
 #endif
 
-    /// <summary>
-    /// Always true due to <see cref="ShadowAsSibling"/>. Do not use!
-    /// </summary>
-    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-    public bool Cutout
-    {
-        get => !shadowAsSibling || cutout;
-        set => cutout = value;
-    }
-
-    [SerializeField] List<Sprite> bakedShadows;
+    [SerializeField]
+    List<Sprite> bakedShadows;
 
 
     internal ShadowRenderer shadowRenderer;
@@ -467,7 +450,7 @@ public partial class TrueShadow : UIBehaviour, IMeshModifier, ICanvasElement
     bool layoutDirty;
     int  shadowIndex = -1;
 
-    internal bool HierachyDirty { get; private set; }
+    internal bool HierarchyDirty { get; private set; }
 
     void OnGlobalAngleChanged(float angle)
     {
@@ -533,7 +516,8 @@ public partial class TrueShadow : UIBehaviour, IMeshModifier, ICanvasElement
 #endif
 
 #if UNITY_EDITOR
-        UnityEditor.Undo.undoRedoPerformed += ApplySerializedData;
+        UnityEditor.Undo.undoRedoPerformed                    += ApplySerializedData;
+        UnityEditor.AssemblyReloadEvents.beforeAssemblyReload += BeforeAssemblyReload;
 #endif
 
 #if UNITY_EDITOR
@@ -542,14 +526,22 @@ public partial class TrueShadow : UIBehaviour, IMeshModifier, ICanvasElement
 #endif
     }
 
+#if UNITY_EDITOR
+    void BeforeAssemblyReload()
+    {
+        ShadowFactory.Instance.ReleaseContainer(ref shadowContainer);
+    }
+#endif
+
     public void ApplySerializedData()
     {
         // Changes from prefab apply does not seem to call certain setters. Call manually
-        Size            = size;
-        Spread          = spread;
-        OffsetAngle     = offsetAngle;
-        OffsetDistance  = offsetDistance;
-        BlendMode       = blendMode;
+        Algorithm      = algorithm;
+        Size           = size;
+        Spread         = spread;
+        OffsetAngle    = offsetAngle;
+        OffsetDistance = offsetDistance;
+        BlendMode      = blendMode;
         // ShadowAsSibling = shadowAsSibling;
 
         SetHierachyDirty();
@@ -571,10 +563,14 @@ public partial class TrueShadow : UIBehaviour, IMeshModifier, ICanvasElement
         TerminateInvalidator();
         TerminatePlugins();
 
+        if (DeallocateOnDisable)
+            ShadowFactory.Instance.ReleaseContainer(ref shadowContainer);
+
         if (shadowRenderer) shadowRenderer.gameObject.SetActive(false);
 
 #if UNITY_EDITOR
-        UnityEditor.Undo.undoRedoPerformed -= ApplySerializedData;
+        UnityEditor.Undo.undoRedoPerformed                    -= ApplySerializedData;
+        UnityEditor.AssemblyReloadEvents.beforeAssemblyReload -= BeforeAssemblyReload;
 #endif
     }
 
@@ -673,27 +669,28 @@ public partial class TrueShadow : UIBehaviour, IMeshModifier, ICanvasElement
 
     public void SetHierachyDirty()
     {
-        HierachyDirty = true;
+        HierarchyDirty = true;
     }
 
     internal void UnSetHierachyDirty()
     {
-        HierachyDirty = false;
+        HierarchyDirty = false;
     }
 
     public void CopyTo(TrueShadow other)
     {
-        other.Inset                  = Inset;
-        other.Size                   = Size;
-        other.Spread                 = Spread;
-        other.UseGlobalAngle         = UseGlobalAngle;
-        other.OffsetAngle            = OffsetAngle;
-        other.OffsetDistance         = OffsetDistance;
-        other.Color                  = Color;
-        other.BlendMode              = BlendMode;
-        other.UseCasterAlpha         = UseCasterAlpha;
-        other.IgnoreCasterColor      = IgnoreCasterColor;
-        other.ColorBleedMode         = ColorBleedMode;
+        other.Inset             = Inset;
+        other.Algorithm         = Algorithm;
+        other.Size              = Size;
+        other.Spread            = Spread;
+        other.UseGlobalAngle    = UseGlobalAngle;
+        other.OffsetAngle       = OffsetAngle;
+        other.OffsetDistance    = OffsetDistance;
+        other.Color             = Color;
+        other.BlendMode         = BlendMode;
+        other.UseCasterAlpha    = UseCasterAlpha;
+        other.IgnoreCasterColor = IgnoreCasterColor;
+        // other.ColorBleedMode         = ColorBleedMode;
         other.DisableFitCompensation = DisableFitCompensation;
 
         other.SetLayoutTextureDirty();

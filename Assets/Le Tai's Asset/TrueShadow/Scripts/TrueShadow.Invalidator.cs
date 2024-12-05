@@ -49,12 +49,12 @@ public partial class TrueShadow
 {
     Action               checkHierarchyDirtiedDelegate;
     IChangeTracker[]     transformTrackers;
-    ChangeTracker<int>[] hierachyTrackers;
+    ChangeTracker<int>[] hierarchyTrackers;
 
     void InitInvalidator()
     {
         checkHierarchyDirtiedDelegate = CheckHierarchyDirtied;
-        hierachyTrackers = new[] {
+        hierarchyTrackers = new[] {
             new ChangeTracker<int>(
                 () => RectTransform.GetSiblingIndex(),
                 newValue =>
@@ -99,6 +99,15 @@ public partial class TrueShadow
                 },
                 (prev, curr) => prev == curr
             ),
+            new ChangeTracker<Color>(
+                () => CanvasRenderer.GetColor(),
+                newValue =>
+                {
+                    SetLayoutDirty();
+                    return newValue;
+                },
+                (prev, curr) => prev == curr
+            )
         };
 
 #if TMP_PRESENT
@@ -171,20 +180,20 @@ public partial class TrueShadow
 
     internal void CheckHierarchyDirtied()
     {
-        if (ShadowAsSibling && hierachyTrackers != null)
+        if (ShadowAsSibling && hierarchyTrackers != null)
         {
-            for (var i = 0; i < hierachyTrackers.Length; i++)
+            for (var i = 0; i < hierarchyTrackers.Length; i++)
             {
-                hierachyTrackers[i].Check();
+                hierarchyTrackers[i].Check();
             }
         }
     }
 
     internal void ForgetSiblingIndexChanges()
     {
-        for (var i = 0; i < hierachyTrackers.Length; i++)
+        for (var i = 0; i < hierarchyTrackers.Length; i++)
         {
-            hierachyTrackers[i].Forget();
+            hierarchyTrackers[i].Forget();
         }
     }
 
@@ -263,7 +272,11 @@ public partial class TrueShadow
         }
         else if (Graphic is TMPro.TMP_SubMeshUI stmp)
         {
-            SpriteMesh = string.IsNullOrEmpty(stmp.textComponent.text) ? null : stmp.mesh;
+            var isEmpty = string.IsNullOrEmpty(stmp.textComponent.text);
+#if UNITY_2022_2 || UNITY_2023_2_OR_NEWER
+            isEmpty |= !stmp.canvasRenderer.GetMesh(); // This is a different mesh than stmp.mesh
+#endif
+            SpriteMesh = isEmpty ? null : stmp.mesh;
         }
 #endif
         SetLayoutDirty();

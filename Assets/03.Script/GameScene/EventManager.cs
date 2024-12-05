@@ -32,20 +32,30 @@ public class EventManager : MonoBehaviour
     {
         var randomValue = selectiveRandomWeight.GetRandomByWeight();
         int secondValue = 0;
+        int thirdValue = 0;
 
-        if(Random.value < 0.90f) //90%
-        {
-            gameLogicManager.ShowSelectPanel(specialBallEvents[Random.Range(1,8)],gameEvents[randomValue]);
-            return;
-        }
 
         for (int i = 0; i < 100; i++)
         {
             secondValue = selectiveRandomWeight.GetRandomByWeight();
 
-            if (secondValue != randomValue)
+            if (secondValue != randomValue) break;
+
+        }
+
+        if(Random.value < 0.90f) //90%
+        {
+            gameLogicManager.ShowSelectPanel(specialBallEvents[Random.Range(1,8)],gameEvents[randomValue],gameEvents[secondValue]);
+            return;
+        }
+
+        for (int i = 0; i < 100; i++)
+        {
+            thirdValue = selectiveRandomWeight.GetRandomByWeight();
+
+            if (thirdValue != randomValue && thirdValue != secondValue)
             {
-                gameLogicManager.ShowSelectPanel(gameEvents[randomValue], gameEvents[secondValue]);
+                gameLogicManager.ShowSelectPanel(gameEvents[randomValue], gameEvents[secondValue],gameEvents[thirdValue]);
                 break;
             }
         }
@@ -178,7 +188,7 @@ public class EventManager : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
         {
-            gameLogicManager.blockManager.SpawnBlock();
+            gameLogicManager.blockManager.SpawnRandomBlock();
         }
     }
 

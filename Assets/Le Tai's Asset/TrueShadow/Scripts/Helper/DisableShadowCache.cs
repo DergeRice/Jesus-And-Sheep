@@ -1,5 +1,6 @@
 using LeTai.TrueShadow.PluginInterfaces;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace LeTai.TrueShadow
 {
@@ -7,12 +8,24 @@ namespace LeTai.TrueShadow
 [RequireComponent(typeof(TrueShadow))]
 public class DisableShadowCache : MonoBehaviour, ITrueShadowCustomHashProvider
 {
-    TrueShadow shadow;
+    TrueShadow  shadow;
+    public bool everyFrame;
 
     void OnEnable()
     {
-        shadow            = GetComponent<TrueShadow>();
-        shadow.CustomHash = shadow.GetInstanceID();
+        shadow = GetComponent<TrueShadow>();
+        Dirty();
+    }
+
+    void Update()
+    {
+        if (everyFrame)
+            Dirty();
+    }
+
+    void Dirty()
+    {
+        shadow.CustomHash = Random.Range(int.MinValue, int.MaxValue);
         shadow.SetTextureDirty();
     }
 

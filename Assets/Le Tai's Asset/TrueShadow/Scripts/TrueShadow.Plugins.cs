@@ -24,8 +24,6 @@ public partial class TrueShadow
         casterMaterialPropertiesModifier = GetComponent<ITrueShadowCasterMaterialPropertiesModifier>();
         casterMeshModifier               = GetComponent<ITrueShadowCasterMeshModifier>();
         casterClearColorProvider         = GetComponent<ITrueShadowCasterClearColorProvider>();
-        if (casterClearColorProvider != null)
-            ColorBleedMode = ColorBleedMode.Plugin;
 
         rendererMaterialProvider = GetComponent<ITrueShadowRendererMaterialProvider>();
         rendererMaterialModifier = GetComponent<ITrueShadowRendererMaterialModifier>();

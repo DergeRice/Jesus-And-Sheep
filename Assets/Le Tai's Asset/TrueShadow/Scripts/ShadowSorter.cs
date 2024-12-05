@@ -131,7 +131,7 @@ public class ShadowSorter : MonoBehaviour
                 continue;
 
             shadow.CheckHierarchyDirtied();
-            if (shadow.HierachyDirty)
+            if (shadow.HierarchyDirty)
                 AddSortEntry(shadow);
         }
 

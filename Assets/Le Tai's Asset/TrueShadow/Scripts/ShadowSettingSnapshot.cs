@@ -1,3 +1,4 @@
+using LeTai.Effects;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,13 +6,14 @@ namespace LeTai.TrueShadow
 {
 class ShadowSettingSnapshot
 {
-    public readonly TrueShadow    shadow;
-    public readonly Canvas        canvas;
-    public readonly RectTransform canvasRt;
-    public readonly float         canvasScale;
-    public readonly float         size;
-    public readonly Vector2       canvasRelativeOffset;
-    public readonly Vector2       dimensions;
+    public readonly TrueShadow             shadow;
+    public readonly Canvas                 canvas;
+    public readonly RectTransform          canvasRt;
+    public readonly float                  canvasScale;
+    public readonly BlurAlgorithmSelection algorithm;
+    public readonly float                  size;
+    public readonly Vector2                canvasRelativeOffset;
+    public readonly Vector2                dimensions;
 
     internal ShadowSettingSnapshot(TrueShadow shadow)
     {
@@ -33,6 +35,8 @@ class ShadowSettingSnapshot
         dimensions = (Vector2)meshBound.size * canvasScale;
         size       = shadow.Size * canvasScale;
 
+        algorithm = shadow.Algorithm;
+
         CalcHash();
     }
 
@@ -52,7 +56,6 @@ class ShadowSettingSnapshot
 
         int colorHash = HashUtils.CombineHashCodes(
             shadow.IgnoreCasterColor ? 1 : 0,
-            (int)shadow.ColorBleedMode,
             (int)(imageColor.r * 255),
             (int)(imageColor.g * 255),
             (int)(imageColor.b * 255),
@@ -78,6 +81,7 @@ class ShadowSettingSnapshot
                                     Mathf.CeilToInt(dimensions.y / DIMENSIONS_HASH_STEP) * DIMENSIONS_HASH_STEP
                                 );
 
+        var algoHash   = (int)algorithm;
         var sizeHash   = Mathf.CeilToInt(size * 100);
         var spreadHash = Mathf.CeilToInt(shadow.Spread * 100);
 
@@ -89,6 +93,7 @@ class ShadowSettingSnapshot
             colorHash,
             offsetHash,
             dimensionHash,
+            algoHash,
             sizeHash,
             spreadHash,
             shadow.CustomHash

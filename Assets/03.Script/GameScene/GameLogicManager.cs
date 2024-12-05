@@ -53,6 +53,7 @@ public class GameLogicManager : MonoBehaviour
 
     public List<GameObject> removeObjsAfterTurnEnd = new List<GameObject>();
 
+    private Coroutine ballShootCo;
 
     private void Awake()
     {
@@ -124,7 +125,7 @@ public class GameLogicManager : MonoBehaviour
 
             // 공 생성 코루틴 시작
             gameCanvas.getBallDownButton.gameObject.SetActive(true);
-            StartCoroutine(SpawnBallCount(launchDirection, shootingBallDatas.Count));
+            ballShootCo = StartCoroutine(SpawnBallCount(launchDirection, shootingBallDatas.Count));
             ClearTrajectory();
 
             isPlayerTurn = false;
@@ -283,6 +284,7 @@ public class GameLogicManager : MonoBehaviour
             ball.GetComponent<CircleCollider2D>().isTrigger = true;
             ball.rb.linearVelocity = Vector2.down * 10;
         }
+        StopCoroutine(ballShootCo);
     }
 
     public void GetRandomSpecialBall(int amount)
@@ -291,9 +293,9 @@ public class GameLogicManager : MonoBehaviour
     }
 
 
-    public void ShowSelectPanel(GameEvent a, GameEvent b)
+    public void ShowSelectPanel(GameEvent a, GameEvent b, GameEvent c)
     {
-        gameCanvas.selectPanel.ShowPanel(a, b);
+        gameCanvas.selectPanel.ShowPanel(a, b, c);
     }
 
 
@@ -341,7 +343,6 @@ public class GameLogicManager : MonoBehaviour
     public void GetSpecialBall(BallType ballType)
     {
         shootingBallDatas.Add(ballType);
-        DelCommonBall(5);
     }
 
 }

@@ -1,3 +1,7 @@
+#if DEBUG
+// #define LOG_ALLOCATION
+#endif
+
 using System.Collections.Generic;
 using LeTai.Effects;
 using UnityEngine;
@@ -17,8 +21,10 @@ public class ShadowFactory
 
     readonly CommandBuffer         cmd;
     readonly MaterialPropertyBlock materialProps;
-    readonly ScalableBlur          blurProcessor;
-    readonly ScalableBlurConfig    blurConfig;
+    readonly ScalableBlur          blurProcessorFast;
+    readonly BlurHQ                blurProcessorAccurate;
+    readonly BlurConfig            blurConfigFast;
+    readonly BlurConfig            blurConfigAccurate;
 
     Material cutoutMaterial;
     Material imprintPostProcessMaterial;
@@ -41,30 +47,53 @@ public class ShadowFactory
     {
         cmd           = new CommandBuffer { name = "Shadow Commands" };
         materialProps = new MaterialPropertyBlock();
-        materialProps.SetVector(ShaderId.CLIP_RECT,
-                                new Vector4(float.NegativeInfinity, float.NegativeInfinity,
-                                            float.PositiveInfinity, float.PositiveInfinity));
-        materialProps.SetInt(ShaderId.COLOR_MASK, (int)ColorWriteMask.All); // Render shadow even if mask hide graphic
 
         ShaderProperties.Init(8);
-        blurConfig           = ScriptableObject.CreateInstance<ScalableBlurConfig>();
-        blurConfig.hideFlags = HideFlags.HideAndDontSave;
-        blurProcessor        = new ScalableBlur();
-        blurProcessor.Configure(blurConfig);
+        blurConfigFast           = ScriptableObject.CreateInstance<ScalableBlurConfig>();
+        blurConfigFast.hideFlags = HideFlags.HideAndDontSave;
+        blurProcessorFast        = new ScalableBlur();
+        blurProcessorFast.Configure(blurConfigFast);
+
+        blurConfigAccurate           = ScriptableObject.CreateInstance<BlurHQConfig>();
+        blurConfigAccurate.hideFlags = HideFlags.HideAndDontSave;
+        blurProcessorAccurate        = new BlurHQ();
+        blurProcessorAccurate.Configure(blurConfigAccurate);
     }
 
 #if LETAI_TRUESHADOW_DEBUG
     RenderTexture debugTexture;
 #endif
 
-    // public int createdContainerCount;
-    // public int releasedContainerCount;
+#if LOG_ALLOCATION
+    public int CreatedContainerCount
+    {
+#if UNITY_EDITOR
+        get => UnityEditor.SessionState.GetInt("LeTai.TrueShadow.CreatedContainerCount", 0);
+        set => UnityEditor.SessionState.SetInt("LeTai.TrueShadow.CreatedContainerCount", value);
+#else
+        get; set;
+#endif
+    }
+
+    public int ReleasedContainerCount
+    {
+#if UNITY_EDITOR
+        get => UnityEditor.SessionState.GetInt("LeTai.TrueShadow.ReleasedContainerCount", 0);
+        set => UnityEditor.SessionState.SetInt("LeTai.TrueShadow.ReleasedContainerCount", value);
+#else
+        get; set;
+#endif
+    }
+#endif
 
     internal void Get(ShadowSettingSnapshot snapshot, ref ShadowContainer container)
     {
-        if (float.IsNaN(snapshot.dimensions.x) || snapshot.dimensions.x < 1
+        if (
+            float.IsNaN(snapshot.dimensions.x) || snapshot.dimensions.x < 1
          || float.IsNaN(snapshot.dimensions.y) || snapshot.dimensions.y < 1
-         || !snapshot.shadow.Graphic.materialForRendering)
+         || !snapshot.shadow.Graphic.materialForRendering
+         || (snapshot.size == 0 && snapshot.canvasRelativeOffset.sqrMagnitude == 0)
+        )
         {
             ReleaseContainer(ref container);
             return;
@@ -108,7 +137,9 @@ public class ShadowFactory
         {
             // Case: requester got new unique texture
             container = shadowCache[requestHash] = GenerateShadow(snapshot);
-            // Debug.Log($"Created new container for request\t{requestHash}\tTotal Created: {++createdContainerCount}\t Alive: {createdContainerCount - releasedContainerCount}");
+#if LOG_ALLOCATION
+            Debug.Log($"Created new container for request\t{requestHash}\tTotal Created: {++CreatedContainerCount}\t Alive: {CreatedContainerCount - ReleasedContainerCount}");
+#endif
         }
     }
 
@@ -123,9 +154,11 @@ public class ShadowFactory
         RenderTexture.ReleaseTemporary(container.Texture);
         shadowCache.Remove(container.requestHash);
 
-        container = null;
+#if LOG_ALLOCATION
+        Debug.Log($"Released container for request\t{container.requestHash}\tTotal Released: {++ReleasedContainerCount}\t Alive: {CreatedContainerCount - ReleasedContainerCount}");
+#endif
 
-        // Debug.Log($"Released container for request\t{container.requestHash}\tTotal Released: {++releasedContainerCount}\t Alive: {createdContainerCount - releasedContainerCount}");
+        container = null;
     }
 
     static readonly Rect    UNIT_RECT           = new Rect(0, 0, 1, 1);
@@ -140,14 +173,27 @@ public class ShadowFactory
 
         var bounds = snapshot.shadow.SpriteMesh.bounds;
 
+        var blurConfig = snapshot.algorithm == BlurAlgorithmSelection.Fast
+                             ? blurConfigFast
+                             : blurConfigAccurate;
+        var blurProcessor = snapshot.algorithm == BlurAlgorithmSelection.Fast
+                                ? (IBlurAlgorithm)blurProcessorFast
+                                : (IBlurAlgorithm)blurProcessorAccurate;
+
         var padding = snapshot.shadow.Inset
                           ? System.Math.Max(
                               Mathf.CeilToInt(Mathf.Max(Mathf.Abs(snapshot.canvasRelativeOffset.x),
                                                         Mathf.Abs(snapshot.canvasRelativeOffset.y))),
-                              (blurConfig.Iteration + 1) * (blurConfig.Iteration + 1)
+                              blurConfig.MinExtent
                           )
                           : Mathf.CeilToInt(snapshot.size);
-        padding += snapshot.size < 50 ? 4 : 0; // due to nonlinearity in blurriness vs blur strength, certain strength value may be a bit more blurry than it should
+
+        if (snapshot.algorithm == BlurAlgorithmSelection.Fast)
+        {
+            // due to non-linearity in blurriness vs blur strength,
+            // certain strength value may be a bit more blurry than it should
+            padding += snapshot.size < 50 ? 4 : 0;
+        }
         var imprintviewSize = Vector2Int.CeilToInt(snapshot.dimensions);
         var tw              = imprintviewSize.x;
         var th              = imprintviewSize.y;
@@ -166,6 +212,13 @@ public class ShadowFactory
             imprintTexProcessed = RenderTexture.GetTemporary(imprintTexDesc);
 
         var texture = snapshot.shadow.Content;
+
+
+        materialProps.Clear();
+        materialProps.SetVector(ShaderId.CLIP_RECT, new Vector4(float.NegativeInfinity, float.NegativeInfinity,
+                                                                float.PositiveInfinity, float.PositiveInfinity));
+        materialProps.SetInt(ShaderId.COLOR_MASK, (int)ColorWriteMask.All); // Render shadow even if mask hide graphic
+
         if (texture)
         {
             materialProps.SetTexture(ShaderId.MAIN_TEX, texture);
@@ -195,9 +248,24 @@ public class ShadowFactory
                             -1, 1)
         );
 
-        materialProps.SetVector(ShaderId.SCREEN_PARAMS, new Vector4(tw, th,
-                                                                    1f + 1f / tw,
-                                                                    1f + 1f / th));
+        var baseTime = Time.timeSinceLevelLoad;
+        materialProps.SetVector(ShaderId.TIME, new Vector4(baseTime / 20,
+                                                           baseTime,
+                                                           baseTime * 2,
+                                                           baseTime * 3));
+        materialProps.SetVector(ShaderId.SIN_TIME, new Vector4(Mathf.Sin(baseTime / 8),
+                                                               Mathf.Sin(baseTime / 4),
+                                                               Mathf.Sin(baseTime / 2),
+                                                               Mathf.Sin(baseTime)));
+        materialProps.SetVector(ShaderId.COS_TIME, new Vector4(Mathf.Cos(baseTime / 8),
+                                                               Mathf.Cos(baseTime / 4),
+                                                               Mathf.Cos(baseTime / 2),
+                                                               Mathf.Cos(baseTime)));
+        materialProps.SetVector(ShaderId.UNITY_DELTA_TIME, new Vector4(Time.deltaTime,
+                                                                       1 / Time.deltaTime,
+                                                                       Time.smoothDeltaTime,
+                                                                       1 / Time.smoothDeltaTime));
+        materialProps.SetInt(ShaderId.UI_VERTEX_COLOR_ALWAYS_GAMMA_SPACE, 1);
 
 #if TMP_PRESENT
         if (snapshot.shadow.Graphic is TMPro.TextMeshProUGUI
@@ -206,6 +274,9 @@ public class ShadowFactory
             var lossyScale = snapshot.canvas.transform.lossyScale;
             materialProps.SetFloat(ShaderId.SCALE_X, 1f / lossyScale.x);
             materialProps.SetFloat(ShaderId.SCALE_Y, 1f / lossyScale.y);
+            materialProps.SetVector(ShaderId.SCREEN_PARAMS, new Vector4(tw, th,
+                                                                        1f + 1f / tw,
+                                                                        1f + 1f / th));
         }
 #endif
 

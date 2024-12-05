@@ -30,7 +30,7 @@ public class BlockManager : MonoBehaviour
     public int doubleSheepHpCount = 0;
 
     [ContextMenu("SpawnBlock")]
-    public void SpawnBlock()
+    public void SpawnRandomBlock()
     {
         if (IsGridFull())
         {
@@ -43,7 +43,7 @@ public class BlockManager : MonoBehaviour
         do
         {
             xIndex = Random.Range(0, 7);
-            yIndex = Random.Range(1, 8);
+            yIndex = Random.Range(1, 6);
         }
         while (blockGrid[xIndex, yIndex] != null); // �ش� ��ġ�� ������ ������ �ٽ� ���� ��ġ�� ã��
 
@@ -117,7 +117,7 @@ public class BlockManager : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
         {
-            SpawnBlock();
+            SpawnRandomBlock();
         }
     }
 
@@ -157,23 +157,7 @@ public class BlockManager : MonoBehaviour
                 emptyXIndices.Add(x);
             }
         }
-
-        // 1. 우선순위가 높은 plusItemPrefab 생성
-        if (emptyXIndices.Count > 0)
-        {
-            int randomX = emptyXIndices[Random.Range(0, emptyXIndices.Count)];
-            emptyXIndices.Remove(randomX); // 해당 위치를 사용했으므로 제거
-
-            var tempItem = Instantiate(plusItemPrefab, blockParent);
-            tempItem.GetComponent<Block>().curX = randomX;
-            tempItem.GetComponent<Block>().curY = topRowYIndex;
-            tempItem.transform.localPosition = new Vector3(gridX[randomX], gridY[topRowYIndex], 0);
-
-            // blockGrid에 추가 (아이템도 블록처럼 처리할 경우에만 활성화)
-            blockGrid[randomX, topRowYIndex] = tempItem.GetComponent<Block>();
-        }
-
-        // 2. 우선순위가 높은 boxItemPrefab 생성 (currentLevel이 10으로 나누어떨어질 때만)
+                // 2. 우선순위가 높은 boxItemPrefab 생성 (currentLevel이 10으로 나누어떨어질 때만)
         if (GameLogicManager.instance.currentLevel % 10 == 0)
         {
             int boxItemCount = 1; // 최대 생성 가능 개수
@@ -191,6 +175,23 @@ public class BlockManager : MonoBehaviour
                 blockGrid[randomX, topRowYIndex] = tempBox.GetComponent<Block>();
             }
         }
+
+        // 1. 우선순위가 높은 plusItemPrefab 생성
+        if (emptyXIndices.Count > 0 && (GameLogicManager.instance.currentLevel % 2) == 0)
+        {
+            int randomX = emptyXIndices[Random.Range(0, emptyXIndices.Count)];
+            emptyXIndices.Remove(randomX); // 해당 위치를 사용했으므로 제거
+
+            var tempItem = Instantiate(plusItemPrefab, blockParent);
+            tempItem.GetComponent<Block>().curX = randomX;
+            tempItem.GetComponent<Block>().curY = topRowYIndex;
+            tempItem.transform.localPosition = new Vector3(gridX[randomX], gridY[topRowYIndex], 0);
+
+            // blockGrid에 추가 (아이템도 블록처럼 처리할 경우에만 활성화)
+            blockGrid[randomX, topRowYIndex] = tempItem.GetComponent<Block>();
+        }
+
+
 
         // 3. 나머지 공간에 일반 블록(blockPrefab) 생성
         int spawnedCount = 0;
@@ -246,16 +247,30 @@ public class BlockManager : MonoBehaviour
         levelCount = level;
         StartCoroutine(BlockGetDownCo());
 
+        if(level == 50) Set456RateUP(5);
+        if(level == 100) Set456RateUP(10);
+        if(level == 150) Set456RateUP(15);
+        if(level == 200) Set456RateUP(20);
 
-        selectiveRandom.SetWeightAtIndex(3, selectiveRandom.GetWeightAtIndex(3) * 1.03f);
-        selectiveRandom.SetWeightAtIndex(4, selectiveRandom.GetWeightAtIndex(4) * 1.04f);
-        selectiveRandom.SetWeightAtIndex(5, selectiveRandom.GetWeightAtIndex(5) * 1.035f);
+
+        selectiveRandom.SetWeightAtIndex(3, selectiveRandom.GetWeightAtIndex(3) * 1.04f);
+        selectiveRandom.SetWeightAtIndex(4, selectiveRandom.GetWeightAtIndex(4) * 1.05f);
+        selectiveRandom.SetWeightAtIndex(5, selectiveRandom.GetWeightAtIndex(5) * 1.06f);
 
         selectiveRandom.Normalize();
 
         Utils.DelayCall(() => SpawnTopLane(selectiveRandom.GetRandomByWeight()), 1f);
 
         if (CheckGameOver()) GameLogicManager.instance.gameCanvas.ShowGameOver();
+    }
+
+    public void Set456RateUP(float amount)
+    {
+        
+            selectiveRandom.SetWeightAtIndex(3, selectiveRandom.GetWeightAtIndex(3) + amount);
+        selectiveRandom.SetWeightAtIndex(4, selectiveRandom.GetWeightAtIndex(4) + amount);
+        selectiveRandom.SetWeightAtIndex(5, selectiveRandom.GetWeightAtIndex(5) + amount);
+        
     }
 
     IEnumerator BlockGetDownCo()
