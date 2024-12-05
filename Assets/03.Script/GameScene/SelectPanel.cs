@@ -5,15 +5,14 @@ using UnityEngine.EventSystems;
 
 public class SelectPanel : PanelBase //,  IPointerDownHandler, IPointerUpHandler
 {
-    public Image firstImg, secondImg, thirdImg;
 
-    public TMP_Text firstText, secondText, thirdText;
-
-    public Button firstButton, secondButton, thirdButton;
+    public Sprite legend, epic, common;
 
     public Button seeMeadowButton;
 
     public CanvasGroup parent;
+
+    public SelectUI one, two, three;
 
     public void OnPointerDown()
     {
@@ -31,37 +30,22 @@ public class SelectPanel : PanelBase //,  IPointerDownHandler, IPointerUpHandler
 
         GameLogicManager.instance.isPlayerTurn = false;
 
-        firstImg.sprite = one.icon;
-        firstText.text = one.explaination;
-        firstButton.onClick.RemoveAllListeners();
-        firstButton.onClick.AddListener(() =>
-        {
-            one.unityAction.Invoke();
-            root.SetActive(false);
-            Utils.DelayCall(() => { GameLogicManager.instance.isPlayerTurn = true; }, 0.3f);
-        });
+        this.one.InitSetting(one, GetRankSprite(one));
+        this.two.InitSetting(two, GetRankSprite(two));
+        this.three.InitSetting(three, GetRankSprite(three));
 
+        this.one.selectButton.onClick.AddListener(() =>{ root.SetActive(false);});
+        this.two.selectButton.onClick.AddListener(() =>{ root.SetActive(false);});
+        this.three.selectButton.onClick.AddListener(() =>{ root.SetActive(false);});
+    }
 
-        secondImg.sprite = two.icon;
-        secondText.text = two.explaination;
-        secondButton.onClick.RemoveAllListeners();
-        secondButton.onClick.AddListener(() =>
-        {
-            two.unityAction.Invoke();
-            root.SetActive(false);
-            Utils.DelayCall(()=> { GameLogicManager.instance.isPlayerTurn = true;},0.3f);
-        });
+    public Sprite GetRankSprite(GameEvent gameEvent)
+    {
+        Sprite um = null;
+        if (gameEvent.rank == GameEventRank.Legend) um = legend;
+        if (gameEvent.rank == GameEventRank.Epic) um = epic;
+        if (gameEvent.rank == GameEventRank.Common) um = common;
 
-        thirdImg.sprite = three.icon;
-        thirdText.text = three.explaination;
-        thirdButton.onClick.RemoveAllListeners();
-        thirdButton.onClick.AddListener(() =>
-        {
-            three.unityAction.Invoke();
-            root.SetActive(false);
-            Utils.DelayCall(()=> { GameLogicManager.instance.isPlayerTurn = true;},0.3f);
-        });
-
-
+        return um;
     }
 }

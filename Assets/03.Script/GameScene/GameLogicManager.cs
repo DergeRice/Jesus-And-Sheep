@@ -44,6 +44,7 @@ public class GameLogicManager : MonoBehaviour
     public GameCanvas gameCanvas;
 
     private Vector3 clampedDragDirection;
+    public Vector3 launchDirection;
 
     public TMP_Text ballCountText, currentLevelText;
 
@@ -54,6 +55,8 @@ public class GameLogicManager : MonoBehaviour
     public List<GameObject> removeObjsAfterTurnEnd = new List<GameObject>();
 
     private Coroutine ballShootCo;
+
+    public bool isGameOver, isShot;
 
     private void Awake()
     {
@@ -121,7 +124,7 @@ public class GameLogicManager : MonoBehaviour
         else if (Input.GetMouseButtonUp(0) && isDragging) // 드래그 끝
         {
             // 제한된 방향으로 발사
-            Vector3 launchDirection = clampedDragDirection.normalized;
+            launchDirection = clampedDragDirection.normalized;
 
             // 공 생성 코루틴 시작
             gameCanvas.getBallDownButton.gameObject.SetActive(true);
@@ -172,6 +175,7 @@ public class GameLogicManager : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
         {
+            isShot = true;
             SpawnBall(direction, shootingBallDatas[i]); // 공 생성
             yield return new WaitForSeconds(0.05f); // 일정 간격 대기
         }
@@ -267,7 +271,7 @@ public class GameLogicManager : MonoBehaviour
            turnEndAction?.Invoke();
            turnEndAction = null;
            StopAllCoroutines();
-
+           isShot = false;
            for (int i = 0; i < removeObjsAfterTurnEnd.Count; i++)
            {
                Destroy(removeObjsAfterTurnEnd[i]);

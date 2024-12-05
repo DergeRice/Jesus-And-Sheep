@@ -28,6 +28,10 @@ public class BlockManager : MonoBehaviour
 
 
     public int doubleSheepHpCount = 0;
+    public void Start()
+    {
+        SpawnTopLane(2);
+    }
 
     [ContextMenu("SpawnBlock")]
     public void SpawnRandomBlock()
@@ -121,10 +125,7 @@ public class BlockManager : MonoBehaviour
         }
     }
 
-    public void Start()
-    {
-        SpawnTopLane(2);
-    }
+
 
     private bool IsGridFull()
     {
@@ -562,6 +563,20 @@ public class BlockManager : MonoBehaviour
     public bool IsValidPosition(int x, int y)
     {
         return x >= 0 && x < blockGrid.GetLength(0) && y >= 0 && y < blockGrid.GetLength(1) && blockGrid[x, y] != null;
+    }
+
+    public float[] SavePercentOfBlock()
+    {
+        // selectiveRandom.Count만큼 크기를 가진 배열 생성
+        float[] temp = new float[selectiveRandom.Count];
+
+        // 각 인덱스에 값 추가
+        for (int i = 0; i < selectiveRandom.Count; i++)
+        {
+            temp[i] = selectiveRandom.GetWeightAtIndex(i); // 값을 배열에 직접 저장
+        }
+
+        return temp; // 배열 반환
     }
 }
 

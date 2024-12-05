@@ -24,12 +24,11 @@ public class Block : MonoBehaviour
             }
         }
     }
-    private int countMax;
+    [HideInInspector]public int countMax;
 
     public BlockType blockType;
 
     public TMP_Text countText;
-    internal Vector3 targetPosition;
     public GameObject graphic;
 
     public Image fillHeart;
@@ -41,7 +40,6 @@ public class Block : MonoBehaviour
 
     public int curX, curY;
 
-    public Color twiceColor, tripleColor;
 
     private void Start()
     {

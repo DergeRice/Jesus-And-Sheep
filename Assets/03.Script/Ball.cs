@@ -96,11 +96,11 @@ public class Ball : MonoBehaviour
             speedMode = true;
         }
 
-        //if (bounceTime > 70 && speedMode)
-        //{
-        //    rb.linearVelocity = moveDirection + (Vector2.up * 3);
-        //    speedMode = false; // 상태를 초기화해 반복 호출 방지
-        //}
+        if (bounceTime == 100 )
+        {
+            rb.linearVelocity = moveDirection + (Vector2.up * 3);
+            
+        }
 
     }
 
