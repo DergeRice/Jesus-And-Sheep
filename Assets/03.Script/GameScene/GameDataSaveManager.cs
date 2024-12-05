@@ -20,6 +20,7 @@ public class GameDataSaveManager : MonoBehaviour
     public bool IsGameOver;
     public bool IsShot;
     public int currentLevel;
+    public BallType[] ballTypes;
 
     private string savePath;
     private readonly string encryptionKey = "U8hHV9ksC8Q7sXvmlTjXfi5z0fbMmcg3"; // 16, 24, or 32 bytes
@@ -46,6 +47,7 @@ public class GameDataSaveManager : MonoBehaviour
         IsGameOver = gameLogicManager.isGameOver;
         IsShot = gameLogicManager.isShot;
         currentLevel = gameLogicManager.currentLevel;
+        ballTypes = gameLogicManager.shootingBallDatas.ToArray();
 
         SaveData saveData = new SaveData
         {
@@ -55,7 +57,9 @@ public class GameDataSaveManager : MonoBehaviour
             targetVector = new SerializableVector3(targetVector),
             IsGameOver = IsGameOver,
             IsShot = IsShot,
-            currentLevel = currentLevel
+            currentLevel = currentLevel,
+            ballTypes = ballTypes
+            
         };
 
         string json = JsonUtility.ToJson(saveData, true);        // 파일로 저장

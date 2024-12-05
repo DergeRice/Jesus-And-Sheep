@@ -77,6 +77,7 @@ public class SaveData
     public bool IsGameOver;
     public bool IsShot;
     public int currentLevel;            // int °ª
+    public BallType[] ballTypes;
 }
 
 [Serializable]

@@ -254,9 +254,9 @@ public class BlockManager : MonoBehaviour
         if(level == 200) Set456RateUP(20);
 
 
-        selectiveRandom.SetWeightAtIndex(3, selectiveRandom.GetWeightAtIndex(3) * 1.04f);
-        selectiveRandom.SetWeightAtIndex(4, selectiveRandom.GetWeightAtIndex(4) * 1.05f);
-        selectiveRandom.SetWeightAtIndex(5, selectiveRandom.GetWeightAtIndex(5) * 1.06f);
+        selectiveRandom.SetWeightAtIndex(3, selectiveRandom.GetWeightAtIndex(3) * 1.03f);
+        selectiveRandom.SetWeightAtIndex(4, selectiveRandom.GetWeightAtIndex(4) * 1.04f);
+        selectiveRandom.SetWeightAtIndex(5, selectiveRandom.GetWeightAtIndex(5) * 1.05f);
 
         selectiveRandom.Normalize();
 
@@ -267,8 +267,7 @@ public class BlockManager : MonoBehaviour
 
     public void Set456RateUP(float amount)
     {
-        
-            selectiveRandom.SetWeightAtIndex(3, selectiveRandom.GetWeightAtIndex(3) + amount);
+        selectiveRandom.SetWeightAtIndex(3, selectiveRandom.GetWeightAtIndex(3) + amount);
         selectiveRandom.SetWeightAtIndex(4, selectiveRandom.GetWeightAtIndex(4) + amount);
         selectiveRandom.SetWeightAtIndex(5, selectiveRandom.GetWeightAtIndex(5) + amount);
         
