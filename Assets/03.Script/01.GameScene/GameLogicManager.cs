@@ -127,16 +127,22 @@ public class GameLogicManager : MonoBehaviour
             launchDirection = clampedDragDirection.normalized;
 
             // 공 생성 코루틴 시작
+            StartShoot(launchDirection);
             gameCanvas.getBallDownButton.gameObject.SetActive(true);
-            ballShootCo = StartCoroutine(SpawnBallCount(launchDirection, shootingBallDatas.Count));
+            
             ClearTrajectory();
 
-            isPlayerTurn = false;
-            Debug.Log("MyTurn End");
-            isDragging = false;
-            debugBall.transform.position = Vector3.one * 300f;
+            
         }
 
+    }
+    public void StartShoot(Vector3 targetVec)
+    {
+        ballShootCo = StartCoroutine(SpawnBallCount(targetVec, shootingBallDatas.Count));
+        isPlayerTurn = false;
+        Debug.Log("MyTurn End");
+        isDragging = false;
+        debugBall.transform.position = Vector3.one * 300f;
     }
 
     public void DamagedWithBlockList(List<Block> affectedBlocks, int amount = 1)

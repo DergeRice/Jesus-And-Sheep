@@ -24,7 +24,7 @@ public class Block : MonoBehaviour
             }
         }
     }
-    [HideInInspector]public int countMax;
+    public int countMax;
 
     public BlockType blockType;
 
@@ -48,7 +48,12 @@ public class Block : MonoBehaviour
         var tempScale = transform.localScale;
         transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
         transform.DOScale(tempScale, 0.2f);
+        if (fillHeart != null) fillHeart.fillAmount = (countMax - Count) / (float)countMax;
+    }
 
+    void Update()
+    {
+        
     }
 
     public void Init(int _count)
@@ -83,7 +88,7 @@ public class Block : MonoBehaviour
         }
 
         TypeInit();
-        fillHeart.fillAmount = (countMax - Count) / countMax;
+        if (fillHeart != null) fillHeart.fillAmount = (countMax - Count) / (float)countMax;
 
     }
 
@@ -131,35 +136,35 @@ public class Block : MonoBehaviour
         }
     }
 
-        public void TypeInit()
+    public void TypeInit()
+    {
+        switch (blockType)
         {
-            switch (blockType)
-            {
-                case BlockType.Common:
-                    break;
-                case BlockType.Giant:
-                    break;
-                case BlockType.Split:
-                    break;
-                case BlockType.Double:
-                    Count *= 2;
-                    break;
-                case BlockType.BottomIgnore:
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        public void DestroyAnimation()
-        {
-            if (isDisappear == false)
-            {
-                GameLogicManager.instance.blockManager.RemoveBlock(this);
-                GetComponent<Collider2D>().enabled = false;
-                transform.DOShakeScale(0.5f);
-                Destroy(gameObject, 0.5f);
-                isDisappear = true;
-            }
+            case BlockType.Common:
+                break;
+            case BlockType.Giant:
+                break;
+            case BlockType.Split:
+                break;
+            case BlockType.Double:
+                Count *= 2;
+                break;
+            case BlockType.BottomIgnore:
+                break;
+            default:
+                break;
         }
     }
+
+    public void DestroyAnimation()
+    {
+        if (isDisappear == false)
+        {
+            GameLogicManager.instance.blockManager.RemoveBlock(this);
+            GetComponent<Collider2D>().enabled = false;
+            transform.DOShakeScale(0.5f);
+            Destroy(gameObject, 0.5f);
+            isDisappear = true;
+        }
+    }
+}

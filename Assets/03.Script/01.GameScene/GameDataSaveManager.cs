@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
 using GG.Infrastructure.Utils;
+using System.Linq;
 
 public class GameDataSaveManager : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class GameDataSaveManager : MonoBehaviour
     [SerializeField]
     public List<List<BlockData>> blockList = new List<List<BlockData>>();
 
-    public Block[,] blockGrid; // ÀúÀåÇÒ ºí·Ï µ¥ÀÌÅÍ
+    public Block[,] blockGrid; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public float[] percentOfBrickLevel;
     public Vector3 currentPos;
     public Vector3 targetVector;
@@ -22,19 +23,22 @@ public class GameDataSaveManager : MonoBehaviour
     public int currentLevel;
     public BallType[] ballTypes;
 
+    public BlockData[] junsick;
+
     private string savePath;
     private readonly string encryptionKey = "U8hHV9ksC8Q7sXvmlTjXfi5z0fbMmcg3"; // 16, 24, or 32 bytes
 
+    SaveData saveData;
     private void Awake()
     {
-        // ÀúÀå ÆÄÀÏ °æ·Î ¼³Á¤
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         savePath = Path.Combine(Application.persistentDataPath, "SavedGameData.json");
         Debug.Log($"Save path: {savePath}");
         Application.quitting += OnApplicationQuit;
     }
     private void Start()
     {
-        gameLogicManager = GameLogicManager.instance; // ³ªÁß¿¡ °íÃÄ¾ßÇÔ
+        gameLogicManager = GameLogicManager.instance; // have to fix out later
     }
 
     [ContextMenu("SaveJunSick")]
@@ -49,7 +53,9 @@ public class GameDataSaveManager : MonoBehaviour
         currentLevel = gameLogicManager.currentLevel;
         ballTypes = gameLogicManager.shootingBallDatas.ToArray();
 
-        SaveData saveData = new SaveData
+        junsick = ConvertBlocksToList(blockGrid);
+
+        saveData = new SaveData
         {
             blockDatas = ConvertBlocksToList(blockGrid),
             percentOfBlockLevel = percentOfBrickLevel,
@@ -62,7 +68,7 @@ public class GameDataSaveManager : MonoBehaviour
             
         };
 
-        string json = JsonUtility.ToJson(saveData, true);        // ÆÄÀÏ·Î ÀúÀå
+        string json = JsonUtility.ToJson(saveData, true);        
         string encryptedJson = Encrypt(json, encryptionKey);
 
         Debug.Log(json);
@@ -71,7 +77,9 @@ public class GameDataSaveManager : MonoBehaviour
        
         Debug.Log("Game Saved Successfully.");
     }
+    
 
+    [ContextMenu("LoadJunSick")]
     public void LoadGame()
     {
         if (!File.Exists(savePath))
@@ -84,10 +92,9 @@ public class GameDataSaveManager : MonoBehaviour
         string json = Decrypt(encryptedJson, encryptionKey);
         SaveData saveData = JsonUtility.FromJson<SaveData>(json);
 
-
-        // ºí·Ï µ¥ÀÌÅÍ¸¦ º¹±¸
-        blockGrid = ConvertListToBlocks(saveData.blockDatas);
-
+        // gameLogicManager.blockManager.blockGrid = blockGrid;
+        junsick  = saveData.blockDatas;
+        ballTypes = saveData.ballTypes;
         percentOfBrickLevel = saveData.percentOfBlockLevel;
         currentPos = saveData.currentPos.ToVector3();
         targetVector = saveData.targetVector.ToVector3();
@@ -98,58 +105,55 @@ public class GameDataSaveManager : MonoBehaviour
         Debug.Log("Game Loaded Successfully.");
     }
 
+    [ContextMenu("Umpply Game")]
+    public void LoadDataApply()
+    {
+        if(IsGameOver == true)
+        {
+            Debug.Log("already finished game");
+        }
+
+        gameLogicManager.blockManager.ReGenerateBlocks(junsick);
+
+        gameLogicManager.shootingBallDatas = ballTypes.ToList();
+        gameLogicManager.currentLevel = currentLevel;
+
+        for (int i = 0; i < percentOfBrickLevel.Length; i++)
+        {
+            gameLogicManager.blockManager.selectiveRandom.SetWeightAtIndex(i,percentOfBrickLevel[i]);
+        }
+
+        gameLogicManager.jesus.transform.position = currentPos;
+
+        if(IsShot)
+        {
+            gameLogicManager.StartShoot(targetVector);
+        }
+    }
+
     private BlockData[] ConvertBlocksToList(Block[,] blockGrid)
     {
         List<BlockData> blockList = new List<BlockData>();
-        for (int y = 0; y < blockGrid.GetLength(1); y++)
-        {
-            for (int x = 0; x < blockGrid.GetLength(0); x++)
-            {
-                var block = blockGrid[x, y];
-                if (block != null)
-                {
-                    blockList.Add(new BlockData(block));
-                }
-            }
-        }
-        return blockList.ToArray(); // 1D ¹è¿­·Î ¹İÈ¯
-    }
 
-    private Block[,] ConvertListToBlocks(BlockData[] blockList)
-    {
-        int width = 7;
-        int height = 9;
-
-        var blockGrid = new Block[width, height];
-
-        int index = 0; // 1D ¹è¿­À» ´Ù·ç±â À§ÇÑ ÀÎµ¦½º
+        int width = blockGrid.GetLength(0);
+        int height = blockGrid.GetLength(1);
 
         for (int y = 0; y < height; y++)
         {
             for (int x = 0; x < width; x++)
             {
-                var blockData = blockList[index];
-                if (blockData != null)
+                Block block = blockGrid[x, y];
+                if (block != null) // nullì´ ì•„ë‹Œ ê²½ìš°ë§Œ ì¶”ê°€
                 {
-                    // Block ÀÎ½ºÅÏ½º »ı¼º ¹× ÃÊ±âÈ­
-                    Block block = new Block
-                    {
-                        Count = blockData.count,
-                        countMax = blockData.countMax,
-                        blockType = Enum.Parse<BlockType>(blockData.blockType),
-                        curX = blockData.curX,
-                        curY = blockData.curY
-                    };
-                    //init ¶¯±â±â
-                    // ÇØ´ç À§Ä¡¿¡ Block ÇÒ´ç
-                    blockGrid[x, y] = block;
+                    var um = new BlockData(block);
+                    blockList.Add(um);
                 }
-
-                index++; // ¹è¿­ ÀÎµ¦½º Áõ°¡
             }
         }
-        return blockGrid;
+
+        return blockList.ToArray(); // 1D ë°°ì—´ë¡œ ë³€í™˜
     }
+
 
     private string Encrypt(string plainText, string key)
     {
@@ -198,14 +202,38 @@ public class GameDataSaveManager : MonoBehaviour
     {
         if (pause)
         {
-            // ¹é±×¶ó¿îµå·Î °¬À» ¶§ µ¥ÀÌÅÍ ÀúÀå
+            // ï¿½ï¿½×¶ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             SaveGame();
         }
     }
 
     private void OnApplicationQuit()
     {
-        // ¾Û Á¾·á ½Ã µ¥ÀÌÅÍ ÀúÀå
+        // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         SaveGame();
     }
+
+    [ContextMenu("Debug")]
+    public void DebugBlockGrid()
+    {
+        string debugOutput = ""; // ì¶œë ¥í•  ë¬¸ìì—´ ì´ˆê¸°í™”
+
+        // yê°’ì´ ì‘ì€ ìˆœì„œë¶€í„° í™•ì¸
+        for (int y = 0; y < blockGrid.GetLength(1); y++)
+        {
+            for (int x = 0; x < blockGrid.GetLength(0); x++)
+            {
+                // í˜„ì¬ ì¢Œí‘œì˜ ë¸”ë¡ null ì—¬ë¶€ í™•ì¸
+                string status = blockGrid[x, y] == null ? "n" : "f";
+                // ì¢Œí‘œì™€ ìƒíƒœë¥¼ ë¬¸ìì—´ë¡œ ì¶”ê°€
+                debugOutput += $"({x},{y}): {status}  ";
+            }
+            // y ê°’ë§ˆë‹¤ ì¤„ë°”ê¿ˆ ì¶”ê°€
+            debugOutput += "\n";
+        }
+
+        // ìµœì¢… ì¶œë ¥
+        Debug.Log(debugOutput);
+    }
+
 }

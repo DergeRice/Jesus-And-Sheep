@@ -151,8 +151,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f5c4f86a756a244b4e875985fd78b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockType: 5
+  countMax: 0
+  blockType: 6
   countText: {fileID: 0}
+  graphic: {fileID: 0}
+  fillHeart: {fileID: 0}
   isDisappear: 0
   curX: 0
   curY: 0

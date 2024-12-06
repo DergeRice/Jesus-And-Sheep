@@ -15,6 +15,7 @@ public class BlockManager : MonoBehaviour
 
     public Transform blockParent;
     public Block[,] blockGrid = new Block[7, 9];
+    public BlockData[] loadedDatas;
     //public GameObject[,] plusItemGrid = new GameObject[7, 9]; // plusItem�� ��ġ�� �����ϱ� ���� �迭 �߰�
 
     public float[] gridX = new float[]{
@@ -158,7 +159,7 @@ public class BlockManager : MonoBehaviour
                 emptyXIndices.Add(x);
             }
         }
-                // 2. 우선순위가 높은 boxItemPrefab 생성 (currentLevel이 10으로 나누어떨어질 때만)
+        // 2. 우선순위가 높은 boxItemPrefab 생성 (currentLevel이 10으로 나누어떨어질 때만)
         if (GameLogicManager.instance.currentLevel % 10 == 0)
         {
             int boxItemCount = 1; // 최대 생성 가능 개수
@@ -248,10 +249,10 @@ public class BlockManager : MonoBehaviour
         levelCount = level;
         StartCoroutine(BlockGetDownCo());
 
-        if(level == 50) Set456RateUP(5);
-        if(level == 100) Set456RateUP(10);
-        if(level == 150) Set456RateUP(15);
-        if(level == 200) Set456RateUP(20);
+        if (level == 50) Set456RateUP(5);
+        if (level == 100) Set456RateUP(10);
+        if (level == 150) Set456RateUP(15);
+        if (level == 200) Set456RateUP(20);
 
 
         selectiveRandom.SetWeightAtIndex(3, selectiveRandom.GetWeightAtIndex(3) * 1.03f);
@@ -262,7 +263,13 @@ public class BlockManager : MonoBehaviour
 
         Utils.DelayCall(() => SpawnTopLane(selectiveRandom.GetRandomByWeight()), 1f);
 
-        if (CheckGameOver()) GameLogicManager.instance.gameCanvas.ShowGameOver();
+        if (CheckGameOver())
+        {
+             GameLogicManager.instance.gameCanvas.ShowGameOver();
+             // if restartgame
+             
+
+        }
     }
 
     public void Set456RateUP(float amount)
@@ -270,7 +277,7 @@ public class BlockManager : MonoBehaviour
         selectiveRandom.SetWeightAtIndex(3, selectiveRandom.GetWeightAtIndex(3) + amount);
         selectiveRandom.SetWeightAtIndex(4, selectiveRandom.GetWeightAtIndex(4) + amount);
         selectiveRandom.SetWeightAtIndex(5, selectiveRandom.GetWeightAtIndex(5) + amount);
-        
+
     }
 
     IEnumerator BlockGetDownCo()
@@ -577,5 +584,59 @@ public class BlockManager : MonoBehaviour
 
         return temp; // 배열 반환
     }
+    public void ReGenerateBlocks(BlockData[] blockDataArray)
+    {
+        if (blockGrid != null)
+        {
+            // 기존 그리드에 있는 블록들을 제거
+            for (int x = 0; x < blockGrid.GetLength(0); x++)
+            {
+                for (int y = 0; y < blockGrid.GetLength(1); y++)
+                {
+                    if (blockGrid[x, y] != null)
+                    {
+                        Destroy(blockGrid[x, y].gameObject); // 기존 블록 오브젝트 삭제
+                        blockGrid[x, y] = null; // 그리드에서 제거
+                    }
+                }
+            }
+        }
+
+        // BlockData[] 데이터를 기반으로 새로운 블록 생성 및 추가
+        foreach (var blockData in blockDataArray)
+        {
+            if (blockData != null)
+            {
+                int x = blockData.curX;
+                int y = blockData.curY;
+
+                if (x >= 0 && x < blockGrid.GetLength(0) && y >= 0 && y < blockGrid.GetLength(1)) // 범위 검증
+                {
+                    GameObject tempBlock = null;
+                    // 새로운 블록 생성
+                    if (blockData.blockType == BlockType.Item.ToString()) tempBlock = Instantiate(plusItemPrefab.gameObject, blockParent);
+                    else if (blockData.blockType == BlockType.Chest.ToString()) tempBlock = Instantiate(boxItemPrefab.gameObject, blockParent);
+                    else tempBlock = Instantiate(blockPrefab.gameObject, blockParent);
+
+                    // 블록 컴포넌트 초기화
+                    Block blockComponent = tempBlock.GetComponent<Block>();
+                    blockComponent.curX = x;
+                    blockComponent.curY = y;
+                    blockComponent.Count = blockData.count;
+                    blockComponent.countMax = blockData.countMax;
+                    blockComponent.blockType = Enum.Parse<BlockType>(blockData.blockType);
+                    // blockComponent.Init(blockComponent.Count);
+                    blockComponent.allBlockBrokenCheck = CheckAllBlockBroken;
+
+                    // 그리드에 추가
+                    blockGrid[x, y] = blockComponent;
+
+                    // 블록 위치 설정
+                    tempBlock.transform.localPosition = new Vector3(gridX[x], gridY[y], 0);
+                }
+            }
+        }
+    }
 }
+
 

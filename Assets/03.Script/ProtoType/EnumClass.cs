@@ -4,6 +4,14 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+
+public enum PlayerPrefsData
+{
+    hasLastGame,
+    isBgmOff,
+    isSfxOff,
+    nickname
+}
 public enum EVibrate
 {
     weak,
@@ -18,6 +26,7 @@ public enum BlockType
     Double,
     BottomIgnore,
     Item,
+    Chest,
 }
 public enum BallType
 {
@@ -35,7 +44,7 @@ public enum BallType
 
 public class EnumClass
 {
-    
+
 }
 
 public enum GameEventType
@@ -70,13 +79,13 @@ public class GameEvent
 [Serializable]
 public class SaveData
 {
-    public BlockData[] blockDatas;  // 2D ¹è¿­À» 1D ¹è¿­·Î ÀúÀå
+    public BlockData[] blockDatas;  // 2D ï¿½è¿­ï¿½ï¿½ 1D ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public float[] percentOfBlockLevel;
     public SerializableVector3 currentPos;
     public SerializableVector3 targetVector;
     public bool IsGameOver;
     public bool IsShot;
-    public int currentLevel;            // int °ª
+    public int currentLevel;            // int ï¿½ï¿½
     public BallType[] ballTypes;
 }
 
