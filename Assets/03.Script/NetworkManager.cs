@@ -34,11 +34,6 @@ public class NetworkManager : MonoBehaviour
 
     public bool onlineMode = false;
 
-
-    public string noticeText;
-
-    public string RecommendTest;
-
     public bool isSurvivalMode;
 
     public string key;
@@ -68,10 +63,6 @@ public class NetworkManager : MonoBehaviour
         //RecommendCheck(CanvasManager.instance.addFriendPanel.myRecommendCode);
     }
 
-    public void SetSurvivalMode(bool isSurvival)
-    {
-        isSurvivalMode = isSurvival;
-    }
 
     public void UpdateOwnData()
     {
@@ -85,7 +76,7 @@ public class NetworkManager : MonoBehaviour
     [ContextMenu("TestInsert")]
     public void EnrollOwnData()
     {
-        NetworkManager.instance.InsertData(ownData);
+        NetworkManager.instance.EnrollUser(ownData);
     }
 
     [ContextMenu("TestSelect")]
@@ -102,27 +93,20 @@ public class NetworkManager : MonoBehaviour
         // rankSuccessPanel.DOFade(0,5f);
     }
 
-    public void InsertData(User rankingData,Action action = null,Action failAction = null)
+    public void EnrollUser(User rankingData, Action action = null, Action failAction = null)
     {
         loadingPanel.gameObject.SetActive(true);
-        //rankingData.encryptedScore = Utils.EncryptScore(rankingData.score.ToString(), key);
-        
+        //rankingData.highscore = int.Parse(Utils.EncryptScore(rankingData.highscore.ToString(), key));
 
-        //if(rankingData.name == "") rankingData.name = "Name";
-        //if(rankingData.gameMode == "") rankingData.gameMode = "classic";
-        //if(rankingData.churchName == "") rankingData.churchName = "ChurchName";
-
-        //rankingData.encryptedTime = Utils.EncryptScore(DateTime.Now.Minute.ToString(),key);
-        //rankingData.encryptedGameMode = Utils.EncryptScore(rankingData.gameMode,key);
 
         action += () => {
             loadingPanel.gameObject.SetActive(false);
             RankSuccess();
-            };
+        };
 
         failAction += () => loadingPanel.gameObject.SetActive(false);
         //failAction += () => ToastText(LangManager.IsEng()? "Could't Upload": "랭킹을 등록할 수 없어요.");
-        StartCoroutine(InsertDataToServer(rankingData,action,failAction));
+        StartCoroutine(EnrollUserDataToServer(rankingData, action, failAction));
     }
 
     public void GetData(Action action = null, Action failAction = null)
@@ -165,7 +149,7 @@ public class NetworkManager : MonoBehaviour
     }
 
 
-    IEnumerator InsertDataToServer(User data, Action successAction,Action failAction)
+    IEnumerator EnrollUserDataToServer(User data, Action successAction,Action failAction)
     {
         // RankingData 객체를 JSON 형식의 문자열로 변환합니다.
         string jsonData = JsonUtility.ToJson(data);
@@ -174,7 +158,7 @@ public class NetworkManager : MonoBehaviour
         byte[] jsonDataBytes = System.Text.Encoding.UTF8.GetBytes(jsonData);
 
         // POST 요청을 생성합니다.
-        UnityWebRequest www = new UnityWebRequest("http://52.79.46.242:3001/Update/", "POST");
+        UnityWebRequest www = new UnityWebRequest("http://52.79.46.242:3001/enroll/", "POST");
         www.uploadHandler = new UploadHandlerRaw(jsonDataBytes);
         www.downloadHandler = new DownloadHandlerBuffer();
         www.SetRequestHeader("Content-Type", "application/json");
@@ -220,10 +204,10 @@ public class NetworkManager : MonoBehaviour
 
         StartCoroutine(OnlineTestFromServer(action,failAction));
     }
-    public void RecommendCheck(string _code)
+    public void HeartReceiveCheck(string _code)
     {
         Debug.Log($"{_code}로 request보냄");
-        StartCoroutine(RecommendCheckFromServer(_code));
+        StartCoroutine(HeartReceiveCheckToServer(_code));
     }
 
     public void RecommendAdd(string _code,Action success)
@@ -316,35 +300,38 @@ public class NetworkManager : MonoBehaviour
         }
     }
 
-    IEnumerator RecommendCheckFromServer(string _code)
-    {
-        var request = new UnityWebRequest("http://52.79.46.242:3001/Recommed", "POST");
-        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(_code);
-        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-        request.downloadHandler = new DownloadHandlerBuffer();
-        request.SetRequestHeader("Content-Type", "text/plain");
-        loadingPanel.gameObject.SetActive(true);
+    //IEnumerator HeartReceiveCheckToServer(string _code)
+    //{
+    //    var request = new UnityWebRequest("http://52.79.46.242:3001/checkMyHeartList", "POST");
+    //    byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(_code);
+    //    request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+    //    request.downloadHandler = new DownloadHandlerBuffer();
+    //    request.SetRequestHeader("Content-Type", "text/plain");
+    //    loadingPanel.gameObject.SetActive(true);
 
-        // 요청 보내기
-        yield return request.SendWebRequest();
+    //    // 요청 보내기
+    //    yield return request.SendWebRequest();
 
-        if (request.result != UnityWebRequest.Result.Success)
-        {
-            Debug.LogError("Error: " + request.error);
-        }
-        else
-        {
-            loadingPanel.gameObject.SetActive(false);
-            
-            int recommendAmount = int.Parse(request.downloadHandler.text);
-            if(recommendAmount > 0) 
-            {
-                //CanvasManager.instance.rewardPanel.ShowPanel(int.Parse(request.downloadHandler.text)*2000);
-                GameManager.instance.ToastText(recommendAmount.ToString() + "명의 친구에게 추천을 받았어요!");
-            }
-            Debug.Log(request.downloadHandler.text);
-        }
-    }
+    //    if (request.result != UnityWebRequest.Result.Success)
+    //    {
+    //        Debug.LogError("Error: " + request.error);
+    //    }
+    //    else
+    //    {
+    //        loadingPanel.gameObject.SetActive(false);
+
+    //        string responseData = www.downloadHandler.text;
+    //        userDatas = JsonConvert.DeserializeObject<List<HeartData>>(responseData);
+
+    //        //int recommendAmount = int.Parse(request.downloadHandler.text);
+    //        //if(recommendAmount > 0) 
+    //        //{
+    //        //    //CanvasManager.instance.rewardPanel.ShowPanel(int.Parse(request.downloadHandler.text)*2000);
+    //        //    GameManager.instance.ToastText(recommendAmount.ToString() + "명의 친구에게 추천을 받았어요!");
+    //        //}
+    //        //Debug.Log(request.downloadHandler.text);
+    //    }
+    //}
     IEnumerator UploadNotice()
     {
 

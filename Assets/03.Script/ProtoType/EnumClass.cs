@@ -10,7 +10,9 @@ public enum PlayerPrefsData
     hasLastGame,
     isBgmOff,
     isSfxOff,
-    nickname
+    nickname,
+    profileIndex,
+    highScore
 }
 public enum EVibrate
 {
@@ -104,6 +106,14 @@ public class User
         this.highscore = highscore;
 
     }
+}
+
+[Serializable]
+public class HeartData
+{
+    public string heartHash;
+    public string senderNickName;
+    public string tagetNickName;
 }
 
 
