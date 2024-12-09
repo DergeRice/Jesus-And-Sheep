@@ -2822,7 +2822,7 @@ Transform:
   m_LocalScale: {x: 1.68, y: 1.4287375, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 727550644}
+  m_Father: {fileID: 678708069}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &169386272
 SpriteRenderer:
@@ -5045,7 +5045,7 @@ GameObject:
   m_Component:
   - component: {fileID: 326809583}
   m_Layer: 0
-  m_Name: GameObject (1)
+  m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8920,6 +8920,40 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &678708068
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 678708069}
+  m_Layer: 0
+  m_Name: Top
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &678708069
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678708068}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1664098145}
+  - {fileID: 832520476}
+  - {fileID: 169386271}
+  m_Father: {fileID: 727550644}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &679694115
 GameObject:
   m_ObjectHideFlags: 0
@@ -9721,9 +9755,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 176769405}
-  - {fileID: 1664098145}
-  - {fileID: 832520476}
-  - {fileID: 169386271}
+  - {fileID: 678708069}
   - {fileID: 326809583}
   - {fileID: 905064721}
   - {fileID: 1533950127}
@@ -10914,7 +10946,7 @@ Transform:
   m_LocalScale: {x: 1.56, y: 1.4287375, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 727550644}
+  m_Father: {fileID: 678708069}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &832520477
 SpriteRenderer:
@@ -11716,6 +11748,7 @@ MonoBehaviour:
   IsShot: 0
   currentLevel: 0
   ballTypes: 
+  junsick: []
 --- !u!1 &894314411
 GameObject:
   m_ObjectHideFlags: 0
@@ -11813,7 +11846,7 @@ GameObject:
   m_Component:
   - component: {fileID: 905064721}
   m_Layer: 0
-  m_Name: GameObject (2)
+  m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19427,7 +19460,7 @@ Transform:
   m_LocalScale: {x: 1.68, y: 1.4287375, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 727550644}
+  m_Father: {fileID: 678708069}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1664098146
 SpriteRenderer:
@@ -22685,6 +22718,7 @@ MonoBehaviour:
     - 0.071428575
     - 0.035714287
   blockParent: {fileID: 1487650341}
+  loadedDatas: []
   gridX:
   - -3
   - -2

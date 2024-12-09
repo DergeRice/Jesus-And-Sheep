@@ -39,6 +39,13 @@ public class GameDataSaveManager : MonoBehaviour
     private void Start()
     {
         gameLogicManager = GameLogicManager.instance; // have to fix out later
+        PlayerPrefsManager.Instance.SetSetting(PlayerPrefsData.hasLastGame, true);
+
+        if(GameManager.instance.isContinueMode)
+        {
+            LoadGame();
+            LoadDataApply();
+        }
     }
 
     [ContextMenu("SaveJunSick")]

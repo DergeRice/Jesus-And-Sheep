@@ -37,6 +37,7 @@ public class GameCanvas : CanvasBase
         {
             string currentSceneName = SceneManager.GetActiveScene().name;
             SceneManager.LoadScene(currentSceneName);
+            PlayerPrefsManager.Instance.SetSetting(PlayerPrefsData.hasLastGame,true);
         });
     }
 }

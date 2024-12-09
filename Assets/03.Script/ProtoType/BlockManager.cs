@@ -31,7 +31,7 @@ public class BlockManager : MonoBehaviour
     public int doubleSheepHpCount = 0;
     public void Start()
     {
-        SpawnTopLane(2);
+        if(GameManager.instance.isContinueMode == false) SpawnTopLane(2);
     }
 
     [ContextMenu("SpawnBlock")]
@@ -265,10 +265,8 @@ public class BlockManager : MonoBehaviour
 
         if (CheckGameOver())
         {
-             GameLogicManager.instance.gameCanvas.ShowGameOver();
-             // if restartgame
-             
-
+            GameLogicManager.instance.gameCanvas.ShowGameOver();
+            PlayerPrefsManager.Instance.SetSetting(PlayerPrefsData.hasLastGame, false);
         }
     }
 

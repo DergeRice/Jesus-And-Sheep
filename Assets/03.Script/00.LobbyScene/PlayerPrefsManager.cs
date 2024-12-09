@@ -63,7 +63,7 @@ public class PlayerPrefsManager : MonoBehaviour
     // 설정값을 bool로 반환
     public bool GetBoolSetting(PlayerPrefsData key)
     {
-        return GetSetting(key) == "1";
+        return GetSetting(key) == "True";
     }
 
     // 설정값을 int로 반환

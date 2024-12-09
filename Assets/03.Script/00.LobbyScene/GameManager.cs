@@ -6,19 +6,20 @@ public class GameManager : MonoBehaviour
 
     public bool isLastGameRemain;
 
+    public bool isContinueMode = false;
+
     private void Awake()
     {
-        if(instance == null) instance = this;
+        if (instance == null) {
+            instance = this;
+            DontDestroyOnLoad(this);
+        }
         else Destroy(gameObject);
     }
 
     private void Start()
     {
         isLastGameRemain = PlayerPrefsManager.Instance.GetBoolSetting(PlayerPrefsData.hasLastGame);
-        if(isLastGameRemain == true)
-        {
-            FindFirstObjectByType<LobbySceneUIManager>().countinueButton.interactable = false;
-        }
     }
     
 }
