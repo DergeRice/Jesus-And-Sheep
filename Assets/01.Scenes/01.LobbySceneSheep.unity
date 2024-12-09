@@ -4469,7 +4469,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   severSelectURL: /select
   severInsertURL: /insert
-  awsIP: 52.79.46.242:3000
+  awsIP: 52.79.46.242:3001
   selectServerURL: 
   insertServerURL: 
   classicRankingDatas: []

@@ -20,13 +20,12 @@ public class NetworkManager : MonoBehaviour
 
     public string awsIP ;
     public string selectServerURL; 
-    public string insertServerURL; 
+    public string insertServerURL;
 
 
-    public List<RankingData> classicRankingDatas ;
-    public List<RankingData> survivalRankingDatas ;
+    public List<User> userDatas; 
 
-    public RankingData ownData;
+    public User ownData;
 
     public LoadingPanel loadingPanel;
 
@@ -35,9 +34,6 @@ public class NetworkManager : MonoBehaviour
 
     public bool onlineMode = false;
 
-    private TMP_Text toastText;
-
-    public GameObject toastUIPrefeb;
 
     public string noticeText;
 
@@ -79,10 +75,9 @@ public class NetworkManager : MonoBehaviour
 
     public void UpdateOwnData()
     {
-        ownData.name = PlayerPrefs.GetString("nickName");
-        ownData.churchName = PlayerPrefs.GetString("churchName");
-        ownData.profileIndex = PlayerPrefs.GetInt("profileIndex");
-        ownData.code = PlayerPrefs.GetString("MyRecommend");
+        ownData.nickname = PlayerPrefsManager.Instance.GetSetting(PlayerPrefsData.nickname);
+        ownData.highscore = PlayerPrefsManager.Instance.GetIntSetting(PlayerPrefsData.highScore);
+        ownData.profileindex = PlayerPrefsManager.Instance.GetIntSetting(PlayerPrefsData.profileIndex);
     }
 
 
@@ -99,15 +94,6 @@ public class NetworkManager : MonoBehaviour
         NetworkManager.instance.GetData();
     }
 
-    public void ToastText(string text)
-    {
-        var toastPanel = Instantiate(toastUIPrefeb,toastRoot).GetComponent<CanvasGroup>();
-        
-        toastText = toastPanel.transform.GetChild(0).GetComponent<TMP_Text>();
-
-        toastText.text = text;
-        Destroy(toastPanel.gameObject,2f);
-    }
 
 
     public void RankSuccess()
@@ -116,18 +102,18 @@ public class NetworkManager : MonoBehaviour
         // rankSuccessPanel.DOFade(0,5f);
     }
 
-    public void InsertData(RankingData rankingData,Action action = null,Action failAction = null)
+    public void InsertData(User rankingData,Action action = null,Action failAction = null)
     {
         loadingPanel.gameObject.SetActive(true);
-        rankingData.encryptedScore =  EncryptScore(rankingData.score.ToString(), key);
+        //rankingData.encryptedScore = Utils.EncryptScore(rankingData.score.ToString(), key);
         
 
-        if(rankingData.name == "") rankingData.name = "Name";
-        if(rankingData.gameMode == "") rankingData.gameMode = "classic";
-        if(rankingData.churchName == "") rankingData.churchName = "ChurchName";
+        //if(rankingData.name == "") rankingData.name = "Name";
+        //if(rankingData.gameMode == "") rankingData.gameMode = "classic";
+        //if(rankingData.churchName == "") rankingData.churchName = "ChurchName";
 
-        rankingData.encryptedTime = EncryptScore(DateTime.Now.Minute.ToString(),key);
-        rankingData.encryptedGameMode = EncryptScore(rankingData.gameMode,key);
+        //rankingData.encryptedTime = Utils.EncryptScore(DateTime.Now.Minute.ToString(),key);
+        //rankingData.encryptedGameMode = Utils.EncryptScore(rankingData.gameMode,key);
 
         action += () => {
             loadingPanel.gameObject.SetActive(false);
@@ -168,7 +154,7 @@ public class NetworkManager : MonoBehaviour
             {
                 // 서버로부터 받은 응답을 출력합니다
                 string responseData = www.downloadHandler.text;
-                classicRankingDatas = JsonConvert.DeserializeObject<List<RankingData>>(responseData);
+                userDatas = JsonConvert.DeserializeObject<List<User>>(responseData);
               
                 successAction?.Invoke();
                 
@@ -179,7 +165,7 @@ public class NetworkManager : MonoBehaviour
     }
 
 
-    IEnumerator InsertDataToServer(RankingData data, Action successAction,Action failAction)
+    IEnumerator InsertDataToServer(User data, Action successAction,Action failAction)
     {
         // RankingData 객체를 JSON 형식의 문자열로 변환합니다.
         string jsonData = JsonUtility.ToJson(data);
@@ -188,7 +174,7 @@ public class NetworkManager : MonoBehaviour
         byte[] jsonDataBytes = System.Text.Encoding.UTF8.GetBytes(jsonData);
 
         // POST 요청을 생성합니다.
-        UnityWebRequest www = new UnityWebRequest("http://52.79.46.242:3000/insert/", "POST");
+        UnityWebRequest www = new UnityWebRequest("http://52.79.46.242:3001/Update/", "POST");
         www.uploadHandler = new UploadHandlerRaw(jsonDataBytes);
         www.downloadHandler = new DownloadHandlerBuffer();
         www.SetRequestHeader("Content-Type", "application/json");
@@ -232,8 +218,6 @@ public class NetworkManager : MonoBehaviour
 
         failAction += () => loadingPanel.gameObject.SetActive(false);
 
-        //string showingFailText = LangManager.IsEng() ? "Can Not Conneted to server" :"오프라인 상태입니다.";
-        //failAction += () => ToastText(showingFailText);
         StartCoroutine(OnlineTestFromServer(action,failAction));
     }
     public void RecommendCheck(string _code)
@@ -306,10 +290,10 @@ public class NetworkManager : MonoBehaviour
     }
     IEnumerator RecommendAddToServer(string _code, Action success)
     {
-        string jsonBody = JsonUtility.ToJson(new CodeRequest { code = _code });
+        string jsonBody = JsonUtility.ToJson("////////////////////umjunsick");
         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonBody);
 
-        using (UnityWebRequest request = new UnityWebRequest("http://52.79.46.242:3000/recommendAdd", "POST"))
+        using (UnityWebRequest request = new UnityWebRequest("http://52.79.46.242:3001/recommendAdd", "POST"))
         {
             request.uploadHandler = new UploadHandlerRaw(bodyRaw);
             request.downloadHandler = new DownloadHandlerBuffer();
@@ -334,7 +318,7 @@ public class NetworkManager : MonoBehaviour
 
     IEnumerator RecommendCheckFromServer(string _code)
     {
-        var request = new UnityWebRequest("http://52.79.46.242:3000/Recommed", "POST");
+        var request = new UnityWebRequest("http://52.79.46.242:3001/Recommed", "POST");
         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(_code);
         request.uploadHandler = new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = new DownloadHandlerBuffer();
@@ -356,7 +340,7 @@ public class NetworkManager : MonoBehaviour
             if(recommendAmount > 0) 
             {
                 //CanvasManager.instance.rewardPanel.ShowPanel(int.Parse(request.downloadHandler.text)*2000);
-                ToastText(recommendAmount.ToString() + "명의 친구에게 추천을 받았어요!");
+                GameManager.instance.ToastText(recommendAmount.ToString() + "명의 친구에게 추천을 받았어요!");
             }
             Debug.Log(request.downloadHandler.text);
         }
@@ -403,93 +387,5 @@ public class NetworkManager : MonoBehaviour
     {
         
         return ProtectedPlayerPrefs.GetInt("gold");
-    }
-
-    private string EncryptScore(string plainText, string key)
-    {
-        using (Aes aes = Aes.Create())
-        {
-            aes.Key = Encoding.UTF8.GetBytes(key);
-            aes.GenerateIV();
-            ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
-
-            using (var ms = new System.IO.MemoryStream())
-            {
-                ms.Write(aes.IV, 0, aes.IV.Length);
-                using (var cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
-                {
-                    using (var sw = new System.IO.StreamWriter(cs))
-                    {
-                        sw.Write(plainText);
-                    }
-                }
-
-                return Convert.ToBase64String(ms.ToArray());
-            }
-        }
-    }
-
-    // //코드에서 냄새가 나기 시작한다... 스멀스멀..
-    public string Decrypt(string encryptedText, string key)
-    {
-        try
-        {
-            byte[] fullCipher = Convert.FromBase64String(encryptedText);
-            byte[] iv = new byte[16];
-            byte[] cipherText = new byte[fullCipher.Length - 16];
-
-            Array.Copy(fullCipher, iv, iv.Length);
-            Array.Copy(fullCipher, iv.Length, cipherText, 0, cipherText.Length);
-
-            using (Aes aes = Aes.Create())
-            {
-                aes.Key = Encoding.UTF8.GetBytes(key);
-                aes.IV = iv;
-
-                using (ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV))
-                {
-                    using (var ms = new System.IO.MemoryStream(cipherText))
-                    {
-                        using (var cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
-                        {
-                            using (var sr = new System.IO.StreamReader(cs))
-                            {
-                                return sr.ReadToEnd();
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError("Decryption failed: " + ex.Message);
-            return null;
-        }
-    }
-
-    // [ContextMenu("EncryptAndDEcrypted")]
-
-    // // 테스트를 위한 예제 함수
-    // public void TestDecryption()
-    // {
-    //     ownData.encryptedScore = EncryptScore(ownData.score.ToString(),key);
-
-    //     // string encryptedText = ownData.encryptedScore; // 암호화된 텍스트
-    //     // string key = "7Jsd9sZ#tGJlf48QbA1pL6k2MjVx8NzO";  // 32바이트 키
-
-    //     string decryptedText = Decrypt(ownData.encryptedScore, key);
-    //     Debug.Log("Decrypted text: " + decryptedText);
-    // }
-
-
-    public class CodeRequest
-    {
-        public string code;
-    }
-
-    public class Notice
-    {
-        public string kor, eng;
     }
 }

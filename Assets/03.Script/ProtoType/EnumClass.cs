@@ -89,6 +89,24 @@ public class SaveData
     public BallType[] ballTypes;
 }
 
+
+[Serializable]
+public class User
+{
+    public string nickname;
+    public int profileindex;
+    public int highscore;
+
+    public User(string nickname, int profileindex = 0, int highscore = 0)
+    {
+        this.nickname = nickname;
+        this.profileindex = profileindex;
+        this.highscore = highscore;
+
+    }
+}
+
+
 [Serializable]
 public class BlockData
 {

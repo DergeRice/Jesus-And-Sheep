@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -7,6 +8,11 @@ public class GameManager : MonoBehaviour
     public bool isLastGameRemain;
 
     public bool isContinueMode = false;
+
+
+    private TMP_Text toastText;
+
+    public GameObject toastUIPrefeb;
 
     private void Awake()
     {
@@ -21,5 +27,16 @@ public class GameManager : MonoBehaviour
     {
         isLastGameRemain = PlayerPrefsManager.Instance.GetBoolSetting(PlayerPrefsData.hasLastGame);
     }
-    
+
+
+
+    public void ToastText(string text)
+    {
+        var toastPanel = Instantiate(toastUIPrefeb, toastRoot).GetComponent<CanvasGroup>();
+
+        toastText = toastPanel.transform.GetChild(0).GetComponent<TMP_Text>();
+
+        toastText.text = text;
+        Destroy(toastPanel.gameObject, 2f);
+    }
 }
