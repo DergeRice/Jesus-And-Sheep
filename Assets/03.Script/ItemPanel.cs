@@ -14,7 +14,7 @@ public class ItemPanel : MonoBehaviour
     private void OnEnable()
     {
         spotLight.SetActive(true);
-        currentCoin.text =  NetworkManager.instance.GetCurGold().ToString();
+        // currentCoin.text =  NetworkManager.instance.GetCurGold().ToString();
     }
 
     // Update is called once per frame

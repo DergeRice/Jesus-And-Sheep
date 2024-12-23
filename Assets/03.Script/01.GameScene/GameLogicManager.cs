@@ -58,11 +58,21 @@ public class GameLogicManager : MonoBehaviour
 
     public bool isGameOver, isShot;
 
+
+    public bool cantBallInteract;
+    public GameDataSaveManager gameDataSaveManager;
+
     private void Awake()
     {
         instance = this;
         debugBall.transform.position = Vector3.one * 300f;
         gameCanvas.getBallDownAction = GetAllBallDown;
+        
+    }
+
+    private void Start()
+    {
+        AdsInitializer.instance.bannerAd.LoadBanner();
         gameCanvas.getBallDownButton.gameObject.SetActive(false);
     }
 
@@ -71,6 +81,9 @@ public class GameLogicManager : MonoBehaviour
         if (isPlayerTurn == true) HandleInput();
         ballCountText.text = shootingBallDatas.Count.ToString();
         currentLevelText.text = currentLevel.ToString();
+
+        if(cantBallInteract) isPlayerTurn = false;
+        // SoundManager.instance.ChangeBgm(1);
     }
 
     private void HandleInput()
@@ -126,10 +139,11 @@ public class GameLogicManager : MonoBehaviour
             // 제한된 방향으로 발사
             launchDirection = clampedDragDirection.normalized;
 
+
             // 공 생성 코루틴 시작
             StartShoot(launchDirection);
             gameCanvas.getBallDownButton.gameObject.SetActive(true);
-            
+            gameDataSaveManager.SaveShotStatus();
             ClearTrajectory();
 
             
@@ -273,6 +287,7 @@ public class GameLogicManager : MonoBehaviour
 
         Utils.DelayCall(() =>
        {
+           FindFirstObjectByType<GameSceneSettingPanel>().cantBallInteract = false;
            isPlayerTurn = true;
            turnEndAction?.Invoke();
            turnEndAction = null;
@@ -299,6 +314,7 @@ public class GameLogicManager : MonoBehaviour
 
     public void GetRandomSpecialBall(int amount)
     {
+        GameLogicManager.instance.shootingBallDatas.Add((BallType)UnityEngine.Random.Range(1,7));
         Debug.Log($"you Got{amount} special ball");
     }
 

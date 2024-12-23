@@ -152,10 +152,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countMax: 0
-  blockType: 6
+  blockType: 4
   countText: {fileID: 0}
   graphic: {fileID: 0}
   fillHeart: {fileID: 0}
   isDisappear: 0
   curX: 0
   curY: 0
+  spriteRenderer: {fileID: 0}
+  nomalLoved: {fileID: 0}
+  fat: {fileID: 0}
+  fatty: {fileID: 0}
+  lovedSheep: []

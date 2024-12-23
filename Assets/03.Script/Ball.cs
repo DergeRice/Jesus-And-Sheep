@@ -13,8 +13,14 @@ public class Ball : MonoBehaviour
     public Vector3 moveDirection; // 이동 방향 벡터
     public Action<Ball, float> ballDownAction;
 
+    public SpriteRenderer ballRender;
+
     public BallType ballType;
 
+    public List<Sprite> ballSprites;
+
+    public Sprite splitedHeart;
+ 
     public Rigidbody2D rb; // Rigidbody2D 참조
     public bool speedMode = false;
     //public Action speedModeCommit;
@@ -49,6 +55,11 @@ public class Ball : MonoBehaviour
     public void Initialize(Vector3 direction)
     {
         moveDirection = direction.normalized;
+        if(ballType != BallType.Common) ballRender.sprite = ballSprites[(int)ballType];
+        
+        float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg - 90f;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
+
         if (rb != null)
         {
             rb.linearVelocity = moveDirection * speed;
@@ -98,7 +109,8 @@ public class Ball : MonoBehaviour
 
         if (bounceTime == 100 )
         {
-            rb.linearVelocity = moveDirection + (Vector2.up * 3);
+            rb.linearVelocity = (moveDirection + (Vector2.up * 3) * speed);
+            // rb.linearVelocity = moveDirection.normalized * speed;
             
         }
 
@@ -120,6 +132,7 @@ public class Ball : MonoBehaviour
                 particlePos = block.transform.position;
                 // Cross: 상하좌우 블록 추가
                 affectedBlocks.AddRange(GameLogicManager.instance.blockManager.GetBlocksInCross(block));
+                SoundManager.instance.sfxAudioSource.PlayOneShot(SoundManager.instance.crossSound);
                 break;
 
             case BallType.Bomb:
@@ -128,6 +141,7 @@ public class Ball : MonoBehaviour
                 affectedBlocks.AddRange(GameLogicManager.instance.blockManager.GetAdjacentBlocks(block));
                 GameLogicManager.instance.ballList.Remove(this);
                 damage = 10;
+                SoundManager.instance.sfxAudioSource.PlayOneShot(SoundManager.instance.bombSound);
                 Destroy(gameObject);
                 break;
 
@@ -135,23 +149,28 @@ public class Ball : MonoBehaviour
                 particlePos = block.transform.position;
                 // Vertical: 같은 X 좌표 블록 추가
                 affectedBlocks.AddRange(GameLogicManager.instance.blockManager.GetBlocksInSameColumn(block));
+                SoundManager.instance.PlayRainbowSound();
                 break;
 
             case BallType.Horizontal:
                 particlePos = block.transform.position;
                 // Horizontal: 같은 Y 좌표 블록 추가
                 affectedBlocks.AddRange(GameLogicManager.instance.blockManager.GetBlocksInSameRow(block));
+                SoundManager.instance.PlayRainbowSound();
                 break;
 
             case BallType.Split:
                 var splitedBall = Instantiate(gameObject).GetComponent<Ball>();
                 splitedBall.ballType = BallType.Common;
+                splitedBall.ballRender.sprite = splitedHeart;
                 splitedBall.ballDownAction = this.ballDownAction;
 
                 GameLogicManager.instance.ballList.Add(splitedBall);
                 ballType = BallType.Common;
-                transform.localScale = Vector3.one * 0.4f;
-                splitedBall.transform.localScale = Vector3.one * 0.4f;
+                ballRender.sprite = splitedHeart;
+
+                transform.localScale = Vector3.one * 0.3f;
+                splitedBall.transform.localScale = Vector3.one * 0.3f;
                 break;
 
             case BallType.Drill:
@@ -159,7 +178,7 @@ public class Ball : MonoBehaviour
                 break;
 
             case BallType.Holly:
-                if (Random.value <= 0.01f)
+                if (Random.value <= 0.05f)
                 {
                     block.DestroyAnimation();
                     particlePos = block.transform.position;

@@ -11,61 +11,46 @@ using GUPS.AntiCheat.Protected.Prefs;
 
 public class LobbyManager : MonoBehaviour
 {
-    public static LobbyManager instance;
-    public int highScore, gold;
+    public GameObject allRoot, tutorial, nicknamePanel;
 
-    public RankingData rankingData;
-
-    public GameObject allRoot, tutorial,noNamePanel,agePanel;
+    public TMP_Text myNameText,myHighScoreText, goldText;
     
-    private void Awake()
-    {
-        
-        if(instance == null) instance = this;
-
-        InitRecommendCode();
-
-        
-    }
-
-    public void EndTutorial()
-    {
-        PlayerPrefs.SetInt("isFirstTime",1);
-    }
     public void Start()
     {
+        GameManager.instance.lobbyManager =this;
 
-        AdsInitializer.instance.interstitialAd.LoadAd();
+        NetworkManager.instance.Init();
+        Time.timeScale = 1.0f;
 
+        if(PlayerPrefsManager.Instance.GetSetting(PlayerPrefsData.isFirstTime)== string.Empty)
+        {
+            nicknamePanel.SetActive(true);
+            PlayerPrefsManager.Instance.SetSetting(PlayerPrefsData.gold,1000);
+        }
+
+        goldText.text = PlayerPrefsManager.Instance.GetSetting(PlayerPrefsData.gold);
         SoundManager.instance.ChangeBgm(0);
         SoundManager.instance.bgmAudioSource.Play();
+        AdsInitializer.instance.interstitialAd.LoadAd();
         AdsInitializer.instance.bannerAd.HideBannerAd();
+
+        AdsInitializer.instance.rewardedAd.LoadAd();
+        LoadMySavedData();
+
         //CanvasManager.instance.ChangeNotice(NetworkManager.instance.engNotice,NetworkManager.instance.korNotice);
-        CheckSurvivalMode();
-
     }
 
-    public void CheckSurvivalMode()
+    public void LoadMySavedData()
     {
-        if(NetworkManager.instance.isSurvivalMode == true)
-        {
-            //CanvasManager.instance.ShowReviewPanel();
-            NetworkManager.instance.isSurvivalMode = false;
-        }
+        myNameText.text = NetworkManager.instance.ownData.nickname;
+        myHighScoreText.text = NetworkManager.instance.ownData.highscore.ToString();
+        goldText.text = NetworkManager.instance.GetGold().ToString();
+        // GameManager.instance.friendManager.LoadData();
     }
-
-    public void InitRecommendCode()
-    {
-        
-    }
-
     public void StartGameScene()
     {
-        
         StartCoroutine(LoadGameSceneAsync());
-
     }
-
 
     private IEnumerator LoadGameSceneAsync()
     {
@@ -85,7 +70,7 @@ public class LobbyManager : MonoBehaviour
 
     public void ShowPolicy()
     {
-        Application.OpenURL("https://fascinated-frog-c0b.notion.site/bcdf5b7223214d4a972b6ac89ad27212?pvs=4");
+        Application.OpenURL("https://www.notion.so/14a66596c89d80cfb071c2279ae1fa07?pvs=4");
     }
     public void ShowHomePage()
     {

@@ -39,12 +39,14 @@ public class GameDataSaveManager : MonoBehaviour
     private void Start()
     {
         gameLogicManager = GameLogicManager.instance; // have to fix out later
+
+        gameLogicManager.gameDataSaveManager = this;
         PlayerPrefsManager.Instance.SetSetting(PlayerPrefsData.hasLastGame, true);
 
         if(GameManager.instance.isContinueMode)
         {
             LoadGame();
-            LoadDataApply();
+            LoadDataApply(GameManager.instance.isLastGameSpeed);
         }
     }
 
@@ -53,35 +55,28 @@ public class GameDataSaveManager : MonoBehaviour
     {
         blockGrid = gameLogicManager.blockManager.blockGrid;
         percentOfBrickLevel = gameLogicManager.blockManager.SavePercentOfBlock();
-        currentPos = gameLogicManager.jesus.transform.position;
-        targetVector = gameLogicManager.launchDirection;
-        IsGameOver = gameLogicManager.isGameOver;
-        IsShot = gameLogicManager.isShot;
+        junsick = ConvertBlocksToList(blockGrid);
         currentLevel = gameLogicManager.currentLevel;
         ballTypes = gameLogicManager.shootingBallDatas.ToArray();
-
-        junsick = ConvertBlocksToList(blockGrid);
 
         saveData = new SaveData
         {
             blockDatas = ConvertBlocksToList(blockGrid),
             percentOfBlockLevel = percentOfBrickLevel,
-            currentPos = new SerializableVector3(currentPos),
-            targetVector = new SerializableVector3(targetVector),
             IsGameOver = IsGameOver,
-            IsShot = IsShot,
             currentLevel = currentLevel,
             ballTypes = ballTypes
-            
         };
 
+        // 블록 상태는 JSON으로 저장
         string json = JsonUtility.ToJson(saveData, true);        
-        string encryptedJson = Encrypt(json, encryptionKey);
-
-        Debug.Log(json);
+        string encryptedJson = Utils.Encrypt(json, encryptionKey);
 
         File.WriteAllText(savePath, encryptedJson);
-       
+        
+        // 공 던진 여부는 PlayerPrefs에 저장
+        SaveShotStatus();
+
         Debug.Log("Game Saved Successfully.");
     }
     
@@ -96,28 +91,38 @@ public class GameDataSaveManager : MonoBehaviour
         }
 
         string encryptedJson = File.ReadAllText(savePath);
-        string json = Decrypt(encryptedJson, encryptionKey);
+        string json = Utils.Decrypt(encryptedJson, encryptionKey);
         SaveData saveData = JsonUtility.FromJson<SaveData>(json);
 
-        // gameLogicManager.blockManager.blockGrid = blockGrid;
-        junsick  = saveData.blockDatas;
+        // 블록 상태와 관련된 데이터 로드
+        junsick = saveData.blockDatas;
         ballTypes = saveData.ballTypes;
         percentOfBrickLevel = saveData.percentOfBlockLevel;
-        currentPos = saveData.currentPos.ToVector3();
-        targetVector = saveData.targetVector.ToVector3();
         IsGameOver = saveData.IsGameOver;
-        IsShot = saveData.IsShot;
         currentLevel = saveData.currentLevel;
+
+        // 공 던진 여부를 PlayerPrefs에서 로드
+        IsShot = PlayerPrefs.GetInt("IsShot", 0) == 1;
+
+        if(IsShot)
+        {
+            LoadShotStatus();
+        }
 
         Debug.Log("Game Loaded Successfully.");
     }
 
     [ContextMenu("Umpply Game")]
-    public void LoadDataApply()
+    public void LoadDataApply(bool isSpeedMode)
     {
-        if(IsGameOver == true)
+        if (IsGameOver == true)
         {
             Debug.Log("already finished game");
+        }
+
+        if (isSpeedMode == true)
+        {
+            Time.timeScale = 2f;
         }
 
         gameLogicManager.blockManager.ReGenerateBlocks(junsick);
@@ -127,15 +132,18 @@ public class GameDataSaveManager : MonoBehaviour
 
         for (int i = 0; i < percentOfBrickLevel.Length; i++)
         {
-            gameLogicManager.blockManager.selectiveRandom.SetWeightAtIndex(i,percentOfBrickLevel[i]);
+            gameLogicManager.blockManager.selectiveRandom.SetWeightAtIndex(i, percentOfBrickLevel[i]);
         }
 
         gameLogicManager.jesus.transform.position = currentPos;
 
-        if(IsShot)
+        // 공 던졌으면 해당 벡터로 공을 던짐
+        if (IsShot)
         {
             gameLogicManager.StartShoot(targetVector);
+            // Utils.DelayCall( ()=>{},0.1f);
         }
+        gameLogicManager.gameCanvas.SetBackImgsSetting(gameLogicManager.currentLevel);
     }
 
     private BlockData[] ConvertBlocksToList(Block[,] blockGrid)
@@ -161,63 +169,59 @@ public class GameDataSaveManager : MonoBehaviour
         return blockList.ToArray(); // 1D 배열로 변환
     }
 
-
-    private string Encrypt(string plainText, string key)
-    {
-        using (Aes aes = Aes.Create())
-        {
-            aes.Key = Encoding.UTF8.GetBytes(key);
-            aes.IV = new byte[16]; // Initialization vector set to 0 for simplicity
-
-            ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
-            using (MemoryStream ms = new MemoryStream())
-            {
-                using (CryptoStream cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
-                {
-                    using (StreamWriter sw = new StreamWriter(cs))
-                    {
-                        sw.Write(plainText);
-                    }
-                }
-                return Convert.ToBase64String(ms.ToArray());
-            }
-        }
-    }
-
-    private string Decrypt(string cipherText, string key)
-    {
-        using (Aes aes = Aes.Create())
-        {
-            aes.Key = Encoding.UTF8.GetBytes(key);
-            aes.IV = new byte[16]; // Same IV used in encryption
-
-            ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
-            using (MemoryStream ms = new MemoryStream(Convert.FromBase64String(cipherText)))
-            {
-                using (CryptoStream cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
-                {
-                    using (StreamReader sr = new StreamReader(cs))
-                    {
-                        return sr.ReadToEnd();
-                    }
-                }
-            }
-        }
-    }
-
     private void OnApplicationPause(bool pause)
     {
         if (pause)
         {
             // ��׶���� ���� �� ������ ����
-            SaveGame();
+            SaveShotStatus();
         }
     }
+
+    public void SaveShotStatus()
+    {
+        // 공 던졌는지 여부를 PlayerPrefs에 저장
+        IsShot = gameLogicManager.isShot;
+        PlayerPrefs.SetInt("IsShot", IsShot ? 1 : 0);
+        PlayerPrefs.Save();
+        
+        ShootData data = new ShootData();
+        data.TargetVector = new SerializableVector3(gameLogicManager.launchDirection);
+        data.CurrentPos = new SerializableVector3(gameLogicManager.jesus.transform.position);
+        
+        string json = JsonUtility.ToJson(data, true);
+        string filePath = Path.Combine(Application.persistentDataPath, "ShootData.json");
+
+        File.WriteAllText(filePath, json);
+        Debug.Log($"Ball data saved: {filePath}");
+
+    }
+
+
+    public void LoadShotStatus()
+    {
+        // 저장된 공 던졌는지 여부를 불러오기
+        string filePath = Path.Combine(Application.persistentDataPath, "ShootData.json");
+
+        if (File.Exists(filePath))
+        {
+            string json = File.ReadAllText(filePath);
+            ShootData data = JsonUtility.FromJson<ShootData>(json);
+
+            targetVector = data.TargetVector.ToVector3();
+            currentPos = data.CurrentPos.ToVector3();
+
+            Debug.Log("Ball data loaded successfully");
+        }
+        gameLogicManager.jesus.transform.position = currentPos;
+        gameLogicManager.StartShoot(targetVector);
+    }
+
 
     private void OnApplicationQuit()
     {
         // �� ���� �� ������ ����
-        SaveGame();
+        SaveShotStatus();
     }
 
     [ContextMenu("Debug")]

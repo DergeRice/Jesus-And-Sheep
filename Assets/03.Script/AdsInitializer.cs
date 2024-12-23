@@ -15,6 +15,9 @@ public class AdsInitializer : MonoBehaviour, IUnityAdsInitializationListener
     public BannerAd bannerAd;
     public InterstitialAd interstitialAd;
 
+    public RewardedAds rewardedAd;
+    
+
     public bool isLoadedAds;
  
     [ContextMenu("DeleteInfo")]
@@ -38,7 +41,7 @@ public class AdsInitializer : MonoBehaviour, IUnityAdsInitializationListener
         DontDestroyOnLoad(gameObject);
         InitializeAds();
 
-        isRemovedAds = PlayerPrefs.GetInt("isRemovedAds") == 1 ? true : false;
+        // isRemovedAds = PlayerPrefs.GetInt("isRemovedAds") == 1 ? true : false;
 
         
         
@@ -46,10 +49,10 @@ public class AdsInitializer : MonoBehaviour, IUnityAdsInitializationListener
 
     public void RemoveAd(bool isRemoved)
     {
-        isRemovedAds = isRemoved;
-        bannerAd.HideBannerAd();
-        Debug.Log("ad" + isRemoved);
-        PlayerPrefs.SetInt("isRemovedAds",isRemoved? 1 : 0);
+        // isRemovedAds = isRemoved;
+        
+        // Debug.Log("ad" + isRemoved);
+        // PlayerPrefs.SetInt("isRemovedAds",isRemoved? 1 : 0);
 
         //string removeText = LangManager.IsEng() ? "Removed Ads!" : "광고제거 성공";
         //NetworkManager.instance.ToastText(removeText);

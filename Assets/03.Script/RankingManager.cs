@@ -7,13 +7,6 @@ using System.Linq;
 using TMPro;
 
 
-public static class LinqExtensions
-{
-    public static TSource MaxBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> selector)
-    {
-        return source.OrderByDescending(selector).FirstOrDefault();
-    }
-}
 
 public class RankingManager : MonoBehaviour
 {
@@ -23,51 +16,31 @@ public class RankingManager : MonoBehaviour
 
     public Transform uiContainer;
 
-    public List<GameObject> profileImgs = new List<GameObject>();
-    List<RankingData> classicRankingDatas;
-    List<RankingData> survivalRankingDatas;
+    // public List<GameObject> profileImgs = new List<GameObject>();
+    public List<User> rankDatas;
+    // List<User> survivalRankingDatas;
 
 
-    public Button churchTab, globalTab;
+    // public Button churchTab, globalTab;
 
     [Header("Mydata")]
     public TMP_Text myScore, myRankIndex;
 
-    Color disabledColor, enableColor;
 
     private void Awake()
     {
-        disabledColor = churchTab.GetComponent<Image>().color;
-        enableColor = globalTab.GetComponent<Image>().color;
+        // disabledColor = churchTab.GetComponent<Image>().color;
+        // enableColor = globalTab.GetComponent<Image>().color;
     }
 
     private void Start()
     {
-        churchTab.onClick.AddListener(ShowChurchRanking);
-        globalTab.onClick.AddListener(ShowGlobalRanking);
+        GameManager.instance.rankingManager = this;
+        // churchTab.onClick.AddListener(ShowChurchRanking);
+        // globalTab.onClick.AddListener(ShowGlobalRanking);
     }
 
-    public void ShowChurchRanking()
-    {
-        CleanBoard();
-        churchTab.GetComponent<Image>().color = enableColor;
-        globalTab.GetComponent<Image>().color = disabledColor;
-
-        SetMyData(survivalRankingDatas,true);
-        ShowUiList(survivalRankingDatas);
-    }
-    public void ShowGlobalRanking()
-    {
-        CleanBoard();
-        churchTab.GetComponent<Image>().color = disabledColor;
-        globalTab.GetComponent<Image>().color = enableColor;
-
-
-        SetMyData(classicRankingDatas,false);
-        ShowUiList(classicRankingDatas);
-    }
-
-    public void ShowUiList(List<RankingData> datas)
+    public void ShowUiList(List<User> datas)
     {
         for (int i = 0; i < datas.Count; i++)
         {
@@ -86,14 +59,14 @@ public class RankingManager : MonoBehaviour
         }
     }
 
-    public void SetMyData(List<RankingData> datas, bool isChurchRanking)
+    public void SetMyData(List<User> datas, bool isChurchRanking)
     {
-        var matchingData = datas.FirstOrDefault(data => data.name == NetworkManager.instance.ownData.name && data.churchName == NetworkManager.instance.ownData.churchName);
-        profileImgs[NetworkManager.instance.ownData.profileIndex].SetActive(true);
+        var matchingData = datas.FirstOrDefault(data => data.nickname == NetworkManager.instance.ownData.nickname);
+        // profileImgs[NetworkManager.instance.ownData.profileindex].SetActive(true);
 
         if(matchingData != null)
         {
-            myScore.text = matchingData.score.ToString();
+            myScore.text = matchingData.highscore.ToString();
             int rankingIndex = datas.IndexOf(matchingData) +1;
             string additionText;
             
@@ -104,7 +77,7 @@ public class RankingManager : MonoBehaviour
             myRankIndex.text = rankingIndex.ToString()+additionText;
 
             //CanvasManager.DisableChild(profileImgs[0].transform.parent.gameObject);
-            profileImgs[NetworkManager.instance.ownData.profileIndex].SetActive(true);
+            // profileImgs[NetworkManager.instance.ownData.profileindex].SetActive(true);
         }else 
         {    // 매칭되는게 없을대 한번 더 검색
             // 교회랭킹일텐데 확인하기
@@ -144,23 +117,8 @@ public class RankingManager : MonoBehaviour
     }
     private void OnEnable()
     {
-        NetworkManager.instance.GetData(()=>BringDatas(),()=>{gameObject.SetActive(false);});
+        // NetworkManager.instance.GetData(()=>BringDatas(),()=>{gameObject.SetActive(false);});
         
     }
 
-    private void BringDatas()
-    {
-        classicRankingDatas = NetworkManager.instance.classicRankingDatas
-        .Where(data => data.gameMode == "classic" || data.gameMode == null)  
-            .ToList();
-
-
-        survivalRankingDatas = NetworkManager.instance.classicRankingDatas
-        .Where(data => data.gameMode == "survival")  
-            .ToList();
-
-        SetMyData(classicRankingDatas,true);
-        ShowUiList(classicRankingDatas);
-        ShowGlobalRanking();
-    }
 }

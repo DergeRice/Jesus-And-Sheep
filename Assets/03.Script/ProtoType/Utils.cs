@@ -8,14 +8,14 @@ public class Utils : MonoBehaviour
 {
     public static async void DelayCall(Action action, float delaySeconds)
     {
-        // Áö¿¬ ½Ã°£¸¸Å­ ´ë±â (¹Ð¸®ÃÊ ´ÜÀ§)
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ (ï¿½Ð¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
         await Task.Delay(TimeSpan.FromSeconds(delaySeconds));
 
-        // ¸ÞÀÎ ½º·¹µå¿¡¼­ ¾×¼Ç ½ÇÇà
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½å¿¡ï¿½ï¿½ ï¿½×¼ï¿½ ï¿½ï¿½ï¿½ï¿½
         action?.Invoke();
     }
 
-    public static string EncryptScore(string plainText, string key)
+    public static string Encrypt(string plainText, string key)
     {
         using (Aes aes = Aes.Create())
         {

@@ -17,6 +17,8 @@ public class BoxItem : MonoBehaviour
             var temp = Instantiate(dropBox, transform.position, Quaternion.identity);
             GameLogicManager.instance.removeObjsAfterTurnEnd.Add(temp);
             temp.transform.DOMoveY(-4.5f,3f).SetEase(Ease.OutBounce);
+
+            SoundManager.instance.sfxAudioSource.PlayOneShot(SoundManager.instance.chestItemSound);
             Destroy(gameObject);
         }
     }

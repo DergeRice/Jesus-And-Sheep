@@ -24,6 +24,8 @@ public class EventManager : MonoBehaviour
     bool currentEventSuccess;
     public List<UnityEvent> failActionList = new List<UnityEvent>();
 
+    public TimeLineManager timeLineManager;
+
     private void Start()
     {
         gameLogicManager = GameLogicManager.instance;
@@ -53,6 +55,8 @@ public class EventManager : MonoBehaviour
     [ContextMenu("GoRandom")]
     public void ShowTwoSelection()
     {
+        SoundManager.instance.PlayEventPanelSound();
+        gameLogicManager.isPlayerTurn = false;
         // Determine the event list based on the weighted rank
         List<GameEvent> selectedList = null;
         switch (eventRank.GetRandomByWeight())
@@ -82,7 +86,7 @@ public class EventManager : MonoBehaviour
         {
             // Show a special ball event along with two random events
             gameLogicManager.ShowSelectPanel(
-                specialBallEvents[Random.Range(0, specialBallEvents.Count)],
+                specialBallEvents[Random.Range(1, specialBallEvents.Count)],
                 selectedList[firstValue],
                 selectedList[secondValue]
             );
@@ -237,7 +241,7 @@ public class EventManager : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
         {
-            gameLogicManager.blockManager.SpawnRandomBlock();
+            gameLogicManager.blockManager.SpawnRandomBlock(false);
         }
     }
 
@@ -245,16 +249,32 @@ public class EventManager : MonoBehaviour
     {
         currentEventSuccess = Random.value > 0.5f;
 
-        if (currentEventSuccess) SetBallCountIncrease(5);
-        else failActionList[failActionIndex].Invoke();
+        if (currentEventSuccess) 
+        {
+            SetBallCountIncrease(5);
+            timeLineManager.PlayTimeLine(true);
+        }
+        else 
+        {
+            failActionList[failActionIndex].Invoke();
+            timeLineManager.PlayTimeLine(false);
+        }
     }
 
     public void SetCoinTossSpecialBallTo(int failActionIndex)
     {
         currentEventSuccess = Random.value > 0.5f;
 
-        if (currentEventSuccess) gameLogicManager.GetRandomSpecialBall(5);
-        else failActionList[failActionIndex].Invoke();
+        if (currentEventSuccess) 
+        {
+            gameLogicManager.GetRandomSpecialBall(5);
+            timeLineManager.PlayTimeLine(true);
+        }
+        else 
+        {
+            failActionList[failActionIndex].Invoke();
+            timeLineManager.PlayTimeLine(false);
+        }
     }
 
 

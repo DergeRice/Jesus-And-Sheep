@@ -9,7 +9,7 @@ public class LobbySceneUIManager : MonoBehaviour
 {
     public Button startButton,countinueButton;
 
-    public GameObject topBar, underBar, title, fence, btns;
+    public GameObject topBar, underBar, title, fence, btns,mail, firstPurchaseItem;
     private AsyncOperation asyncLoad;
 
     private void Start()
@@ -19,10 +19,30 @@ public class LobbySceneUIManager : MonoBehaviour
 
         countinueButton.interactable = PlayerPrefsManager.Instance.GetBoolSetting(PlayerPrefsData.hasLastGame);
 
+        if(PlayerPrefsManager.Instance.GetBoolSetting(PlayerPrefsData.firstItemPurchased) == true)
+        {
+            Destroy(firstPurchaseItem);
+        }
     }
+
+    public void DestroyFirstChaseItem()
+    {
+        PlayerPrefsManager.Instance.SetSetting(PlayerPrefsData.firstItemPurchased, true);
+        Destroy(firstPurchaseItem);
+    }
+    
     public void StartGame()
     {
+        if(GameManager.instance.heartManager.GetHeartCount() <= 0)
+        {
+            GameManager.instance.ToastText("í•˜íŠ¸ê°€ ë¶€ì¡±í•´ìš”!");
+            return;
+        } 
+
+        PlayerPrefsManager.Instance.SetSetting(PlayerPrefsData.lastGameUnlockSpeedMode,false);
+        GameManager.instance.heartManager.UseHeart();
         GameManager.instance.isContinueMode = false;
+        SoundManager.instance.StartGame();
         PreloadGameScene();
         StartAnimation();
     }
@@ -30,6 +50,7 @@ public class LobbySceneUIManager : MonoBehaviour
     public void ContinueGame()
     {
         GameManager.instance.isContinueMode = true;
+        SoundManager.instance.StartGame();
         PreloadGameScene();
         StartAnimation();
     }
@@ -39,22 +60,23 @@ public class LobbySceneUIManager : MonoBehaviour
         topBar.transform.DOBlendableMoveBy(new Vector3(0, 500, 0), 1f);
         title.transform.DOBlendableMoveBy(new Vector3(0, 1300, 0), 1f).SetDelay(0.8f);
         underBar.transform.DOBlendableMoveBy(new Vector3(0, -500, 0), 1f);
+        mail.transform.DOBlendableMoveBy(new Vector3(0, -500, 0), 1f);
         btns.transform.DOBlendableMoveBy(new Vector3(0, -1000, 0), 1f).SetDelay(0.8f);
-        fence.transform.DOBlendableMoveBy(new Vector3(0, -1600, 0), 1f).SetDelay(1.2f); // ¾Ö´Ï¸ÞÀÌ¼Ç ³¡³­ ÈÄ ¾À È°¼ºÈ­
+        fence.transform.DOBlendableMoveBy(new Vector3(0, -1600, 0), 1f).SetDelay(1.2f); // ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ È°ï¿½ï¿½È­
     }
 
     private void PreloadGameScene()
     {
-        // ¾À ·Îµù ½ÃÀÛ
+        // ï¿½ï¿½ ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½
         asyncLoad = SceneManager.LoadSceneAsync("02.GameScene");
-        asyncLoad.allowSceneActivation = false; // ¾À È°¼ºÈ­¸¦ Áö¿¬
+        asyncLoad.allowSceneActivation = false; // ï¿½ï¿½ È°ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
         Utils.DelayCall(() => { ActivateGameScene(); }, 1.14f);
     }
 
     private void ActivateGameScene()
     {
-        // ¾Ö´Ï¸ÞÀÌ¼Ç ¿Ï·á ÈÄ ¾À È°¼ºÈ­
+        // ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½Ï·ï¿½ ï¿½ï¿½ ï¿½ï¿½ È°ï¿½ï¿½È­
         asyncLoad.allowSceneActivation = true;
     }
 }

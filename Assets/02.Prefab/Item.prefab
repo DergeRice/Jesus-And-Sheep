@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de711edc8571c824a8549a93230c4c34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particle: {fileID: 5122623370684563947, guid: da4df8379caca49c6b3c0d2971a16b7f, type: 3}
 --- !u!212 &1744901583074249507
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -150,8 +151,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f5c4f86a756a244b4e875985fd78b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockType: 5
+  countMax: 0
+  blockType: 3
   countText: {fileID: 0}
+  graphic: {fileID: 0}
+  fillHeart: {fileID: 0}
   isDisappear: 0
   curX: 0
   curY: 0
+  spriteRenderer: {fileID: 0}
+  fat: {fileID: 0}
+  fatty: {fileID: 0}
+  lovedSheep: []

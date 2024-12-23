@@ -8,7 +8,7 @@ using GG.Infrastructure.Utils;
 public class BlockManager : MonoBehaviour
 {
     public Block blockPrefab;
-    public GameObject plusItemPrefab, boxItemPrefab;
+    public GameObject plusItemPrefab, boxItemPrefab,coinItemPrefab;
 
 
     public WeightedListOfInts selectiveRandom;
@@ -35,7 +35,7 @@ public class BlockManager : MonoBehaviour
     }
 
     [ContextMenu("SpawnBlock")]
-    public void SpawnRandomBlock()
+    public void SpawnRandomBlock(bool isCoinItem)
     {
         if (IsGridFull())
         {
@@ -52,7 +52,9 @@ public class BlockManager : MonoBehaviour
         }
         while (blockGrid[xIndex, yIndex] != null); // �ش� ��ġ�� ������ ������ �ٽ� ���� ��ġ�� ã��
 
-        var tempBlock = Instantiate(blockPrefab, blockParent);
+        Block tempBlock = null;
+        if(isCoinItem== false) tempBlock = Instantiate(blockPrefab, blockParent);
+        if(isCoinItem== true) tempBlock = Instantiate(coinItemPrefab, blockParent).GetComponent<Block>();
 
         tempBlock.GetComponent<Block>().curX = xIndex;
         tempBlock.GetComponent<Block>().curY = yIndex;
@@ -122,7 +124,7 @@ public class BlockManager : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
         {
-            SpawnRandomBlock();
+            SpawnRandomBlock(false);
         }
     }
 
@@ -179,7 +181,7 @@ public class BlockManager : MonoBehaviour
         }
 
         // 1. 우선순위가 높은 plusItemPrefab 생성
-        if (emptyXIndices.Count > 0 && (GameLogicManager.instance.currentLevel % 2) == 0)
+        if (emptyXIndices.Count > 0 && ((GameLogicManager.instance.currentLevel % 2) == 0 ||GameLogicManager.instance.currentLevel < 10))
         {
             int randomX = emptyXIndices[Random.Range(0, emptyXIndices.Count)];
             emptyXIndices.Remove(randomX); // 해당 위치를 사용했으므로 제거
@@ -226,10 +228,11 @@ public class BlockManager : MonoBehaviour
     {
         for (int x = 0; x < blockGrid.GetLength(0); x++)
         {
-            if (blockGrid[x, 7] != null && blockGrid[x, 7].blockType == BlockType.Item)
+            if (blockGrid[x, 7] != null && (int)(blockGrid[x, 7].blockType) >= (int)BlockType.Item)
             {
+                var temp = blockGrid[x, 7];
+                Destroy(temp.gameObject);
                 blockGrid[x, 7] = null;
-                Destroy(blockGrid[x, 7].gameObject);
             }
         }
 
@@ -249,25 +252,49 @@ public class BlockManager : MonoBehaviour
         levelCount = level;
         StartCoroutine(BlockGetDownCo());
 
-        if (level == 50) Set456RateUP(5);
-        if (level == 100) Set456RateUP(10);
-        if (level == 150) Set456RateUP(15);
-        if (level == 200) Set456RateUP(20);
+        if (level == 50) Set456RateUP(10);
+        if (level == 100) Set456RateUP(15);
+        if (level == 150) Set456RateUP(20);
+        if (level == 200) Set456RateUP(25);
 
 
-        selectiveRandom.SetWeightAtIndex(3, selectiveRandom.GetWeightAtIndex(3) * 1.03f);
-        selectiveRandom.SetWeightAtIndex(4, selectiveRandom.GetWeightAtIndex(4) * 1.04f);
-        selectiveRandom.SetWeightAtIndex(5, selectiveRandom.GetWeightAtIndex(5) * 1.05f);
+        selectiveRandom.SetWeightAtIndex(3, selectiveRandom.GetWeightAtIndex(3) * 1.04f);
+        selectiveRandom.SetWeightAtIndex(4, selectiveRandom.GetWeightAtIndex(4) * 1.05f);
+        selectiveRandom.SetWeightAtIndex(5, selectiveRandom.GetWeightAtIndex(5) * 1.06f);
 
         selectiveRandom.Normalize();
 
-        Utils.DelayCall(() => SpawnTopLane(selectiveRandom.GetRandomByWeight()), 1f);
 
         if (CheckGameOver())
         {
             GameLogicManager.instance.gameCanvas.ShowGameOver();
+            
+
+            if(PlayerPrefsManager.Instance.GetIntSetting(PlayerPrefsData.highScore) 
+            < GameLogicManager.instance.currentLevel)
+            {
+                PlayerPrefsManager.Instance.SetSetting(PlayerPrefsData.highScore,GameLogicManager.instance.currentLevel);
+                NetworkManager.instance.ownData.highscore = GameLogicManager.instance.currentLevel;
+            }
+
+
+            NetworkManager.instance.UpdateOwnData();
+            
             PlayerPrefsManager.Instance.SetSetting(PlayerPrefsData.hasLastGame, false);
+            NetworkManager.instance.StartUpdateTest();
         }
+
+
+        Utils.DelayCall(() => 
+        {
+            SpawnTopLane(selectiveRandom.GetRandomByWeight());
+            GameLogicManager.instance.gameDataSaveManager.SaveGame();
+             if (CheckGameOver()==false)
+            {
+                GameLogicManager.instance.gameCanvas.SetBackImgsSetting(GameLogicManager.instance.currentLevel);
+                if(Random.value < 0.01f) SpawnRandomBlock(true);
+            }
+        }, 1f);
     }
 
     public void Set456RateUP(float amount)
@@ -343,6 +370,8 @@ public class BlockManager : MonoBehaviour
         {
             GameLogicManager.instance.GetAllBallDown();
             GameLogicManager.instance.gameCanvas.ShowGreat();
+            SoundManager.instance.PlayNiceSound();
+            SoundManager.VibrateGame(EVibrate.strong);
         }
     }
 
@@ -553,7 +582,6 @@ public class BlockManager : MonoBehaviour
         {
             for (int dy = -1; dy <= 1; dy++)
             {
-                if (dx == 0 && dy == 0) continue; // 자기 자신 제외
                 if (IsValidPosition(x + dx, y + dy))
                 {
                     blocks.Add(blockGrid[x + dx, y + dy]);
@@ -614,6 +642,7 @@ public class BlockManager : MonoBehaviour
                     // 새로운 블록 생성
                     if (blockData.blockType == BlockType.Item.ToString()) tempBlock = Instantiate(plusItemPrefab.gameObject, blockParent);
                     else if (blockData.blockType == BlockType.Chest.ToString()) tempBlock = Instantiate(boxItemPrefab.gameObject, blockParent);
+                    else if (blockData.blockType == BlockType.Coin.ToString()) tempBlock = Instantiate(coinItemPrefab.gameObject, blockParent);
                     else tempBlock = Instantiate(blockPrefab.gameObject, blockParent);
 
                     // 블록 컴포넌트 초기화

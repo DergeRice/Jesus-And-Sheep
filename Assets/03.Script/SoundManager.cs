@@ -11,8 +11,9 @@ public class SoundManager : MonoBehaviour
     public static SoundManager instance;
 
     public List<AudioClip> popSounds;
-    public AudioClip dropSound, endSound,startSound , jesusSound, magicSound;
-    public AudioClip tick, tickEnd;
+    public AudioClip plusItemSound, chestItemSound,startSound;
+    public AudioClip niceSound, boingSound, chestPopupSound, heartSound;
+    public AudioClip bombSound, rainbowSound,coinSound,crossSound,endSound;
     public List<AudioClip> bgms = new List<AudioClip>();
 
     public AudioSource bgmAudioSource, sfxAudioSource;
@@ -25,9 +26,15 @@ public class SoundManager : MonoBehaviour
 
     public AudioMixer audioMixer;
 
-     #if UNITY_IOS
+    private int sheepSoundPlayCount = 0; // Sheep sound play counter
+    private const int maxSheepSoundPlays = 5; // Limit the sheep sound to 5 plays
+    private int rainbowSoundPlayCount = 0; // Sheep sound play counter
+    private const int maxRainbowSoundPlays = 5; // Limit the sheep sound to 5 plays
+
+
+#if UNITY_IOS
     [DllImport("__Internal")] public static extern void Vibrate(int _n);
-    #endif
+#endif
     private void Awake()
     {
         if(instance != null) Destroy(gameObject);
@@ -49,18 +56,9 @@ public class SoundManager : MonoBehaviour
         
     }
 
-    public void PlayPopSound()
+    public void PlayEventPanelSound()
     {
-        sfxAudioSource.PlayOneShot(popSounds[UnityEngine.Random.Range(0,popSounds.Count)]);
-    }
-    public void PlayMagicSound()
-    {
-        sfxAudioSource.PlayOneShot(magicSound);
-    }
-
-    internal void PlayDropSound()
-    {
-        sfxAudioSource.PlayOneShot(dropSound);
+        sfxAudioSource.PlayOneShot(chestPopupSound);
     }
 
     public static void VibrateGame(EVibrate eVibrate)
@@ -145,14 +143,18 @@ public class SoundManager : MonoBehaviour
 
     public void StartGame()
     {
+        ChangeBgm(1);
+        bgmAudioSource.Pause();
         bgmAudioSource.PlayOneShot(startSound);
         StartCoroutine(WaitBgm(startSound));
+
+        
     }
     IEnumerator WaitBgm(AudioClip audioClip)
     {
         // startSound의 길이만큼 기다립니다.
         yield return new WaitForSeconds(audioClip.length);
-
+        
         // BGM을 재생합니다.
         bgmAudioSource.Play();
     }
@@ -163,28 +165,66 @@ public class SoundManager : MonoBehaviour
     {
         bgmAudioSource.Pause();
         bgmAudioSource.PlayOneShot(endSound);
-        StartCoroutine(WaitBgm(endSound));
+        // StartCoroutine(WaitBgm(endSound));
     }
 
-    public void JesusCome()
-    {  
-        bgmAudioSource.Pause();
-        sfxAudioSource.PlayOneShot(jesusSound);
-        
-        StartCoroutine(WaitBgm(jesusSound));
+    public void PlayNiceSound()
+    {
+        sfxAudioSource.PlayOneShot(niceSound);
     }
+
 
     public void ChangeBgm(int index)
     {
         bgmAudioSource.clip = bgms[index];
-        //if(index == 0) bgmAudioSource.Play();
-        if(index != 0) StartGame();
+        // if(index == 0) bgmAudioSource.Play();
+        // if(index == 1) bgmAudioSource.Pause();
+        // if(index != 0) StartGame();
     }
 
-    public void Ticking(bool isEnd)
+    public void PlayBoingSound()
     {
-        
-        sfxAudioSource.PlayOneShot(isEnd? tick : tickEnd);
+        if (sheepSoundPlayCount >= maxSheepSoundPlays)
+        {
+            // Debug.LogWarning("Too many boing sounds playing! Skipping this one.");
+            return;
+        }
+
+        sfxAudioSource.PlayOneShot(boingSound);
+        sheepSoundPlayCount++;
+
+        StartCoroutine(TrackBoingSound());
     }
+
+    // boingSound가 끝났을 때 카운트 감소
+    private IEnumerator TrackBoingSound()
+    {
+        yield return new WaitForSeconds(boingSound.length);
+        sheepSoundPlayCount--;
+        // Debug.Log($"Boing sound finished. Active count: {currentBoingCount}");
+    }
+
+    public void PlayRainbowSound()
+    {
+        if (rainbowSoundPlayCount >= maxRainbowSoundPlays)
+        {
+            // Debug.LogWarning("Too many boing sounds playing! Skipping this one.");
+            return;
+        }
+
+        sfxAudioSource.PlayOneShot(rainbowSound);
+        rainbowSoundPlayCount++;
+
+        StartCoroutine(TrackRainBowSound());
+    }
+
+    // boingSound가 끝났을 때 카운트 감소
+    private IEnumerator TrackRainBowSound()
+    {
+        yield return new WaitForSeconds(rainbowSound.length);
+        rainbowSoundPlayCount--;
+        // Debug.Log($"Boing sound finished. Active count: {currentBoingCount}");
+    }
+
 
 }

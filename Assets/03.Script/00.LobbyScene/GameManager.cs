@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 
+[DefaultExecutionOrder(-100)]
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -8,11 +9,20 @@ public class GameManager : MonoBehaviour
     public bool isLastGameRemain;
 
     public bool isContinueMode = false;
-
-
-    private TMP_Text toastText;
+    public bool isLastGameSpeed = false;
+    
+    public Transform toastRoot;
 
     public GameObject toastUIPrefeb;
+
+    public RankingManager rankingManager;
+
+    public FriendManager friendManager;
+    public LobbyManager lobbyManager;
+
+    public BadWordManager badWordManager;
+    public MailManager mailManager;
+    public HeartManager heartManager;
 
     private void Awake()
     {
@@ -32,11 +42,10 @@ public class GameManager : MonoBehaviour
 
     public void ToastText(string text)
     {
-        var toastPanel = Instantiate(toastUIPrefeb, toastRoot).GetComponent<CanvasGroup>();
+        var toastText = Instantiate(toastUIPrefeb, toastRoot).GetComponent<ToastUI>();
 
-        toastText = toastPanel.transform.GetChild(0).GetComponent<TMP_Text>();
-
-        toastText.text = text;
-        Destroy(toastPanel.gameObject, 2f);
+        toastText.toastText.text = text;
+        Destroy(toastText.gameObject, 2f);
     }
+    
 }

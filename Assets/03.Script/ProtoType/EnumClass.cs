@@ -12,7 +12,15 @@ public enum PlayerPrefsData
     isSfxOff,
     nickname,
     profileIndex,
-    highScore
+    highScore,
+    gold,
+    isFirstTime,
+    lastGameUnlockSpeedMode,
+    lastAdWatchedDate,
+
+    remainAdWatchCount,
+
+    firstItemPurchased,
 }
 public enum EVibrate
 {
@@ -23,12 +31,12 @@ public enum EVibrate
 public enum BlockType
 {
     Common,
-    Giant,
-    Split,
     Double,
-    BottomIgnore,
+    Triple,
     Item,
     Chest,
+    Coin,
+    
 }
 public enum BallType
 {
@@ -39,7 +47,9 @@ public enum BallType
     Horizontal,
     Split,
     Drill,
-    Holly
+    Holly,
+
+    Double
 }
 
 
@@ -83,29 +93,26 @@ public class SaveData
 {
     public BlockData[] blockDatas;  // 2D �迭�� 1D �迭�� ����
     public float[] percentOfBlockLevel;
-    public SerializableVector3 currentPos;
-    public SerializableVector3 targetVector;
     public bool IsGameOver;
     public bool IsShot;
     public int currentLevel;            // int ��
     public BallType[] ballTypes;
 }
 
+[System.Serializable]
+public class UserList
+{
+    public User[] users;  // 사용자 정보 배열
+}
 
 [Serializable]
 public class User
 {
+    public int id;
     public string nickname;
     public int profileindex;
     public int highscore;
-
-    public User(string nickname, int profileindex = 0, int highscore = 0)
-    {
-        this.nickname = nickname;
-        this.profileindex = profileindex;
-        this.highscore = highscore;
-
-    }
+    public DateTime lastSendTime; // 마지막 하트를 보낸 시간
 }
 
 [Serializable]
@@ -113,7 +120,15 @@ public class HeartData
 {
     public string heartHash;
     public string senderNickName;
-    public string tagetNickName;
+    public string targetNickName;
+}
+
+[System.Serializable]
+public class ShootData
+{
+    public bool IsShot;
+    public SerializableVector3 CurrentPos;
+    public SerializableVector3 TargetVector;
 }
 
 

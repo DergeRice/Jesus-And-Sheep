@@ -7,7 +7,7 @@ public class PanelBase : MonoBehaviour
     public Button close;
 
 
-    public void Start()
+    public void Awake()
     {
         if(close != null) close.onClick.AddListener(()=> { SetActive(false); });
     }

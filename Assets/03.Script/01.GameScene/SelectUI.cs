@@ -19,8 +19,12 @@ public class SelectUI : MonoBehaviour
 
         context.text = gameEvent.explaination;
         selectButton.onClick.RemoveAllListeners();
-        selectButton.onClick.AddListener(() => { gameEvent.unityAction.Invoke(); });
+        selectButton.onClick.AddListener(() => 
+        { 
+            gameEvent.unityAction.Invoke();
+            Utils.DelayCall(() => { GameLogicManager.instance.isPlayerTurn = true; }, 0.3f);
+        });
         
-        Utils.DelayCall(() => { GameLogicManager.instance.isPlayerTurn = true; }, 0.3f);
+        
     }
 }

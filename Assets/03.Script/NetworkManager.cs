@@ -11,19 +11,14 @@ using GUPS.AntiCheat;
 using GUPS.AntiCheat.Protected.Prefs;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 
 public class NetworkManager : MonoBehaviour
 {
+    
     public static NetworkManager instance;
-    public string severSelectURL;
-    public string severInsertURL;
 
-    public string awsIP ;
-    public string selectServerURL; 
-    public string insertServerURL;
-
-
-    public List<User> userDatas; 
+    public string baseURL;
 
     public User ownData;
 
@@ -34,15 +29,10 @@ public class NetworkManager : MonoBehaviour
 
     public bool onlineMode = false;
 
-    public bool isSurvivalMode;
+    public string currentVersion = "1.0.0";
 
-    public string key;
+    public GameObject versionDidntMatchPanel;
 
-    public string korNotice, engNotice;
-
-/// <summary>
-/// Awake is called when the script instance is being loaded.
-/// </summary>
     private void Awake()
     {
         gameObject.transform.SetParent(null);
@@ -54,13 +44,16 @@ public class NetworkManager : MonoBehaviour
     }
     
     // Start is called before the first frame update
-    void Start()
+    public void Init()
     {
-        selectServerURL = awsIP + severSelectURL;
-        insertServerURL = awsIP + severInsertURL;
         UpdateOwnData();
         OnlineTest();
-        //RecommendCheck(CanvasManager.instance.addFriendPanel.myRecommendCode);
+        Utils.DelayCall(()=>{ GameManager.instance.lobbyManager.LoadMySavedData();},0.05f);
+    }
+    public void NetworkSuccess()
+    {
+        GetRank();
+        FetchReceivedHeartList();
     }
 
 
@@ -76,81 +69,61 @@ public class NetworkManager : MonoBehaviour
     [ContextMenu("TestInsert")]
     public void EnrollOwnData()
     {
-        NetworkManager.instance.EnrollUser(ownData);
+        EnrollUser(ownData);
+    }
+    public void CheckNicknameAsync(string nickname, Action success, Action fail)
+    {
+        StartCoroutine(CheckNicknameToServer(nickname,success,fail));
     }
 
-    [ContextMenu("TestSelect")]
-    public void SelectData()
+    public IEnumerator CheckNicknameToServer(string nickname, Action success, Action fail)
     {
-        NetworkManager.instance.GetData();
+        string url = $"{baseURL}/check?nickname={UnityWebRequest.EscapeURL(nickname)}";
+        UnityWebRequest request = UnityWebRequest.Get(url);
+
+        Debug.Log("request");
+        yield return request.SendWebRequest(); // 요청 완료될 때까지 대기
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            if (request.downloadHandler.text.Contains("available"))
+            {
+                success?.Invoke(); // 성공 콜백 호출
+            }
+            else
+            {
+                fail?.Invoke(); // 실패 콜백 호출
+            }
+        }
+        else
+        {
+            Debug.LogError($"Error checking nickname: {request.error}");
+            fail?.Invoke(); // 실패 콜백 호출
+        }
     }
 
-
-
-    public void RankSuccess()
+    public void EnrollUser(User userData, Action action = null, Action failAction = null)
     {
-        // rankSuccessPanel.alpha =1;
-        // rankSuccessPanel.DOFade(0,5f);
-    }
 
-    public void EnrollUser(User rankingData, Action action = null, Action failAction = null)
-    {
+        ownData = userData;
         loadingPanel.gameObject.SetActive(true);
         //rankingData.highscore = int.Parse(Utils.EncryptScore(rankingData.highscore.ToString(), key));
 
 
         action += () => {
             loadingPanel.gameObject.SetActive(false);
-            RankSuccess();
+            PlayerPrefsManager.Instance.SetSetting(PlayerPrefsData.nickname,userData.nickname);
+            PlayerPrefsManager.Instance.SetSetting(PlayerPrefsData.highScore,userData.highscore);
         };
 
         failAction += () => loadingPanel.gameObject.SetActive(false);
         //failAction += () => ToastText(LangManager.IsEng()? "Could't Upload": "랭킹을 등록할 수 없어요.");
-        StartCoroutine(EnrollUserDataToServer(rankingData, action, failAction));
+        StartCoroutine(EnrollUserDataToServer(userData, action, failAction));
     }
-
-    public void GetData(Action action = null, Action failAction = null)
-    {
-
-        
-        loadingPanel.gameObject.SetActive(true);
-        action += () => loadingPanel.gameObject.SetActive(false);
-
-        failAction += () => loadingPanel.gameObject.SetActive(false);
-
-        //string showingText = LangManager.IsEng() ? "Can not upload ranking" :"랭킹을 등록할 수 없어요.";
-        //failAction += () => ToastText(showingText);
-        StartCoroutine(GetDataFromServer(action,failAction));
-    }
-
-    IEnumerator GetDataFromServer(Action successAction,Action failAction)
-    {
-        using (UnityWebRequest www = UnityWebRequest.Get("http://52.79.46.242:3000/select"))
-        {
-            yield return www.SendWebRequest();
-
-            if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
-            {
-                Debug.LogError(www.error);
-                failAction.Invoke();
-            }
-            else
-            {
-                // 서버로부터 받은 응답을 출력합니다
-                string responseData = www.downloadHandler.text;
-                userDatas = JsonConvert.DeserializeObject<List<User>>(responseData);
-              
-                successAction?.Invoke();
-                
-            }
-        }
-
-        
-    }
-
 
     IEnumerator EnrollUserDataToServer(User data, Action successAction,Action failAction)
     {
+
         // RankingData 객체를 JSON 형식의 문자열로 변환합니다.
         string jsonData = JsonUtility.ToJson(data);
 
@@ -179,200 +152,313 @@ public class NetworkManager : MonoBehaviour
             // 서버로부터 받은 응답을 출력합니다.
             successAction?.Invoke();
             Debug.Log("Response: " + www.downloadHandler.text);
+            GameManager.instance.ToastText("성공적으로 로그인했어요!");
         }
     }
 
     public void OnlineTest(Action action = null, Action failAction = null)
     {
         loadingPanel.gameObject.SetActive(true);
-        
 
-        action += () => loadingPanel.gameObject.SetActive(false);
-
-        //string showingText = LangManager.IsEng() ? "Conneted to server" :"온라인 상태입니다.";
-        
-
-        //action += () => ToastText(showingText);
         action += () => 
         {
             onlineMode = true;
-            //CanvasManager.instance.onlineIndicator.SetOnlineState(onlineMode);
-            
+            GameManager.instance.ToastText("온라인으로 접속합니다.");
+            loadingPanel.gameObject.SetActive(false);
+            NetworkSuccess();
         };
 
-        failAction += () => loadingPanel.gameObject.SetActive(false);
+        failAction += () => 
+        {
+            loadingPanel.gameObject.SetActive(false);
+            GameManager.instance.ToastText("오프라인으로 접속합니다.");
+        };
+        
+        currentVersion = Application.version;
 
-        StartCoroutine(OnlineTestFromServer(action,failAction));
+        Action VersionDidntMatchAction = () =>
+        {
+            if(versionDidntMatchPanel != null) versionDidntMatchPanel.SetActive(true);
+        };
+        StartCoroutine(VersionCheck(action,VersionDidntMatchAction));
     }
     public void HeartReceiveCheck(string _code)
     {
         Debug.Log($"{_code}로 request보냄");
-        StartCoroutine(HeartReceiveCheckToServer(_code));
+        StartCoroutine(FetchReceivedHeartListToServer(_code));
     }
 
-    public void RecommendAdd(string _code,Action success)
+    public void SendHeart(string target,Action success,bool noPopup = false)
     {
-        StartCoroutine(RecommendAddToServer(_code, success));
+        StartCoroutine(SendHeartToServer(ownData.nickname, target,success,noPopup));
     }
-
-    [ContextMenu("RecommendTest")]
-    public void RecommendAdd()
+    public IEnumerator SendHeartToServer(string senderNickName, string targetNickName,Action success, bool noPopup)
     {
-        // StartCoroutine(RecommendAddToServer(RecommendTest));
-    }
+        string url = $"{baseURL}/sendHeart"; // 서버 주소를 적절히 변경하세요.
 
-    
-
-
-    [ContextMenu("NoticeUpload")]
-    public void NoticeUpload()
-    {
-        StartCoroutine(UploadNotice());
-    }
-
-    IEnumerator OnlineTestFromServer(Action successAction,Action failAction)
-    {
-        using (UnityWebRequest www = UnityWebRequest.Get("http://52.79.46.242:3000/notice"))
+        // POST 요청에 필요한 데이터를 JSON으로 만듭니다.
+        HeartData heartData = new HeartData
         {
-            yield return www.SendWebRequest();
+            senderNickName = senderNickName,
+            targetNickName = targetNickName
+        };
 
-            if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
-            {
-                Debug.LogError(www.error);
-                failAction.Invoke();
-            }
-            else
-            {
+        string jsonData = JsonUtility.ToJson(heartData);
 
-                string jsonText = www.downloadHandler.text;
-                Debug.Log(jsonText);
+        UnityWebRequest request = new UnityWebRequest(url, "POST");
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
 
-                // jsonText에서 불필요한 부분을 제거하고, 실제 문자열을 추출합니다.
-                string jsonBody = jsonText.Trim(new char[] { '{', '}', '"' });
+        // 요청 설정
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
 
-                // jsonBody는 "테스트입니다.^It's a test" 형태일 것입니다.
-                string notice = jsonBody.Split(':')[0].Trim(); // 키를 추출
+        yield return request.SendWebRequest();
 
-                // notice는 "테스트입니다.^It's a test" 형태일 것입니다.
-                string[] splitText = notice.Split('^');
-
-                if (splitText.Length == 2)
-                {
-                    string kor = splitText[0];
-                    string eng = splitText[1];
-
-                    // 이제 각각의 문자열을 UI에 표시합니다.
-                    //CanvasManager.instance.ChangeNotice(eng, kor);
-                    
-                    korNotice = kor;
-                    engNotice = eng;
-
-                    successAction?.Invoke();
-                }
-            }
-        }
-    }
-    IEnumerator RecommendAddToServer(string _code, Action success)
-    {
-        string jsonBody = JsonUtility.ToJson("////////////////////umjunsick");
-        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonBody);
-
-        using (UnityWebRequest request = new UnityWebRequest("http://52.79.46.242:3001/recommendAdd", "POST"))
+        // 결과 확인
+        if (request.result == UnityWebRequest.Result.Success)
         {
-            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-            request.downloadHandler = new DownloadHandlerBuffer();
-            request.SetRequestHeader("Content-Type", "application/json");
-
-            // 요청 보내기
-            yield return request.SendWebRequest();
-
-            if (request.result != UnityWebRequest.Result.Success)
-            {
-                Debug.LogError("Error: " + request.error);
-                Debug.LogError("Response: " + request.downloadHandler.text);
-            }
-            else
-            {
-                //CanvasManager.instance.rewardPanel.ShowPanel(2000);
-                success.Invoke();
-                Debug.Log("Response: " + request.downloadHandler.text);
-            }
-        }
-    }
-
-    //IEnumerator HeartReceiveCheckToServer(string _code)
-    //{
-    //    var request = new UnityWebRequest("http://52.79.46.242:3001/checkMyHeartList", "POST");
-    //    byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(_code);
-    //    request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-    //    request.downloadHandler = new DownloadHandlerBuffer();
-    //    request.SetRequestHeader("Content-Type", "text/plain");
-    //    loadingPanel.gameObject.SetActive(true);
-
-    //    // 요청 보내기
-    //    yield return request.SendWebRequest();
-
-    //    if (request.result != UnityWebRequest.Result.Success)
-    //    {
-    //        Debug.LogError("Error: " + request.error);
-    //    }
-    //    else
-    //    {
-    //        loadingPanel.gameObject.SetActive(false);
-
-    //        string responseData = www.downloadHandler.text;
-    //        userDatas = JsonConvert.DeserializeObject<List<HeartData>>(responseData);
-
-    //        //int recommendAmount = int.Parse(request.downloadHandler.text);
-    //        //if(recommendAmount > 0) 
-    //        //{
-    //        //    //CanvasManager.instance.rewardPanel.ShowPanel(int.Parse(request.downloadHandler.text)*2000);
-    //        //    GameManager.instance.ToastText(recommendAmount.ToString() + "명의 친구에게 추천을 받았어요!");
-    //        //}
-    //        //Debug.Log(request.downloadHandler.text);
-    //    }
-    //}
-    IEnumerator UploadNotice()
-    {
-
-        // POST 요청을 생성합니다.
-        UnityWebRequest www = UnityWebRequest.PostWwwForm("http://52.79.46.242:3000/noticeupload",noticeText);
-
-        Debug.Log("Sending insert request");
-
-        // 요청을 보냅니다.
-        yield return www.SendWebRequest();
-
-        // 응답을 확인합니다.
-        if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
-        {
-            Debug.LogError(www.error);
+            Debug.Log("Heart sent successfully: " + request.downloadHandler.text);
+            if(noPopup == false) GameManager.instance.ToastText("성공적으로 하트를 보냈어요!");
+            success?.Invoke();
         }
         else
         {
-            Debug.Log("Response: " + www.downloadHandler.text);
+            GameManager.instance.ToastText("네트워크 연결을 확인하세요.");
+            Debug.LogError($"Failed to send heart: {request.error}");
         }
     }
 
-    
 
+    IEnumerator VersionCheck(Action successAction,Action failAction)
+    {
+                // 클라이언트 버전과 함께 서버에 POST 요청을 보냄
+        WWWForm form = new WWWForm();
+        form.AddField("version", currentVersion);
+
+        using (UnityWebRequest request = UnityWebRequest.Post($"{baseURL}/versionCheck", form))
+        {
+            // 요청 보내기
+            yield return request.SendWebRequest();
+
+            // 응답 처리
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                // 서버에서 받은 응답 처리
+                string responseText = request.downloadHandler.text;
+
+                // 서버에서 응답을 JSON으로 받으면 파싱해서 처리
+                if (responseText.Contains("isCompatible"))
+                {
+                    bool isCompatible = responseText.Contains("true");
+                    if (isCompatible)
+                    {
+                        Debug.Log("버전 호환됨");
+                        successAction?.Invoke();
+                        loadingPanel.gameObject.SetActive(false);
+                    }
+                    else
+                    {
+                        Debug.Log("버전 호환되지 않음");
+                        failAction?.Invoke();
+                        loadingPanel.gameObject.SetActive(false);
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("버전 체크 요청 실패: " + request.error);
+                loadingPanel.gameObject.SetActive(false);
+            }
+        }
+    
+    }
+
+    public void FetchReceivedHeartList()
+    {
+        StartCoroutine(FetchReceivedHeartListToServer(ownData.nickname));
+    }
+    IEnumerator FetchReceivedHeartListToServer(string nickname)
+    {
+        string url = $"{baseURL}/checkMyHeartList?nickname={UnityWebRequest.EscapeURL(nickname)}";
+        UnityWebRequest request = UnityWebRequest.Get(url);
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            Debug.Log($"Response: {request.downloadHandler.text}");
+
+            // JSON 데이터를 Heart 리스트로 변환
+            List<HeartData> heartList = JsonConvert.DeserializeObject<List<HeartData>>(request.downloadHandler.text);
+            
+            GameManager.instance.mailManager.MakeUiFromHeartList(heartList);
+        }
+        else
+        {
+            Debug.LogError($"Error fetching heart list: {request.error}");
+        }
+    }
+
+    public void HeartReceive(string heartHash, Action success = null, Action fail = null)
+    {
+        StartCoroutine(HeartReceiveToServer(heartHash,success,fail));
+    }
+    IEnumerator HeartReceiveToServer(string heartHash, Action success = null, Action fail = null)
+    {
+        string jsonData = "{\"heartHash\": \"" + heartHash + "\"}";
+
+        // UnityWebRequest로 POST 요청 생성
+        using (UnityWebRequest www = new UnityWebRequest($"{baseURL}/receiveHeart", "POST"))
+        {
+            byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
+            www.uploadHandler = new UploadHandlerRaw(bodyRaw);
+            www.downloadHandler = new DownloadHandlerBuffer();
+            www.SetRequestHeader("Content-Type", "application/json");
+
+            // 응답을 기다림
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log("Heart received successfully: " + www.downloadHandler.text);
+                GameManager.instance.ToastText("성공적으로 하트를 받았어요!");
+                success?.Invoke();
+                // 성공 처리 로직 추가
+            }
+            else
+            {
+                Debug.LogError("Failed to receive heart: " + www.error);
+                GameManager.instance.ToastText("네트워크 환경을 확인해주세요.");
+                fail?.Invoke();
+                // 오류 처리 로직 추가
+            }
+        }
+    }
+
+    // 테스트용 메서드
+    public void StartUpdateTest()
+    {
+        StartCoroutine(UpdateHighscore(ownData.nickname, ownData.highscore));
+    }
+
+    public IEnumerator UpdateHighscore(string nickname, int highscore)
+    {
+        // JSON 데이터 생성
+        var formData = new WWWForm();
+        formData.AddField("nickname", nickname);
+        formData.AddField("highscore", highscore);
+
+        using (UnityWebRequest request = UnityWebRequest.Post($"{baseURL}/update", formData))
+        {
+            // 서버로 요청 보내기
+            yield return request.SendWebRequest();
+
+            // 요청 결과 확인
+            if (request.result == UnityWebRequest.Result.ConnectionError || 
+                request.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogError($"Error: {request.error}");
+                Debug.LogError($"Server Response: {request.downloadHandler.text}");
+                GameManager.instance.ToastText("네트워크 연결 상태를 확인해주세요.");
+            }
+            else
+            {
+                Debug.Log($"Success: {request.downloadHandler.text}");
+                GameManager.instance.ToastText("랭킹에 등록했어요!");
+            }
+        }
+    }
+
+
+
+    [ContextMenu("rank")]
+    public void GetRank()
+    {
+        StartCoroutine(GetRanking());
+    }
+    public IEnumerator GetRanking()
+    {
+        string url = "http://52.79.46.242:3001/getRanking";
+        Debug.Log(url);
+
+        UnityWebRequest request = UnityWebRequest.Get(url);
+        // request.SetRequestHeader("Content-Type", "application/json");
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            Debug.Log($"Ranking: {request.downloadHandler.text}");
+
+            List<User> userList = JsonConvert.DeserializeObject<List<User>>(request.downloadHandler.text);
+            // RankingList에 저장된 순위를 출력
+            GameManager.instance.rankingManager.ShowUiList(userList);
+        }
+        else
+        {
+            Debug.LogError($"Error fetching ranking: {request.error}");
+        }
+    }
     public void GoldChange(int value)
     {
-        var gold = ProtectedPlayerPrefs.GetInt("gold");
-
+        var gold = int.Parse(PlayerPrefsManager.Instance.GetSetting(PlayerPrefsData.gold));
 
         gold  += value;
 
         if(gold < 0) gold = 0;
-        ProtectedPlayerPrefs.SetInt("gold",gold);
-        ProtectedPlayerPrefs.SetInt("goldDoubleCheck",ProtectedPlayerPrefs.GetInt("gold"));
-        // PlayerPrefs.SetInt
+
+        PlayerPrefsManager.Instance.SetSetting(PlayerPrefsData.gold,gold);
+
+        if(FindFirstObjectByType<LobbyManager>().goldText != null)
+        {
+            StartCoroutine(AnimateGoldChange(value,FindFirstObjectByType<LobbyManager>().goldText));
+        }
     }
 
-
-    public int GetCurGold()
+    public void GoldChange(int value,TMP_Text goldText = null)
     {
-        
-        return ProtectedPlayerPrefs.GetInt("gold");
+        Debug.Log(PlayerPrefsManager.Instance.GetSetting(PlayerPrefsData.gold));
+        var gold = int.Parse(PlayerPrefsManager.Instance.GetSetting(PlayerPrefsData.gold));
+
+        gold  += value;
+
+        if(gold < 0) gold = 0;
+
+        PlayerPrefsManager.Instance.SetSetting(PlayerPrefsData.gold,gold);
+        if(goldText != null) StartCoroutine(AnimateGoldChange(value,goldText));
     }
+
+    private IEnumerator AnimateGoldChange(int value,TMP_Text goldText)
+    {
+        int startGold = int.Parse(goldText.text); // 현재 UI의 골드 값
+        int targetGold = startGold + value;      // 목표 골드 값
+
+        if (targetGold < 0) targetGold = 0;
+
+        float duration = 1.5f;                   // 애니메이션 시간
+        float elapsed = 0f;                      // 경과 시간
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+
+            // 등속으로 숫자 증가/감소
+            int currentGold = Mathf.RoundToInt(Mathf.Lerp(startGold, targetGold, elapsed / duration));
+            goldText.text = currentGold.ToString();
+
+            yield return null; // 다음 프레임까지 대기
+        }
+
+        // 마지막 값 보정
+        goldText.text = targetGold.ToString();
+    }
+
+
+    public int GetGold()
+    {
+        return PlayerPrefsManager.Instance.GetIntSetting(PlayerPrefsData.gold);
+    }
+
+
 }

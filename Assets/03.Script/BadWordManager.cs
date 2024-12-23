@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class BadWordManager : MonoBehaviour
 {
-
+    
     public string[] lines;
 
     string source;

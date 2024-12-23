@@ -6,6 +6,12 @@ using UnityEngine.UI;
 
 public class SettingPanel : MonoBehaviour
 {
+
+    public Button settingButton,closeButton;
+    
+    public RectTransform rectTransform;
+    private Vector3 initPos;
+
     public List<SettingButton> settingButtons = new List<SettingButton>();
 
     List<Sprite> orignImgs = new List<Sprite>();
@@ -16,11 +22,23 @@ public class SettingPanel : MonoBehaviour
 
     public int easterEggPanelCount;
 
-    public GameObject easterEggPanel;
+    public EasterEgg easterEggPanel;
 
 
     private void Start()
     {
+        initPos = rectTransform.position;
+        settingButton.onClick.AddListener(()=>
+        {
+            rectTransform.position = Vector3.zero;
+        });
+
+        closeButton.onClick.AddListener(()=>
+        {
+            rectTransform.position = initPos;
+        });
+
+
         SoundManager.instance.settingPanel = this;
         AddEvent();
         for (int i = 0; i < settingButtons.Count; i++)
@@ -36,12 +54,12 @@ public class SettingPanel : MonoBehaviour
                 );
 
         }
-        settingButtons[3].disabled = (PlayerPrefs.GetInt("LangEng") == 1);
+
     
         SetToggleJustImg(0);
         SetToggleJustImg(1);
         SetToggleJustImg(2);
-        SetToggleJustImg(3);
+
 
 
         settingButtons[0].action += () => 
@@ -50,7 +68,7 @@ public class SettingPanel : MonoBehaviour
             
             if(easterEggPanelCount > 20)
             {
-                easterEggPanel.SetActive(true);
+                easterEggPanel.PlayEasterEgg();
                 easterEggPanelCount = 0;
             }
         };

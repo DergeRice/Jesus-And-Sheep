@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using GUPS.AntiCheat.Protected.Prefs;
 
 public class PlayerPrefsManager : MonoBehaviour
 {
@@ -36,18 +37,22 @@ public class PlayerPrefsManager : MonoBehaviour
         // PlayerPrefsData enum을 순회하여 모든 값 로드
         foreach (PlayerPrefsData key in System.Enum.GetValues(typeof(PlayerPrefsData)))
         {
-            string value = PlayerPrefs.GetString(key.ToString(), string.Empty); // 값을 불러오고 기본값을 빈 문자열로 설정
+            string value = ProtectedPlayerPrefs.GetString(key.ToString(), string.Empty); // 값을 불러오고 기본값을 빈 문자열로 설정
             settings[key] = value; // 딕셔너리에 저장
         }
     }
 
+    public bool HasSetting(PlayerPrefsData key)
+    {
+        return settings.ContainsKey(key);
+    }
     // 설정값을 저장하는 메서드
     public void SetSetting(PlayerPrefsData key, object value)
     {
         string valueString = value.ToString();
         settings[key] = valueString;
-        PlayerPrefs.SetString(key.ToString(), valueString);
-        PlayerPrefs.Save();
+        ProtectedPlayerPrefs.SetString(key.ToString(), valueString);
+        ProtectedPlayerPrefs.Save();
     }
 
     // 설정값을 가져오는 메서드 (string으로 반환)
@@ -63,7 +68,10 @@ public class PlayerPrefsManager : MonoBehaviour
     // 설정값을 bool로 반환
     public bool GetBoolSetting(PlayerPrefsData key)
     {
-        return GetSetting(key) == "True";
+        bool value = false;
+
+        if(GetSetting(key)!= string.Empty && GetSetting(key) == "True") value = true;
+        return value;
     }
 
     // 설정값을 int로 반환
@@ -82,11 +90,16 @@ public class PlayerPrefsManager : MonoBehaviour
         return result;
     }
 
-    // 전체 설정값을 초기화하는 메서드
-    public void ResetAllSettings()
+    [ContextMenu("DeleleAll")]
+     public void DeleteAllSettings()
     {
+        // 딕셔너리와 PlayerPrefs 모두 초기화
+        foreach (var key in settings.Keys)
+        {
+            ProtectedPlayerPrefs.DeleteKey(key.ToString());
+        }
         settings.Clear();
-        PlayerPrefs.DeleteAll();
-        PlayerPrefs.Save();
+        ProtectedPlayerPrefs.Save();
+        Debug.Log("All settings have been deleted.");
     }
 }

@@ -141,7 +141,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   moveDirection: {x: 0, y: 0, z: 0}
+  ballRender: {fileID: 98562707850905613}
   ballType: 0
+  ballSprites:
+  - {fileID: 0}
+  - {fileID: 5839820706974066888, guid: 121d9a2e89aed4b689d8cfb97356cb5f, type: 3}
+  - {fileID: -7908496858442099274, guid: cc1714efd1a72446899b28d68ff0ca8b, type: 3}
+  - {fileID: -3266530494381537983, guid: b8e5a891cc836429e9920ec5160502b9, type: 3}
+  - {fileID: -4010829847945996852, guid: 424afe3250b2b45be954b193aaa1cbbb, type: 3}
+  - {fileID: 5521642184399116045, guid: 195c93660fa674479b4b6b9b76577fed, type: 3}
+  - {fileID: -765150924802650856, guid: 568ea764f6ba34f559b2ac89c9731080, type: 3}
+  - {fileID: 4901951773667934243, guid: c281760cc35a7475ca39f6c6fade4a93, type: 3}
+  - {fileID: 0}
+  splitedHeart: {fileID: 3652952086539667216, guid: 62d6cbcc9b4d8af4ca6826baa33867c3, type: 3}
   rb: {fileID: 8988787097122279480}
   speedMode: 0
   passableWallLayer:
