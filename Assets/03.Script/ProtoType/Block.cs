@@ -135,7 +135,8 @@ public class Block : MonoBehaviour
         }
     }
 
-    public void TypeInit()
+
+    public void TypeInit(bool mulitifierInit = true)
     {
         switch (blockType)
         {
@@ -143,11 +144,11 @@ public class Block : MonoBehaviour
                 break;
             case BlockType.Double:
                 spriteRenderer.sprite = fat;
-                Count *= 2;
+                if(mulitifierInit == true) Count *= 2;
                 break;
             case BlockType.Triple:
                 spriteRenderer.sprite = fatty;
-                Count *= 3;
+                if(mulitifierInit == true) Count *= 3;
                 break;
             default:
                 break;

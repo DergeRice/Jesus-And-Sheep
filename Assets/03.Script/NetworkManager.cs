@@ -296,7 +296,9 @@ public class NetworkManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError($"Error fetching heart list: {request.error}");
+            List<HeartData> heartList = new List<HeartData>();
+            GameManager.instance.mailManager.MakeUiFromHeartList(heartList);
+            // Debug.LogError($"Error fetching heart list: {request.error}");
         }
     }
 
@@ -339,7 +341,7 @@ public class NetworkManager : MonoBehaviour
     // 테스트용 메서드
     public void StartUpdateTest()
     {
-        StartCoroutine(UpdateHighscore(ownData.nickname, ownData.highscore));
+        StartCoroutine(UpdateHighscore(ownData.nickname, GameLogicManager.instance.currentLevel));
     }
 
     public IEnumerator UpdateHighscore(string nickname, int highscore)

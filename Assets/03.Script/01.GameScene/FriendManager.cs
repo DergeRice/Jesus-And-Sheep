@@ -4,6 +4,7 @@ using System.IO;
 using Newtonsoft.Json;
 using UnityEngine.UI;
 using System;
+using System.Linq;
 
 public class FriendManager : MonoBehaviour
 {
@@ -73,6 +74,10 @@ public class FriendManager : MonoBehaviour
         {
             string json = File.ReadAllText(path);
             userList = JsonConvert.DeserializeObject<List<User>>(json) ?? new List<User>();
+
+            // 중복된 닉네임 제거
+            RemoveDuplicateNicknames();
+
             MakeFriendUiList(userList);
         }
         else
@@ -81,6 +86,24 @@ public class FriendManager : MonoBehaviour
             userList = new List<User>();
         }
     }
+
+    private void RemoveDuplicateNicknames()
+    {
+        // 닉네임을 기준으로 중복 제거
+        var uniqueUsers = userList
+            .GroupBy(user => user.nickname) // 닉네임별 그룹화
+            .Select(group => group.First()) // 각 그룹의 첫 번째 항목만 선택
+            .ToList();
+
+        // 중복 제거 후 userList 업데이트
+        if (uniqueUsers.Count < userList.Count)
+        {
+            Debug.Log($"Removed {userList.Count - uniqueUsers.Count} duplicate users.");
+        }
+
+        userList = uniqueUsers;
+    }
+    
     private string GetSaveFilePath()
     {
         return Path.Combine(Application.persistentDataPath, SaveFileName);

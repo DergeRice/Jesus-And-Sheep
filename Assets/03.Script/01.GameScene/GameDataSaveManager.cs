@@ -20,7 +20,7 @@ public class GameDataSaveManager : MonoBehaviour
     public Vector3 targetVector;
     public bool IsGameOver;
     public bool IsShot;
-    public int currentLevel;
+    public int currentLevel, doubleCount;
     public BallType[] ballTypes;
 
     public BlockData[] junsick;
@@ -58,6 +58,8 @@ public class GameDataSaveManager : MonoBehaviour
         junsick = ConvertBlocksToList(blockGrid);
         currentLevel = gameLogicManager.currentLevel;
         ballTypes = gameLogicManager.shootingBallDatas.ToArray();
+        currentPos = gameLogicManager.jesus.transform.position;
+        doubleCount = gameLogicManager.blockManager.doubleSheepHpCount;
 
         saveData = new SaveData
         {
@@ -65,7 +67,10 @@ public class GameDataSaveManager : MonoBehaviour
             percentOfBlockLevel = percentOfBrickLevel,
             IsGameOver = IsGameOver,
             currentLevel = currentLevel,
-            ballTypes = ballTypes
+            ballTypes = ballTypes,
+            currentPos = new SerializableVector3(this.currentPos),
+            nextDoubleCount = doubleCount
+            
         };
 
         // 블록 상태는 JSON으로 저장
@@ -100,6 +105,7 @@ public class GameDataSaveManager : MonoBehaviour
         percentOfBrickLevel = saveData.percentOfBlockLevel;
         IsGameOver = saveData.IsGameOver;
         currentLevel = saveData.currentLevel;
+        doubleCount = saveData.nextDoubleCount;
 
         // 공 던진 여부를 PlayerPrefs에서 로드
         IsShot = PlayerPrefs.GetInt("IsShot", 0) == 1;
@@ -107,6 +113,9 @@ public class GameDataSaveManager : MonoBehaviour
         if(IsShot)
         {
             LoadShotStatus();
+        }else
+        {
+            currentPos =  saveData.currentPos.ToVector3();
         }
 
         Debug.Log("Game Loaded Successfully.");
@@ -129,6 +138,7 @@ public class GameDataSaveManager : MonoBehaviour
 
         gameLogicManager.shootingBallDatas = ballTypes.ToList();
         gameLogicManager.currentLevel = currentLevel;
+        gameLogicManager.blockManager.doubleSheepHpCount = doubleCount;
 
         for (int i = 0; i < percentOfBrickLevel.Length; i++)
         {
@@ -214,7 +224,7 @@ public class GameDataSaveManager : MonoBehaviour
             Debug.Log("Ball data loaded successfully");
         }
         gameLogicManager.jesus.transform.position = currentPos;
-        gameLogicManager.StartShoot(targetVector);
+        Utils.DelayCall(()=>gameLogicManager.StartShoot(targetVector),0.2f);
     }
 
 

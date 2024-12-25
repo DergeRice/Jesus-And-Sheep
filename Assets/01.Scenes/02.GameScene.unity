@@ -1779,6 +1779,74 @@ MonoBehaviour:
           m_CallState: 2
     icon: {fileID: 21300000, guid: a89ecb81d0b9345f29530b2b64ab2877, type: 3}
     rank: 1
+  - eventName: "\uACF5 2\uAC1C \uCD94\uAC00 + \uB2E4\uC74C \uD134 1\uBC88 \uC591
+      2\uBC30"
+    explaination: "\uD558\uD2B8 3\uAC1C\uB97C \uC5BB\uB294 \uB300\uC2E0, \uB2E4\uC74C
+      1\uD134 \uB3D9\uC548 \uB098\uC624\uB294 \uC591\uB4E4\uC758 \uCCB4\uB825\uC774
+      2\uBC30\uAC00 \uB429\uB2C8\uB2E4."
+    unityAction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 118720121}
+          m_TargetAssemblyTypeName: EventManager, Assembly-CSharp
+          m_MethodName: SetBallCountIncrease
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 3
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 118720121}
+          m_TargetAssemblyTypeName: EventManager, Assembly-CSharp
+          m_MethodName: SetNextSheepHpDouble
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 1
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    icon: {fileID: 21300000, guid: a89ecb81d0b9345f29530b2b64ab2877, type: 3}
+    rank: 2
+  - eventName: "\uACF5 2\uAC1C \uCD94\uAC00 + \uB2E4\uC74C \uD134 6\uBC88 \uC591
+      2\uBC30"
+    explaination: "\uD558\uD2B8 15\uAC1C\uB97C \uC5BB\uB294 \uB300\uC2E0, \uB2E4\uC74C
+      6\uD134 \uB3D9\uC548 \uB098\uC624\uB294 \uC591\uB4E4\uC758 \uCCB4\uB825\uC774
+      2\uBC30\uAC00 \uB429\uB2C8\uB2E4."
+    unityAction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 118720121}
+          m_TargetAssemblyTypeName: EventManager, Assembly-CSharp
+          m_MethodName: SetBallCountIncrease
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 6
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 118720121}
+          m_TargetAssemblyTypeName: EventManager, Assembly-CSharp
+          m_MethodName: SetNextSheepHpDouble
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 15
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    icon: {fileID: 21300000, guid: a89ecb81d0b9345f29530b2b64ab2877, type: 3}
+    rank: 0
   - eventName: "\uAC00\uC7A5_\uC55E\uC904\uC591\uB4E4_\uC804\uBD80\uAD6C\uC6D0_\uACF55\uAC1C\uAC10\uC18C"
     explaination: "\uD558\uD2B8 2\uAC1C\uB97C \uC18C\uBAA8\uD558\uC5EC \uAC00\uC7A5
       \uC55E\uC5D0 \uC788\uB294 \uC904\uC758 \uC591\uB4E4\uC744 \uBAA8\uB450 \uC989\uC2DC
@@ -1813,7 +1881,7 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 6148338c961dc444584463aca9dc2b57, type: 3}
     rank: 2
   - eventName: "\uACF5 10 \uAC1C\uC4F0\uACE0 \uBAA8\uB450 \uAD6C\uC6D0"
-    explaination: "\uD558\uD2B8\uB97C 10\uAC1C \uC18C\uBAA8\uD558\uC5EC \uD654\uBA74\uC5D0
+    explaination: "\uD558\uD2B8\uB97C 7\uAC1C \uC18C\uBAA8\uD558\uC5EC \uD654\uBA74\uC5D0
       \uBAA8\uB4E0 \uC591\uB4E4\uC744 \uAD6C\uC6D0\uD569\uB2C8\uB2E4."
     unityAction:
       m_PersistentCalls:
@@ -1837,13 +1905,13 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: -10
+            m_IntArgument: -7
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
     icon: {fileID: 21300000, guid: 619b7fc0ab2954b5ea32430865b342a5, type: 3}
-    rank: 0
+    rank: 1
   - eventName: "\uD654\uBA74\uC5D0\uC788\uB294_\uBAA8\uB4E0\uC591\uB4E4_\uCCB4\uB8252\uBC30_\uACF55\uAC1C\uCD94\uAC00"
     explaination: "\uD654\uBA74\uC5D0 \uC788\uB294 \uBAA8\uB4E0 \uC591\uB4E4\uC758
       \uCCB4\uB825\uC744 2\uBC30\uB85C \uC99D\uAC00\uC2DC\uD0A4\uACE0, \uD558\uD2B8\uB97C
@@ -1879,7 +1947,7 @@ MonoBehaviour:
     rank: 1
   - eventName: "\uD558\uD2B8 8\uAC1C \uC5BB\uACE0 5\uAC1C \uC18C\uD658"
     explaination: "\uD558\uD2B8\uB97C 8\uAC1C \uC5BB\uB294 \uB300\uC2E0, \uB79C\uB364\uC73C\uB85C
-      \uCD5C\uB300 5\uAC1C\uC758 \uC591\uB4E4\uC758 \uCCB4\uB825\uC744 2\uBC30\uB85C
+      \uCD5C\uB300 5\uB9C8\uB9AC \uC591\uB4E4\uC758 \uCCB4\uB825\uC744 2\uBC30\uB85C
       \uC99D\uAC00\uC2DC\uD0B5\uB2C8\uB2E4."
     unityAction:
       m_PersistentCalls:
@@ -1904,6 +1972,39 @@ MonoBehaviour:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 8
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    icon: {fileID: 21300000, guid: c9487d0902a9e4c0b87f1b6b85302c58, type: 3}
+    rank: 2
+  - eventName: "\uD558\uD2B8 8\uAC1C \uC5BB\uACE0 5\uAC1C \uC18C\uD658"
+    explaination: "\uD558\uD2B8\uB97C 4\uAC1C \uC5BB\uB294 \uB300\uC2E0, \uB79C\uB364\uC73C\uB85C
+      \uCD5C\uB300 3\uB9C8\uB9AC \uC591\uB4E4\uC758 \uCCB4\uB825\uC744 2\uBC30\uB85C
+      \uC99D\uAC00\uC2DC\uD0B5\uB2C8\uB2E4."
+    unityAction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 118720121}
+          m_TargetAssemblyTypeName: EventManager, Assembly-CSharp
+          m_MethodName: SetRandomBlockDoubleHp
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 3
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 118720121}
+          m_TargetAssemblyTypeName: EventManager, Assembly-CSharp
+          m_MethodName: SetBallCountIncrease
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 4
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -2038,9 +2139,41 @@ MonoBehaviour:
           m_CallState: 2
     icon: {fileID: 21300000, guid: 619b7fc0ab2954b5ea32430865b342a5, type: 3}
     rank: 2
+  - eventName: "\uB79C\uB364_\uD55C\uAC1C_\uBE14\uB85D_\uCCB4\uB825_3\uBC30_\uACF52\uAC1C\uCD94\uAC00"
+    explaination: "\uD558\uD2B8\uB97C 10\uAC1C \uC5BB\uB294 \uB300\uC2E0  \uBB34\uC791\uC704
+      \uC591 3\uB9C8\uB9AC\uC758 \uCCB4\uB825\uC744 3\uBC30\uB85C \uB298\uB9BD\uB2C8\uB2E4."
+    unityAction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 118720121}
+          m_TargetAssemblyTypeName: EventManager, Assembly-CSharp
+          m_MethodName: SetRandomBlockTriple
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 3
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 118720121}
+          m_TargetAssemblyTypeName: EventManager, Assembly-CSharp
+          m_MethodName: SetBallCountIncrease
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 10
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    icon: {fileID: 21300000, guid: 619b7fc0ab2954b5ea32430865b342a5, type: 3}
+    rank: 1
   - eventName: "\uCCB4\uB82530\uBBF8\uB9CC_\uC591\uB4E4_\uC989\uC2DC\uAD6C\uC6D0_\uACF53\uAC1C\uAC10\uC18C"
     explaination: "\uD558\uD2B8 2\uAC1C\uB97C \uC18C\uBAA8\uD558\uC5EC, \uCCB4\uB825
-      30\uBBF8\uB9CC\uC758 \uC591\uB4E4\uC744 \uBAA8\uB450 \uAD6C\uC6D0\uD569\uB2C8\uB2E4. "
+      50\uBBF8\uB9CC\uC758 \uC591\uB4E4\uC744 \uBAA8\uB450 \uAD6C\uC6D0\uD569\uB2C8\uB2E4. "
     unityAction:
       m_PersistentCalls:
         m_Calls:
@@ -2051,7 +2184,7 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 30
+            m_IntArgument: 50
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -2136,7 +2269,7 @@ MonoBehaviour:
     rank: 1
   - eventName: "\uBAA8\uB4E0\uC560\uB4E4\uC5D0\uAC8C10\uB370\uBBF8\uC9C0_\uACF51\uAC1C\uAC10\uC18C"
     explaination: "\uD558\uD2B8 1\uAC1C\uB97C \uC18C\uBAA8\uD558\uC5EC, \uBAA8\uB4E0
-      \uC591\uB4E4\uC5D0\uAC8C 10\uB9CC\uD07C\uC758 \uC0AC\uB791\uC744 \uC90D\uB2C8\uB2E4."
+      \uC591\uB4E4\uC5D0\uAC8C 30\uB9CC\uD07C\uC758 \uC0AC\uB791\uC744 \uC90D\uB2C8\uB2E4."
     unityAction:
       m_PersistentCalls:
         m_Calls:
@@ -2147,7 +2280,7 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 10
+            m_IntArgument: 30
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -2167,8 +2300,8 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 619b7fc0ab2954b5ea32430865b342a5, type: 3}
     rank: 2
   - eventName: "\uB79C\uB3643\uAC1C\uBE14\uB85D_100\uB370\uBBF8\uC9C0_\uACF53\uAC1C\uAC10\uC18C"
-    explaination: "\uD558\uD2B8 1\uAC1C\uB97C \uC18C\uBAA8\uD558\uC5EC, \uBB34\uC791\uC704
-      3\uAC1C\uC758 \uC591\uC5D0\uAC8C 100\uB9CC\uD07C \uC0AC\uB791\uC744 \uC90D\uB2C8\uB2E4."
+    explaination: "\uD558\uD2B8 5\uAC1C\uB97C \uC18C\uBAA8\uD558\uC5EC, \uBB34\uC791\uC704
+      3\uB9C8\uB9AC \uC591\uC5D0\uAC8C 100\uB9CC\uD07C \uC0AC\uB791\uC744 \uC90D\uB2C8\uB2E4."
     unityAction:
       m_PersistentCalls:
         m_Calls:
@@ -2197,7 +2330,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
     icon: {fileID: 21300000, guid: 6148338c961dc444584463aca9dc2b57, type: 3}
-    rank: 2
+    rank: 1
   - eventName: "\uB79C\uB364\uC73C\uB85C\uBE14\uB85D5\uAC1C\uC124\uCE58_\uACF53\uAC1C\uCD94\uAC00"
     explaination: "\uD558\uD2B8 5\uAC1C\uB97C \uC5BB\uACE0, \uC591\uB4E4\uC744 \uBB34\uC791\uC704\uB85C
       6 \uB9C8\uB9AC \uC18C\uD658\uD569\uB2C8\uB2E4."
@@ -2295,8 +2428,8 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 42fa8e619ccbb4d95837d0577c7c3a96, type: 3}
     rank: 0
   - eventName: "\uBC18\uBC18\uD655\uB960\uB85C_\uACF55\uCD94\uAC00_\uBE14\uB85D3\uAC1C\uC18C\uD658"
-    explaination: "50% \uD655\uB960\uB85C \uD558\uD2B8\uB97C 5\uAC1C \uC5BB\uAC70\uB098,
-      \uC591\uC744 2\uB9C8\uB9AC \uC18C\uD658\uD569\uB2C8\uB2E4."
+    explaination: "50% \uD655\uB960\uB85C \uD558\uD2B8\uB97C 8\uAC1C \uC5BB\uAC70\uB098,
+      \uC591\uC744 5\uB9C8\uB9AC \uC18C\uD658\uD569\uB2C8\uB2E4."
     unityAction:
       m_PersistentCalls:
         m_Calls:
@@ -2315,8 +2448,8 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 93cd4d48449334f2fb16533153c15641, type: 3}
     rank: 2
   - eventName: "\uBC18\uBC18\uD655\uB960\uB85C_\uD2B9\uC218\uACF51\uCD94\uAC00_\uACF55\uAC10\uC18C"
-    explaination: "50% \uD655\uB960\uB85C \uD2B9\uC218 \uD558\uD2B8\uB97C 1\uAC1C
-      \uC5BB\uAC70\uB098, \uD558\uD2B8\uAC00 2\uAC1C \uAC10\uC18C\uD569\uB2C8\uB2E4."
+    explaination: "50% \uD655\uB960\uB85C \uD2B9\uC218 \uD558\uD2B8\uB97C 2\uAC1C
+      \uC5BB\uAC70\uB098, \uD558\uD2B8\uAC00 3\uAC1C \uAC10\uC18C\uD569\uB2C8\uB2E4."
     unityAction:
       m_PersistentCalls:
         m_Calls:
@@ -2334,9 +2467,9 @@ MonoBehaviour:
           m_CallState: 2
     icon: {fileID: 21300000, guid: 93cd4d48449334f2fb16533153c15641, type: 3}
     rank: 2
-  - eventName: "\uBC18\uBC18\uD655\uB960\uB85C_\uACF5_5\uCD94\uAC00_\uACF5_2\uAC10\uC18C"
-    explaination: "50% \uD655\uB960\uB85C \uD558\uD2B8\uB97C 5\uAC1C \uC5BB\uAC70\uB098,
-      \uD558\uD2B8\uAC00 2\uAC1C \uAC10\uC18C\uD569\uB2C8\uB2E4."
+  - eventName: "\uBC18\uBC18\uD655\uB960\uB85C_\uACF5_8\uCD94\uAC00_\uACF5_2\uAC10\uC18C"
+    explaination: "50% \uD655\uB960\uB85C \uD558\uD2B8\uB97C 8\uAC1C \uC5BB\uAC70\uB098,
+      \uD558\uD2B8\uAC00 3\uAC1C \uAC10\uC18C\uD569\uB2C8\uB2E4."
     unityAction:
       m_PersistentCalls:
         m_Calls:
@@ -2355,8 +2488,8 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 93cd4d48449334f2fb16533153c15641, type: 3}
     rank: 2
   - eventName: "\uBC18\uBC18\uD655\uB960\uB85C_\uD2B9\uC218\uACF51\uCD94\uAC00_\uBE14\uB85D5\uAC1C\uC18C\uD658"
-    explaination: "50% \uD655\uB960\uB85C \uD2B9\uC218 \uD558\uD2B8\uB97C 1\uAC1C
-      \uC5BB\uAC70\uB098, \uC591\uC744 4\uB9C8\uB9AC \uC18C\uD658\uD569\uB2C8\uB2E4."
+    explaination: "50% \uD655\uB960\uB85C \uD2B9\uC218 \uD558\uD2B8\uB97C 3\uAC1C
+      \uC5BB\uAC70\uB098, \uC591\uC744 7\uB9C8\uB9AC \uC18C\uD658\uD569\uB2C8\uB2E4."
     unityAction:
       m_PersistentCalls:
         m_Calls:
@@ -2393,9 +2526,9 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
     icon: {fileID: 21300000, guid: 4fc0f97b826f64e39a35a5e38ca1a76a, type: 3}
-    rank: 1
+    rank: 2
   - eventName: "\uC544\uBB34\uC870\uAC74\uC5C6\uC774 \uACF51\uAC1C\uCD94\uAC00"
-    explaination: "\uC8FC\uB2D8\uC758 \uC740\uD61C\uB85C \uD558\uD2B8\uB97C 2\uAC1C
+    explaination: "\uC8FC\uB2D8\uC758 \uC740\uD61C\uB85C \uD558\uD2B8\uB97C 5\uAC1C
       \uC5BB\uC2B5\uB2C8\uB2E4."
     unityAction:
       m_PersistentCalls:
@@ -2407,17 +2540,17 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 2
+            m_IntArgument: 5
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
     icon: {fileID: 21300000, guid: 4fc0f97b826f64e39a35a5e38ca1a76a, type: 3}
-    rank: 1
+    rank: 0
   - eventName: "\uC544\uBB34\uC870\uAC74\uC5C6\uC774 \uB79C\uB364 \uBE14\uB7ED \uD558\uB098
       \uC81C\uAC70"
     explaination: "\uC8FC\uB2D8\uC758 \uC740\uD61C\uB85C \uBB34\uC791\uC704 \uC591
-      \uD55C \uB9C8\uB9AC\uB97C \uAD6C\uC6D0\uD569\uB2C8\uB2E4."
+      \uC5EC\uC12F \uB9C8\uB9AC\uB97C \uAD6C\uC6D0\uD569\uB2C8\uB2E4."
     unityAction:
       m_PersistentCalls:
         m_Calls:
@@ -2428,7 +2561,7 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 1
+            m_IntArgument: 6
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -2558,7 +2691,7 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: ba1b27d1298374e179d851031e7dc46a, type: 3}
     rank: 0
   - eventName: Holly
-    explaination: "[5% \uC989\uC2DC \uAD6C\uC6D0 \uD558\uD2B8]\uB97C \uC5BB\uC2B5\uB2C8\uB2E4."
+    explaination: "[3% \uC989\uC2DC \uAD6C\uC6D0 \uD558\uD2B8]\uB97C \uC5BB\uC2B5\uB2C8\uB2E4."
     unityAction:
       m_PersistentCalls:
         m_Calls:
@@ -2586,7 +2719,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 5
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2600,7 +2733,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: -2
+          m_IntArgument: -3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2614,7 +2747,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 4
+          m_IntArgument: 7
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -16731,6 +16864,7 @@ MonoBehaviour:
   IsGameOver: 0
   IsShot: 0
   currentLevel: 0
+  doubleCount: 0
   ballTypes: 
   junsick: []
 --- !u!1 &894314411

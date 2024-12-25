@@ -132,7 +132,7 @@ public class Ball : MonoBehaviour
                 particlePos = block.transform.position;
                 // Cross: 상하좌우 블록 추가
                 affectedBlocks.AddRange(GameLogicManager.instance.blockManager.GetBlocksInCross(block));
-                SoundManager.instance.sfxAudioSource.PlayOneShot(SoundManager.instance.crossSound);
+                SoundManager.instance.PlayCrossSound();
                 break;
 
             case BallType.Bomb:
@@ -178,7 +178,7 @@ public class Ball : MonoBehaviour
                 break;
 
             case BallType.Holly:
-                if (Random.value <= 0.05f)
+                if (Random.value <= 0.03f)
                 {
                     block.DestroyAnimation();
                     particlePos = block.transform.position;

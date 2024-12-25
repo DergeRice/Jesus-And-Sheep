@@ -9,6 +9,7 @@ public class MailManager : MonoBehaviour
     public Button openMailBox, close;
     public HeartReceiveUI heartReceiveUIprefab;
     public Transform prefabParent;
+    public GameObject alertMark;
 
     private void Awake()
     {
@@ -16,17 +17,29 @@ public class MailManager : MonoBehaviour
         initPos = rectTransform.transform.position;
 
         GameManager.instance.mailManager = this;
-        openMailBox.onClick.AddListener(()=>rectTransform.position = Vector3.zero);
+        openMailBox.onClick.AddListener(()=>
+        {
+            rectTransform.position = Vector3.zero;
+            NetworkManager.instance.FetchReceivedHeartList();
+        });
         close.onClick.AddListener(()=>rectTransform.position = initPos);
     }
 
     public void MakeUiFromHeartList(List<HeartData> heartDatas)
     {
+        for (int i = 0; i < prefabParent.childCount; i++)
+        {
+            Destroy(prefabParent.GetChild(i));
+        }
+
         for (int i = 0; i < heartDatas.Count; i++)
         {
             var temp = Instantiate(heartReceiveUIprefab,prefabParent);
             temp.Init(heartDatas[i]);
         }
+
+        bool isAlert = heartDatas.Count > 0 ? true : false;
+        alertMark.SetActive(isAlert);
     }
 
 }

@@ -29,6 +29,7 @@ public class SoundManager : MonoBehaviour
     private int sheepSoundPlayCount = 0; // Sheep sound play counter
     private const int maxSheepSoundPlays = 5; // Limit the sheep sound to 5 plays
     private int rainbowSoundPlayCount = 0; // Sheep sound play counter
+    private int crossSoundPlayCount;
     private const int maxRainbowSoundPlays = 5; // Limit the sheep sound to 5 plays
 
 
@@ -203,6 +204,27 @@ public class SoundManager : MonoBehaviour
         sheepSoundPlayCount--;
         // Debug.Log($"Boing sound finished. Active count: {currentBoingCount}");
     }
+    public void PlayCrossSound()
+    {
+        if (sheepSoundPlayCount >= maxSheepSoundPlays)
+        {
+            // Debug.LogWarning("Too many boing sounds playing! Skipping this one.");
+            return;
+        }
+
+        sfxAudioSource.PlayOneShot(crossSound);
+        crossSoundPlayCount++;
+
+        StartCoroutine(TrackCrossSound());
+    }
+
+    // boingSound가 끝났을 때 카운트 감소
+    private IEnumerator TrackCrossSound()
+    {
+        yield return new WaitForSeconds(crossSound.length);
+        crossSoundPlayCount--;
+        // Debug.Log($"Boing sound finished. Active count: {currentBoingCount}");
+    }
 
     public void PlayRainbowSound()
     {
@@ -225,6 +247,5 @@ public class SoundManager : MonoBehaviour
         rainbowSoundPlayCount--;
         // Debug.Log($"Boing sound finished. Active count: {currentBoingCount}");
     }
-
 
 }

@@ -97,6 +97,9 @@ public class SaveData
     public bool IsShot;
     public int currentLevel;            // int ��
     public BallType[] ballTypes;
+    public SerializableVector3 currentPos;
+
+    public int nextDoubleCount;
 }
 
 [System.Serializable]

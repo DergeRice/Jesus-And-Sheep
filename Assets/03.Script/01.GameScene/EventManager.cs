@@ -251,7 +251,7 @@ public class EventManager : MonoBehaviour
 
         if (currentEventSuccess) 
         {
-            SetBallCountIncrease(5);
+            SetBallCountIncrease(8);
             timeLineManager.PlayTimeLine(true);
         }
         else 
@@ -267,7 +267,7 @@ public class EventManager : MonoBehaviour
 
         if (currentEventSuccess) 
         {
-            gameLogicManager.GetRandomSpecialBall(5);
+            gameLogicManager.GetRandomSpecialBall(3);
             timeLineManager.PlayTimeLine(true);
         }
         else 

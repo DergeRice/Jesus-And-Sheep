@@ -280,7 +280,7 @@ public class GameLogicManager : MonoBehaviour
         blockManager.BlockGetDown(currentLevel);
         Debug.Log("MyTurn");
         
-
+        gameDataSaveManager.SaveGame();
         nextXvalue = Mathf.Clamp(nextXvalue, -2.5f, 2.5f);
         gameCanvas.getBallDownButton.gameObject.SetActive(false);
         jesus.transform.DOMove(new Vector3(nextXvalue, jesus.transform.position.y, 0), 0.7f).SetEase(Ease.Linear);
@@ -314,7 +314,11 @@ public class GameLogicManager : MonoBehaviour
 
     public void GetRandomSpecialBall(int amount)
     {
-        GameLogicManager.instance.shootingBallDatas.Add((BallType)UnityEngine.Random.Range(1,7));
+        for (int i = 0; i < amount; i++)
+        {
+            GameLogicManager.instance.shootingBallDatas.Add((BallType)UnityEngine.Random.Range(1,7));
+        }
+
         Debug.Log($"you Got{amount} special ball");
     }
 

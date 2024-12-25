@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using GG.Infrastructure.Utils;
+using DG.Tweening;
 
 public class BlockManager : MonoBehaviour
 {
@@ -31,7 +32,11 @@ public class BlockManager : MonoBehaviour
     public int doubleSheepHpCount = 0;
     public void Start()
     {
-        if(GameManager.instance.isContinueMode == false) SpawnTopLane(2);
+        if(GameManager.instance.isContinueMode == false) 
+        {
+            SpawnTopLane(2);
+            GameLogicManager.instance.gameDataSaveManager.SaveGame();
+        }
     }
 
     [ContextMenu("SpawnBlock")]
@@ -406,6 +411,9 @@ public class BlockManager : MonoBehaviour
             int randomIndex = Random.Range(0, availableBlocks.Count);
             randomBlocks.Add(availableBlocks[randomIndex]);
             availableBlocks.RemoveAt(randomIndex); // �̹� ������ Block�� ����Ʈ���� ����
+
+            availableBlocks[randomIndex].transform.DOKill();
+            availableBlocks[randomIndex].transform.DOShakeScale(0.2f,1);
         }
 
         return randomBlocks;
@@ -654,6 +662,8 @@ public class BlockManager : MonoBehaviour
                     blockComponent.blockType = Enum.Parse<BlockType>(blockData.blockType);
                     // blockComponent.Init(blockComponent.Count);
                     blockComponent.allBlockBrokenCheck = CheckAllBlockBroken;
+
+                    blockComponent.TypeInit(false);
 
                     // 그리드에 추가
                     blockGrid[x, y] = blockComponent;

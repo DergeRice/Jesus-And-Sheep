@@ -43,6 +43,7 @@ public class GameCanvas : CanvasBase
         gameOverPanel.SetActive(true);
         GameLogicManager.instance.cantBallInteract = true;
 
+        SoundManager.instance.EndGame();
 
         
         retryButton.onClick.AddListener(()=>
