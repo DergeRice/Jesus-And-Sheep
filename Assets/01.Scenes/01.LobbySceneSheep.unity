@@ -15502,7 +15502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a88db75b75dbb4b70b414615393d59a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseURL: http://52.79.46.242:3001
+  baseURL: https://www.dergerice.kr/api2
   ownData:
     id: 0
     nickname: Guest
