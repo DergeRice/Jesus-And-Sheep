@@ -1,5 +1,0 @@
-/Users/isangjin/Documents/GitHub/Jesus-And-Sheep/.utmp/RelWithDebInfo/2q495d1w/arm64-v8a/CMakeFiles/edit_cache.dir
-/Users/isangjin/Documents/GitHub/Jesus-And-Sheep/.utmp/RelWithDebInfo/2q495d1w/arm64-v8a/CMakeFiles/rebuild_cache.dir
-/Users/isangjin/Documents/GitHub/Jesus-And-Sheep/.utmp/RelWithDebInfo/2q495d1w/arm64-v8a/FramePacing/CMakeFiles/swappywrapper.dir
-/Users/isangjin/Documents/GitHub/Jesus-And-Sheep/.utmp/RelWithDebInfo/2q495d1w/arm64-v8a/FramePacing/CMakeFiles/edit_cache.dir
-/Users/isangjin/Documents/GitHub/Jesus-And-Sheep/.utmp/RelWithDebInfo/2q495d1w/arm64-v8a/FramePacing/CMakeFiles/rebuild_cache.dir

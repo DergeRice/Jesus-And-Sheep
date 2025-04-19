@@ -2,7 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// using GoogleMobileAds.Api;
+// using Google.Android.Gms.Ads.Identifier;
+
 
 public class AdManager : MonoBehaviour
 {
@@ -21,10 +22,7 @@ public class AdManager : MonoBehaviour
     // bannerAdId
 
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    
 
     // Update is called once per frame
     void Update()
