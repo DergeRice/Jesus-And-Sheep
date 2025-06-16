@@ -131,7 +131,7 @@ public class NetworkManager : MonoBehaviour
         byte[] jsonDataBytes = System.Text.Encoding.UTF8.GetBytes(jsonData);
 
         // POST 요청을 생성합니다.
-        UnityWebRequest www = new UnityWebRequest("http://52.79.46.242:3001/enroll/", "POST");
+        UnityWebRequest www = new UnityWebRequest($"{baseURL}/enroll/", "POST");
         www.uploadHandler = new UploadHandlerRaw(jsonDataBytes);
         www.downloadHandler = new DownloadHandlerBuffer();
         www.SetRequestHeader("Content-Type", "application/json");
@@ -381,7 +381,7 @@ public class NetworkManager : MonoBehaviour
     }
     public IEnumerator GetRanking()
     {
-        string url = "http://52.79.46.242:3001/getRanking";
+        string url = $"{baseURL}/getRanking";
         Debug.Log(url);
 
         UnityWebRequest request = UnityWebRequest.Get(url);

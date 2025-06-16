@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: test Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: test
+  m_TableCollectionNameGuidString: 6625c43dddf0f4a1d8c9cea05bf9cf09
+  m_Entries:
+  - m_Id: 62489878528
+    m_Key: "\uC0C8 \uAC8C\uC784"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 461363994624
+    m_Key: "\uACC4\uC18D\uD558\uAE30"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704876896256
+    m_Key: "\uC0C1\uC810"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 852164075520
+    m_Key: "\uB7AD\uD0B9"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 984825716736
+    m_Key: "\uBA54\uC778"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1122063343616
+    m_Key: "\uCE5C\uAD6C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1250459377664
+    m_Key: "\uC2A4\uD0A8"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1334886522880
+    m_Key: "\uBA54\uC77C\uD568"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1469175554048
+    m_Key: Main
+    m_Metadata:
+      m_Items: []
+  - m_Id: 556604905742336
+    m_Key: Shop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 556846896111616
+    m_Key: Rank
+    m_Metadata:
+      m_Items: []
+  - m_Id: 557119777529856
+    m_Key: Friend
+    m_Metadata:
+      m_Items: []
+  - m_Id: 557240032419840
+    m_Key: Skin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 557410681872384
+    m_Key: Post Box
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 1752846158260863221
+  references:
+    version: 2
+    RefIds:
+    - rid: 1752846158260863221
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1747205120811
