@@ -18,7 +18,232 @@ public class NetworkManager : MonoBehaviour
     
     public static NetworkManager instance;
 
+    [Tooltip("Fallback API URL. Resources/Network/server.json can override this for each deployment.")]
     public string baseURL;
+    private int requestTimeoutSeconds = 15;
+    private string firebaseIdToken;
+    private float tokenObtainedAt;
+    private string tokenUserId;
+    private bool cloudDirty;
+    private float nextCloudSaveAt;
+    private bool cloudSaveInFlight;
+    public bool CloudSaveInFlight => cloudSaveInFlight;
+    public bool CloudSavePending => cloudDirty;
+    public IEnumerator FlushCloudSave()
+    {
+        yield return new WaitUntil(() => !cloudSaveInFlight);
+        if (cloudDirty && onlineMode && !string.IsNullOrEmpty(ownData.nickname)) yield return SaveCloudSnapshot();
+    }
+
+    private async Task ConfigureFirebaseRequestAsync(UnityWebRequest request)
+    {
+        if (!FirebaseSession.Enabled) return;
+        // Tokens remain memory-only; refresh when expired or when switching accounts.
+        if (string.IsNullOrEmpty(firebaseIdToken) || tokenUserId != FirebaseSession.UserId || Time.realtimeSinceStartup - tokenObtainedAt > 2700)
+        {
+            firebaseIdToken = await FirebaseSession.GetIdTokenAsync();
+            tokenObtainedAt = Time.realtimeSinceStartup;
+            tokenUserId = FirebaseSession.UserId;
+        }
+        request.SetRequestHeader("Authorization", "Bearer " + firebaseIdToken);
+    }
+
+    private IEnumerator PrepareRequest(UnityWebRequest request)
+    {
+        Task authorization = ConfigureFirebaseRequestAsync(request);
+        yield return new WaitUntil(() => authorization.IsCompleted);
+        if (authorization.IsFaulted || authorization.IsCanceled)
+            Debug.LogWarning("Firebase authentication unavailable. Request will fail without credentials.");
+    }
+
+    private void ApplyCloudGiftCount(int serverCount)
+    {
+        int applied = ProtectedPlayerPrefs.GetInt("FirebaseAppliedGiftCount", 0);
+        if (serverCount > applied)
+        {
+            GameManager.instance.heartManager.GainHeart(serverCount - applied);
+            ProtectedPlayerPrefs.SetInt("FirebaseAppliedGiftCount", serverCount);
+            ProtectedPlayerPrefs.Save();
+            MarkCloudDirty();
+        }
+    }
+
+    public void ReloadFirebaseAccount()
+    {
+        onlineMode = false;
+        firebaseIdToken = null;
+        tokenUserId = null;
+        cloudDirty = false;
+        OnlineTest();
+    }
+
+    public void MarkCloudDirty()
+    {
+        if (!FirebaseSession.Enabled || FirebaseCloudSave.Restoring) return;
+        cloudDirty = true;
+        nextCloudSaveAt = Time.realtimeSinceStartup + 3f;
+    }
+
+    private void Update()
+    {
+        if (FirebaseSession.Enabled && onlineMode && cloudDirty && !cloudSaveInFlight &&
+            Time.realtimeSinceStartup >= nextCloudSaveAt && !string.IsNullOrEmpty(ownData.nickname))
+            StartCoroutine(SaveCloudSnapshot());
+    }
+
+    private IEnumerator SaveCloudSnapshot()
+    {
+        cloudSaveInFlight = true;
+        cloudDirty = false;
+        using (var request = new UnityWebRequest(baseURL + "/save", "POST"))
+        {
+            request.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(
+                JsonConvert.SerializeObject(new { snapshot = FirebaseCloudSave.Capture() })));
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+            request.timeout = requestTimeoutSeconds;
+            yield return PrepareRequest(request);
+            yield return request.SendWebRequest();
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                cloudDirty = true;
+                nextCloudSaveAt = Time.realtimeSinceStartup + 30f;
+            }
+        }
+        cloudSaveInFlight = false;
+    }
+
+    private IEnumerator FirebaseLogin(Action success, Action failure)
+    {
+        Task login = FirebaseSession.InitializeAsync();
+        yield return new WaitUntil(() => login.IsCompleted);
+        if (login.IsFaulted || login.IsCanceled) { failure?.Invoke(); yield break; }
+        string previousOwner = ProtectedPlayerPrefs.GetString("FirebaseLocalDataOwner", "");
+        if (!string.IsNullOrEmpty(previousOwner) && previousOwner != FirebaseSession.UserId)
+        {
+            FirebaseCloudSave.BackupGuest(previousOwner);
+            FirebaseCloudSave.Restore(FirebaseCloudSave.NewAccount());
+        }
+        using (var request = UnityWebRequest.Get(baseURL + "/me"))
+        {
+            request.timeout = requestTimeoutSeconds;
+            yield return PrepareRequest(request);
+            yield return request.SendWebRequest();
+            if (request.result != UnityWebRequest.Result.Success) { failure?.Invoke(); yield break; }
+            JObject body;
+            try { body = JObject.Parse(request.downloadHandler.text); }
+            catch (JsonException) { failure?.Invoke(); yield break; }
+            bool registered = body.Value<bool>("registered");
+            if (registered)
+            {
+                ownData = body["user"].ToObject<User>();
+                using (var save = UnityWebRequest.Get(baseURL + "/save"))
+                {
+                    save.timeout = requestTimeoutSeconds;
+                    yield return PrepareRequest(save);
+                    yield return save.SendWebRequest();
+                    // Do not upload a stale local save if restore fails.
+                    if (save.result != UnityWebRequest.Result.Success) { failure?.Invoke(); yield break; }
+                    try
+                    {
+                        var result = JObject.Parse(save.downloadHandler.text);
+                        if (result.Value<bool>("exists"))
+                            FirebaseCloudSave.Restore(result["snapshot"].ToObject<FirebaseCloudSnapshot>());
+                    }
+                    catch (Exception) { failure?.Invoke(); yield break; }
+                }
+                PlayerPrefsManager.Instance.SetSetting(PlayerPrefsData.nickname, ownData.nickname);
+                PlayerPrefsManager.Instance.SetSetting(PlayerPrefsData.profileIndex, ownData.profileindex);
+                PlayerPrefsManager.Instance.SetSetting(PlayerPrefsData.highScore,
+                    Math.Max(ownData.highscore, PlayerPrefsManager.Instance.GetIntSetting(PlayerPrefsData.highScore)));
+                PlayerPrefsManager.Instance.SetSetting(PlayerPrefsData.isFirstTime, true);
+                GameManager.instance.heartManager.ReloadCloudData();
+                ApplyCloudGiftCount(body.Value<int>("claimedHeartCount"));
+                GameManager.instance.friendManager.LoadData();
+                GameManager.instance.lobbyManager.nicknamePanel.SetActive(false);
+                var ui = FindFirstObjectByType<LobbySceneUIManager>();
+                if (ui != null) ui.countinueButton.interactable = PlayerPrefsManager.Instance.GetBoolSetting(PlayerPrefsData.hasLastGame);
+                LanguageManager.Instance.SetLanguage(PlayerPrefsManager.Instance.GetSetting(PlayerPrefsData.languageCode));
+            }
+            else
+            {
+                // A local nickname is not proof of ownership of an old server account.
+                ownData = new User();
+                GameManager.instance.lobbyManager.nicknamePanel.SetActive(true);
+            }
+            ProtectedPlayerPrefs.SetString("FirebaseLocalDataOwner", FirebaseSession.UserId);
+            ProtectedPlayerPrefs.Save();
+            GameManager.instance.lobbyManager.LoadMySavedData();
+        }
+        yield return VersionCheck(success, () =>
+        {
+            if (versionDidntMatchPanel != null) versionDidntMatchPanel.SetActive(true);
+        }, failure);
+    }
+
+    private void OnApplicationPause(bool paused)
+    {
+        if (paused && onlineMode && FirebaseSession.Enabled && cloudDirty && !cloudSaveInFlight)
+            StartCoroutine(SaveCloudSnapshot());
+    }
+
+
+    [Serializable]
+    private class ServerConfiguration
+    {
+        public string baseUrl;
+        public int timeoutSeconds = 15;
+    }
+
+    private void LoadServerConfiguration()
+    {
+        TextAsset file = Resources.Load<TextAsset>("Network/server");
+        if (file != null)
+        {
+            var config = JsonUtility.FromJson<ServerConfiguration>(file.text);
+            if (config != null)
+            {
+                if (!string.IsNullOrWhiteSpace(config.baseUrl)) baseURL = config.baseUrl;
+                requestTimeoutSeconds = Mathf.Clamp(config.timeoutSeconds, 5, 60);
+            }
+        }
+        baseURL = (baseURL ?? string.Empty).Trim().TrimEnd('/');
+        if (!Uri.TryCreate(baseURL, UriKind.Absolute, out Uri uri) || uri.Scheme != "https")
+        {
+            Debug.LogError("Configure an HTTPS API URL in Resources/Network/server.json.");
+            baseURL = string.Empty;
+        }
+    }
+
+    public static bool IsNicknameAvailable(string response)
+    {
+        string status = response?.Trim();
+        if (string.Equals(status, "available", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(status, "Nickname is available.", StringComparison.OrdinalIgnoreCase)) return true;
+        try
+        {
+            JObject body = JObject.Parse(response);
+            return body["available"]?.Type == JTokenType.Boolean
+                ? body["available"].Value<bool>()
+                : string.Equals((string)(body["status"] ?? body["message"]), "available", StringComparison.OrdinalIgnoreCase);
+        }
+        catch (JsonException) { return false; }
+        catch (ArgumentException) { return false; }
+    }
+
+    public static bool TryReadCompatibility(string response, out bool compatible)
+    {
+        compatible = false;
+        try
+        {
+            JToken token = JObject.Parse(response)["isCompatible"];
+            if (token == null || token.Type != JTokenType.Boolean) return false;
+            compatible = token.Value<bool>();
+            return true;
+        }
+        catch (JsonException) { return false; }
+        catch (ArgumentException) { return false; }
+    }
 
     public User ownData;
 
@@ -36,8 +261,15 @@ public class NetworkManager : MonoBehaviour
     private void Awake()
     {
         gameObject.transform.SetParent(null);
-        if(instance != null) Destroy(gameObject);
-        if(instance == null){ instance = this;}
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+        LoadServerConfiguration();
+        if (FirebaseSession.Enabled)
+            baseURL = (FirebaseSession.Config.apiBaseUrl ?? "").Trim().TrimEnd('/');
        
 
         DontDestroyOnLoad(this);
@@ -79,14 +311,16 @@ public class NetworkManager : MonoBehaviour
     public IEnumerator CheckNicknameToServer(string nickname, Action success, Action fail)
     {
         string url = $"{baseURL}/check?nickname={UnityWebRequest.EscapeURL(nickname)}";
-        UnityWebRequest request = UnityWebRequest.Get(url);
+        using UnityWebRequest request = UnityWebRequest.Get(url);
 
         Debug.Log("request");
+        request.timeout = requestTimeoutSeconds;
+        yield return PrepareRequest(request);
         yield return request.SendWebRequest(); // 요청 완료될 때까지 대기
 
         if (request.result == UnityWebRequest.Result.Success)
         {
-            if (request.downloadHandler.text.Contains("available"))
+            if (IsNicknameAvailable(request.downloadHandler.text))
             {
                 success?.Invoke(); // 성공 콜백 호출
             }
@@ -113,7 +347,9 @@ public class NetworkManager : MonoBehaviour
         action += () => {
             loadingPanel.gameObject.SetActive(false);
             PlayerPrefsManager.Instance.SetSetting(PlayerPrefsData.nickname,userData.nickname);
-            PlayerPrefsManager.Instance.SetSetting(PlayerPrefsData.highScore,userData.highscore);
+            PlayerPrefsManager.Instance.SetSetting(PlayerPrefsData.highScore, Math.Max(userData.highscore,
+                PlayerPrefsManager.Instance.GetIntSetting(PlayerPrefsData.highScore)));
+            MarkCloudDirty();
         };
 
         failAction += () => loadingPanel.gameObject.SetActive(false);
@@ -131,7 +367,7 @@ public class NetworkManager : MonoBehaviour
         byte[] jsonDataBytes = System.Text.Encoding.UTF8.GetBytes(jsonData);
 
         // POST 요청을 생성합니다.
-        UnityWebRequest www = new UnityWebRequest($"{baseURL}/enroll/", "POST");
+        using UnityWebRequest www = new UnityWebRequest($"{baseURL}/enroll/", "POST");
         www.uploadHandler = new UploadHandlerRaw(jsonDataBytes);
         www.downloadHandler = new DownloadHandlerBuffer();
         www.SetRequestHeader("Content-Type", "application/json");
@@ -139,19 +375,25 @@ public class NetworkManager : MonoBehaviour
         Debug.Log("insert");
 
         // 요청을 보냅니다.
+        www.timeout = requestTimeoutSeconds;
+        yield return PrepareRequest(www);
         yield return www.SendWebRequest();
 
         // 응답을 확인합니다.
-        if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
+        if (www.result != UnityWebRequest.Result.Success)
         {
             Debug.LogError(www.error);
-            failAction.Invoke();
+            failAction?.Invoke();
         }
         else
         {
             // 서버로부터 받은 응답을 출력합니다.
+            if (FirebaseSession.Enabled)
+            {
+                ownData = JsonConvert.DeserializeObject<User>(www.downloadHandler.text);
+                data.highscore = ownData.highscore;
+            }
             successAction?.Invoke();
-            Debug.Log("Response: " + www.downloadHandler.text);
             GameManager.instance.ToastText("성공적으로 로그인했어요!");
         }
     }
@@ -170,6 +412,7 @@ public class NetworkManager : MonoBehaviour
 
         failAction += () => 
         {
+            onlineMode = false;
             loadingPanel.gameObject.SetActive(false);
             GameManager.instance.ToastText("오프라인으로 접속합니다.");
         };
@@ -180,7 +423,14 @@ public class NetworkManager : MonoBehaviour
         {
             if(versionDidntMatchPanel != null) versionDidntMatchPanel.SetActive(true);
         };
-        StartCoroutine(VersionCheck(action,VersionDidntMatchAction));
+        onlineMode = false;
+        if (string.IsNullOrEmpty(baseURL))
+        {
+            failAction?.Invoke();
+            return;
+        }
+        if (FirebaseSession.Enabled) StartCoroutine(FirebaseLogin(action, failAction));
+        else StartCoroutine(VersionCheck(action, VersionDidntMatchAction, failAction));
     }
     public void HeartReceiveCheck(string _code)
     {
@@ -205,13 +455,17 @@ public class NetworkManager : MonoBehaviour
 
         string jsonData = JsonUtility.ToJson(heartData);
 
-        UnityWebRequest request = new UnityWebRequest(url, "POST");
+        using UnityWebRequest request = new UnityWebRequest(url, "POST");
         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
 
         // 요청 설정
         request.uploadHandler = new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
+
+        request.timeout = requestTimeoutSeconds;
+
+        yield return PrepareRequest(request);
 
         yield return request.SendWebRequest();
 
@@ -230,48 +484,25 @@ public class NetworkManager : MonoBehaviour
     }
 
 
-    IEnumerator VersionCheck(Action successAction,Action failAction)
+    IEnumerator VersionCheck(Action successAction, Action incompatibleAction, Action networkFailureAction)
     {
-                // 클라이언트 버전과 함께 서버에 POST 요청을 보냄
         WWWForm form = new WWWForm();
         form.AddField("version", currentVersion);
-
         using (UnityWebRequest request = UnityWebRequest.Post($"{baseURL}/versionCheck", form))
         {
-            // 요청 보내기
+            request.timeout = requestTimeoutSeconds;
+            yield return PrepareRequest(request);
             yield return request.SendWebRequest();
-
-            // 응답 처리
-            if (request.result == UnityWebRequest.Result.Success)
+            loadingPanel.gameObject.SetActive(false);
+            if (request.result != UnityWebRequest.Result.Success ||
+                !TryReadCompatibility(request.downloadHandler.text, out bool compatible))
             {
-                // 서버에서 받은 응답 처리
-                string responseText = request.downloadHandler.text;
-
-                // 서버에서 응답을 JSON으로 받으면 파싱해서 처리
-                if (responseText.Contains("isCompatible"))
-                {
-                    bool isCompatible = responseText.Contains("true");
-                    if (isCompatible)
-                    {
-                        Debug.Log("버전 호환됨");
-                        successAction?.Invoke();
-                        loadingPanel.gameObject.SetActive(false);
-                    }
-                    else
-                    {
-                        Debug.Log("버전 호환되지 않음");
-                        failAction?.Invoke();
-                        loadingPanel.gameObject.SetActive(false);
-                    }
-                }
+                networkFailureAction?.Invoke();
+                yield break;
             }
-            else
-            {
-                Debug.LogError("버전 체크 요청 실패: " + request.error);
-                loadingPanel.gameObject.SetActive(false);
-            }
+            if (compatible) successAction?.Invoke();
+            else incompatibleAction?.Invoke();
         }
-    
     }
 
     public void FetchReceivedHeartList()
@@ -281,7 +512,11 @@ public class NetworkManager : MonoBehaviour
     IEnumerator FetchReceivedHeartListToServer(string nickname)
     {
         string url = $"{baseURL}/checkMyHeartList?nickname={UnityWebRequest.EscapeURL(nickname)}";
-        UnityWebRequest request = UnityWebRequest.Get(url);
+        using UnityWebRequest request = UnityWebRequest.Get(url);
+
+        request.timeout = requestTimeoutSeconds;
+
+        yield return PrepareRequest(request);
 
         yield return request.SendWebRequest();
 
@@ -308,7 +543,7 @@ public class NetworkManager : MonoBehaviour
     }
     IEnumerator HeartReceiveToServer(string heartHash, Action success = null, Action fail = null)
     {
-        string jsonData = "{\"heartHash\": \"" + heartHash + "\"}";
+        string jsonData = JsonConvert.SerializeObject(new { heartHash });
 
         // UnityWebRequest로 POST 요청 생성
         using (UnityWebRequest www = new UnityWebRequest($"{baseURL}/receiveHeart", "POST"))
@@ -319,11 +554,15 @@ public class NetworkManager : MonoBehaviour
             www.SetRequestHeader("Content-Type", "application/json");
 
             // 응답을 기다림
+            www.timeout = requestTimeoutSeconds;
+            yield return PrepareRequest(www);
             yield return www.SendWebRequest();
 
             if (www.result == UnityWebRequest.Result.Success)
             {
                 Debug.Log("Heart received successfully: " + www.downloadHandler.text);
+                if (FirebaseSession.Enabled)
+                    ApplyCloudGiftCount(JObject.Parse(www.downloadHandler.text).Value<int>("claimedHeartCount"));
                 GameManager.instance.ToastText("성공적으로 하트를 받았어요!");
                 success?.Invoke();
                 // 성공 처리 로직 추가
@@ -354,11 +593,12 @@ public class NetworkManager : MonoBehaviour
         using (UnityWebRequest request = UnityWebRequest.Post($"{baseURL}/update", formData))
         {
             // 서버로 요청 보내기
+            request.timeout = requestTimeoutSeconds;
+            yield return PrepareRequest(request);
             yield return request.SendWebRequest();
 
             // 요청 결과 확인
-            if (request.result == UnityWebRequest.Result.ConnectionError || 
-                request.result == UnityWebRequest.Result.ProtocolError)
+            if (request.result != UnityWebRequest.Result.Success)
             {
                 Debug.LogError($"Error: {request.error}");
                 Debug.LogError($"Server Response: {request.downloadHandler.text}");
@@ -384,8 +624,12 @@ public class NetworkManager : MonoBehaviour
         string url = $"{baseURL}/getRanking";
         Debug.Log(url);
 
-        UnityWebRequest request = UnityWebRequest.Get(url);
+        using UnityWebRequest request = UnityWebRequest.Get(url);
         // request.SetRequestHeader("Content-Type", "application/json");
+
+        request.timeout = requestTimeoutSeconds;
+
+        yield return PrepareRequest(request);
 
         yield return request.SendWebRequest();
 

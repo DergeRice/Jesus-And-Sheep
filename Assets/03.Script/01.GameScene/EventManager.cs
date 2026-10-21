@@ -7,6 +7,11 @@ using Random = UnityEngine.Random;
 using RandomElementsSystem.Types;
 using GG.Infrastructure.Utils;
 using System.Collections;
+using UnityEngine.Serialization;
+#if UNITY_EDITOR
+using UnityEditor;
+using UnityEditor.SceneManagement;
+#endif
 
 public class EventManager : MonoBehaviour
 {
@@ -15,13 +20,20 @@ public class EventManager : MonoBehaviour
 
     public WeightedListOfInts eventRank;
 
-    public List<GameEvent> gameEvents = new List<GameEvent>();
-     List<GameEvent> gameLegendEvents = new List<GameEvent>();
-     List<GameEvent> gameEpicEvents = new List<GameEvent>();
-     List<GameEvent> gameCommonEvents = new List<GameEvent>();
-    public List<GameEvent> specialBallEvents = new List<GameEvent>();
+    public List<GameEventDefinition> eventDefinitions = new List<GameEventDefinition>();
+    public List<GameEventDefinition> specialBallDefinitions = new List<GameEventDefinition>();
+
+    [FormerlySerializedAs("gameEvents")]
+    [SerializeField] private List<GameEvent> legacyGameEvents = new List<GameEvent>();
+    [FormerlySerializedAs("specialBallEvents")]
+    [SerializeField] private List<GameEvent> legacySpecialBallEvents = new List<GameEvent>();
+
+    readonly List<GameEventDefinition> gameLegendEvents = new List<GameEventDefinition>();
+    readonly List<GameEventDefinition> gameEpicEvents = new List<GameEventDefinition>();
+    readonly List<GameEventDefinition> gameCommonEvents = new List<GameEventDefinition>();
 
     bool currentEventSuccess;
+    public bool IsSkippingTurns { get; private set; }
     public List<UnityEvent> failActionList = new List<UnityEvent>();
 
     public TimeLineManager timeLineManager;
@@ -33,8 +45,17 @@ public class EventManager : MonoBehaviour
     }
     private void PopulateEventLists()
     {
-        foreach (var gameEvent in gameEvents)
+        gameLegendEvents.Clear();
+        gameEpicEvents.Clear();
+        gameCommonEvents.Clear();
+
+        foreach (var gameEvent in eventDefinitions)
         {
+            if (gameEvent == null)
+            {
+                continue;
+            }
+
             switch (gameEvent.rank)
             {
                 case GameEventRank.Legend:
@@ -58,7 +79,7 @@ public class EventManager : MonoBehaviour
         SoundManager.instance.PlayEventPanelSound();
         gameLogicManager.isPlayerTurn = false;
         // Determine the event list based on the weighted rank
-        List<GameEvent> selectedList = null;
+        List<GameEventDefinition> selectedList = null;
         switch (eventRank.GetRandomByWeight())
         {
             case 0: // Legend
@@ -74,6 +95,7 @@ public class EventManager : MonoBehaviour
 
         if (selectedList == null || selectedList.Count == 0)
         {
+            gameLogicManager.isPlayerTurn = true;
             Debug.LogWarning("No events available for the selected rank!");
             return;
         }
@@ -82,13 +104,13 @@ public class EventManager : MonoBehaviour
         int firstValue = Random.Range(0, selectedList.Count);
         int secondValue = GetUniqueRandomIndex(selectedList.Count, firstValue);
 
-        if (Random.value < 0.90f) // 90%
+        if (Random.value < 0.90f && specialBallDefinitions.Count > 1) // 90%
         {
             // Show a special ball event along with two random events
             gameLogicManager.ShowSelectPanel(
-                specialBallEvents[Random.Range(1, specialBallEvents.Count)],
-                selectedList[firstValue],
-                selectedList[secondValue]
+                CreateSelectionOption(specialBallDefinitions[Random.Range(1, specialBallDefinitions.Count)]),
+                CreateSelectionOption(selectedList[firstValue]),
+                CreateSelectionOption(selectedList[secondValue])
             );
             return;
         }
@@ -96,10 +118,86 @@ public class EventManager : MonoBehaviour
         // If not 90%, include a third unique event
         int thirdValue = GetUniqueRandomIndex(selectedList.Count, firstValue, secondValue);
         gameLogicManager.ShowSelectPanel(
-            selectedList[firstValue],
-            selectedList[secondValue],
-            selectedList[thirdValue]
+            CreateSelectionOption(selectedList[firstValue]),
+            CreateSelectionOption(selectedList[secondValue]),
+            CreateSelectionOption(selectedList[thirdValue])
         );
+    }
+
+    private GameEventSelectionOption CreateSelectionOption(GameEventDefinition definition)
+    {
+        return new GameEventSelectionOption(definition, () => ExecuteDefinition(definition));
+    }
+
+    public void ExecuteDefinition(GameEventDefinition definition)
+    {
+        if (definition == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < definition.effects.Count; i++)
+        {
+            ExecuteEffect(definition.effects[i]);
+        }
+    }
+
+    private void ExecuteEffect(GameEventEffect effect)
+    {
+        switch (effect.effectType)
+        {
+            case GameEventEffectType.BallCountIncrease:
+                SetBallCountIncrease(effect.intValue);
+                break;
+            case GameEventEffectType.BallCountMultiply:
+                SetBallCountMultifly(effect.floatValue);
+                break;
+            case GameEventEffectType.NextSheepHpDouble:
+                SetNextSheepHpDouble(effect.intValue);
+                break;
+            case GameEventEffectType.FirstLineErase:
+                SetFirstLineErease();
+                break;
+            case GameEventEffectType.AllBlockErase:
+                SetAllBlockErease();
+                break;
+            case GameEventEffectType.AllBlockDoubleHp:
+                SetAllBlockDoubleHp();
+                break;
+            case GameEventEffectType.WaitForTurn:
+                SetWaitForTurn(effect.intValue);
+                break;
+            case GameEventEffectType.RandomBlockTriple:
+                SetRandomBlockTriple(effect.intValue);
+                break;
+            case GameEventEffectType.UnderHpErase:
+                SetUnderHpErase(effect.intValue);
+                break;
+            case GameEventEffectType.RandomBlockErase:
+                SetRandomBlockErase(effect.intValue);
+                break;
+            case GameEventEffectType.AllBlockDamage:
+                SetAllBlockDamage(effect.intValue);
+                break;
+            case GameEventEffectType.RandomThreeBlockDamage:
+                SetRandomThreeBlockDamage(effect.intValue);
+                break;
+            case GameEventEffectType.RandomBlockDoubleHp:
+                SetRandomBlockDoubleHp(effect.intValue);
+                break;
+            case GameEventEffectType.RandomBlockGenerate:
+                SetRandomBlockGenerate(effect.intValue);
+                break;
+            case GameEventEffectType.CoinTossCommonBallTo:
+                SetCoinTossCommonBallTo(effect.intValue);
+                break;
+            case GameEventEffectType.CoinTossSpecialBallTo:
+                SetCoinTossSpecialBallTo(effect.intValue);
+                break;
+            case GameEventEffectType.GetSpecialBall:
+                gameLogicManager.GetSpecialBall(effect.ballType);
+                break;
+        }
     }
 
     private int GetUniqueRandomIndex(int count, params int[] exclude)
@@ -120,11 +218,12 @@ public class EventManager : MonoBehaviour
     {
         gameLogicManager.ChangeBallCount(amount);
 
-        if (gameLogicManager.GetBallCount < 0) gameLogicManager.ballCount = 1;
+
     }
     public void SetBallCountMultifly(float amount)
     {
-        gameLogicManager.ballCount = (int)(gameLogicManager.ballCount * amount);
+        int target = Mathf.Max(1, Mathf.FloorToInt(gameLogicManager.GetBallCount * amount));
+        gameLogicManager.ChangeBallCount(target - gameLogicManager.GetBallCount);
     }
 
     public void SetNextSheepHpDouble(int amount)
@@ -168,12 +267,22 @@ public class EventManager : MonoBehaviour
     }
     IEnumerator SetWaitForTurnCoroutine(int turnAmount)
     {
-        for (int i = 0; i < turnAmount; i++)
+        IsSkippingTurns = true;
+        try
         {
-            gameLogicManager.AllBallComeDown();
-            gameLogicManager.isPlayerTurn = false;
-            yield return gameLogicManager.isPlayerTurn == true;
-            yield return new WaitForSeconds(2f);
+            for (int i = 0; i < turnAmount; i++)
+            {
+                if (gameLogicManager.isGameOver) yield break;
+                gameLogicManager.isPlayerTurn = false;
+                gameLogicManager.AllBallComeDown();
+                yield return new WaitUntil(() => gameLogicManager.isPlayerTurn || gameLogicManager.isGameOver);
+                if (gameLogicManager.isGameOver) yield break;
+                yield return new WaitForSeconds(2f);
+            }
+        }
+        finally
+        {
+            IsSkippingTurns = false;
         }
     }
 
@@ -286,5 +395,171 @@ public class EventManager : MonoBehaviour
     public void GetDrillBall() { gameLogicManager.GetSpecialBall(BallType.Drill); }
     public void GetHollyBall() { gameLogicManager.GetSpecialBall(BallType.Holly); }
 
+#if UNITY_EDITOR
+    [ContextMenu("Migrate Legacy Events To SO")]
+    private void MigrateLegacyEventsToScriptableObjects()
+    {
+        const string rootFolder = "Assets/08.Data";
+        const string eventFolder = "Assets/08.Data/GameEvents";
+        const string normalFolder = "Assets/08.Data/GameEvents/Normal";
+        const string specialFolder = "Assets/08.Data/GameEvents/Special";
 
+        EnsureFolder("Assets", "08.Data");
+        EnsureFolder(rootFolder, "GameEvents");
+        EnsureFolder(eventFolder, "Normal");
+        EnsureFolder(eventFolder, "Special");
+
+        eventDefinitions = MigrateListToAssets(legacyGameEvents, "legacyGameEvents", normalFolder, false);
+        specialBallDefinitions = MigrateListToAssets(legacySpecialBallEvents, "legacySpecialBallEvents", specialFolder, true);
+
+        EditorUtility.SetDirty(this);
+        if (gameObject.scene.IsValid())
+        {
+            EditorSceneManager.MarkSceneDirty(gameObject.scene);
+        }
+
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+        Debug.Log($"Migrated {eventDefinitions.Count} normal events and {specialBallDefinitions.Count} special events.");
+    }
+
+    private List<GameEventDefinition> MigrateListToAssets(List<GameEvent> legacyList, string propertyName, string folderPath, bool isSpecialBall)
+    {
+        var createdDefinitions = new List<GameEventDefinition>();
+        SerializedObject serializedObject = new SerializedObject(this);
+        SerializedProperty listProperty = serializedObject.FindProperty(propertyName);
+
+        if (listProperty == null)
+        {
+            Debug.LogError($"Missing serialized property: {propertyName}");
+            return createdDefinitions;
+        }
+
+        for (int i = 0; i < listProperty.arraySize; i++)
+        {
+            SerializedProperty item = listProperty.GetArrayElementAtIndex(i);
+            string displayName = item.FindPropertyRelative("eventName").stringValue;
+            string explanation = item.FindPropertyRelative("explaination").stringValue;
+            Sprite icon = item.FindPropertyRelative("icon").objectReferenceValue as Sprite;
+            GameEventRank rank = (GameEventRank)item.FindPropertyRelative("rank").enumValueIndex;
+
+            GameEventDefinition definition = ScriptableObject.CreateInstance<GameEventDefinition>();
+            definition.eventName = displayName;
+            definition.explanation = explanation;
+            definition.icon = icon;
+            definition.rank = rank;
+            definition.isSpecialBallEvent = isSpecialBall;
+            definition.effects = ParseEffects(item.FindPropertyRelative("unityAction"));
+
+            string safeName = MakeSafeAssetName($"{i:00}_{displayName}");
+            string assetPath = AssetDatabase.GenerateUniqueAssetPath($"{folderPath}/{safeName}.asset");
+            AssetDatabase.CreateAsset(definition, assetPath);
+            createdDefinitions.Add(definition);
+        }
+
+        return createdDefinitions;
+    }
+
+    private List<GameEventEffect> ParseEffects(SerializedProperty unityActionProperty)
+    {
+        var effects = new List<GameEventEffect>();
+        SerializedProperty calls = unityActionProperty
+            .FindPropertyRelative("m_PersistentCalls")
+            .FindPropertyRelative("m_Calls");
+
+        for (int i = 0; i < calls.arraySize; i++)
+        {
+            SerializedProperty call = calls.GetArrayElementAtIndex(i);
+            string methodName = call.FindPropertyRelative("m_MethodName").stringValue;
+            SerializedProperty args = call.FindPropertyRelative("m_Arguments");
+
+            GameEventEffect effect = CreateEffectFromLegacyCall(methodName, args);
+            if (effect != null)
+            {
+                effects.Add(effect);
+            }
+        }
+
+        return effects;
+    }
+
+    private GameEventEffect CreateEffectFromLegacyCall(string methodName, SerializedProperty args)
+    {
+        int intArgument = args.FindPropertyRelative("m_IntArgument").intValue;
+        float floatArgument = args.FindPropertyRelative("m_FloatArgument").floatValue;
+
+        switch (methodName)
+        {
+            case nameof(SetBallCountIncrease):
+                return new GameEventEffect { effectType = GameEventEffectType.BallCountIncrease, intValue = intArgument };
+            case nameof(SetBallCountMultifly):
+                return new GameEventEffect { effectType = GameEventEffectType.BallCountMultiply, floatValue = floatArgument };
+            case nameof(SetNextSheepHpDouble):
+                return new GameEventEffect { effectType = GameEventEffectType.NextSheepHpDouble, intValue = intArgument };
+            case nameof(SetFirstLineErease):
+                return new GameEventEffect { effectType = GameEventEffectType.FirstLineErase };
+            case nameof(SetAllBlockErease):
+                return new GameEventEffect { effectType = GameEventEffectType.AllBlockErase };
+            case nameof(SetAllBlockDoubleHp):
+                return new GameEventEffect { effectType = GameEventEffectType.AllBlockDoubleHp };
+            case nameof(SetWaitForTurn):
+                return new GameEventEffect { effectType = GameEventEffectType.WaitForTurn, intValue = intArgument };
+            case nameof(SetRandomBlockTriple):
+                return new GameEventEffect { effectType = GameEventEffectType.RandomBlockTriple, intValue = intArgument };
+            case nameof(SetUnderHpErase):
+                return new GameEventEffect { effectType = GameEventEffectType.UnderHpErase, intValue = intArgument };
+            case nameof(SetRandomBlockErase):
+                return new GameEventEffect { effectType = GameEventEffectType.RandomBlockErase, intValue = intArgument };
+            case nameof(SetAllBlockDamage):
+                return new GameEventEffect { effectType = GameEventEffectType.AllBlockDamage, intValue = intArgument };
+            case nameof(SetRandomThreeBlockDamage):
+                return new GameEventEffect { effectType = GameEventEffectType.RandomThreeBlockDamage, intValue = intArgument };
+            case nameof(SetRandomBlockDoubleHp):
+                return new GameEventEffect { effectType = GameEventEffectType.RandomBlockDoubleHp, intValue = intArgument };
+            case nameof(SetRandomBlockGenerate):
+                return new GameEventEffect { effectType = GameEventEffectType.RandomBlockGenerate, intValue = intArgument };
+            case nameof(SetCoinTossCommonBallTo):
+                return new GameEventEffect { effectType = GameEventEffectType.CoinTossCommonBallTo, intValue = intArgument };
+            case nameof(SetCoinTossSpecialBallTo):
+                return new GameEventEffect { effectType = GameEventEffectType.CoinTossSpecialBallTo, intValue = intArgument };
+            case nameof(GetCrossBall):
+                return new GameEventEffect { effectType = GameEventEffectType.GetSpecialBall, ballType = BallType.Cross };
+            case nameof(GetBombBall):
+                return new GameEventEffect { effectType = GameEventEffectType.GetSpecialBall, ballType = BallType.Bomb };
+            case nameof(GetVerticalBall):
+                return new GameEventEffect { effectType = GameEventEffectType.GetSpecialBall, ballType = BallType.Vertical };
+            case nameof(GetHorizontalBall):
+                return new GameEventEffect { effectType = GameEventEffectType.GetSpecialBall, ballType = BallType.Horizontal };
+            case nameof(GetSplitBall):
+                return new GameEventEffect { effectType = GameEventEffectType.GetSpecialBall, ballType = BallType.Split };
+            case nameof(GetDrillBall):
+                return new GameEventEffect { effectType = GameEventEffectType.GetSpecialBall, ballType = BallType.Drill };
+            case nameof(GetHollyBall):
+                return new GameEventEffect { effectType = GameEventEffectType.GetSpecialBall, ballType = BallType.Holly };
+        }
+
+        Debug.LogWarning($"Unsupported legacy event method: {methodName}");
+        return null;
+    }
+
+    private static void EnsureFolder(string parent, string folderName)
+    {
+        string target = $"{parent}/{folderName}";
+        if (!AssetDatabase.IsValidFolder(target))
+        {
+            AssetDatabase.CreateFolder(parent, folderName);
+        }
+    }
+
+    private static string MakeSafeAssetName(string source)
+    {
+        char[] invalidChars = System.IO.Path.GetInvalidFileNameChars();
+        foreach (char invalidChar in invalidChars)
+        {
+            source = source.Replace(invalidChar, '_');
+        }
+
+        return source.Replace('/', '_').Replace('\\', '_').Trim();
+    }
+#endif
 }

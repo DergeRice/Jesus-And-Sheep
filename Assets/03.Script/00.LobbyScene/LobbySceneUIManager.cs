@@ -10,6 +10,7 @@ public class LobbySceneUIManager : MonoBehaviour
     public Button startButton,countinueButton;
 
     public GameObject topBar, underBar, title, fence, btns,mail, firstPurchaseItem;
+    public GameObject koreanTitleObject, englishTitleObject;
     private AsyncOperation asyncLoad;
 
     private void Start()
@@ -18,10 +19,44 @@ public class LobbySceneUIManager : MonoBehaviour
         countinueButton.onClick.AddListener(() => { ContinueGame(); });
 
         countinueButton.interactable = PlayerPrefsManager.Instance.GetBoolSetting(PlayerPrefsData.hasLastGame);
+        UpdateTitleLanguageState();
+
+        if (LanguageManager.HasInstance)
+        {
+            LanguageManager.Instance.LanguageChanged += HandleLanguageChanged;
+        }
 
         if(PlayerPrefsManager.Instance.GetBoolSetting(PlayerPrefsData.firstItemPurchased) == true)
         {
             Destroy(firstPurchaseItem);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (LanguageManager.HasInstance)
+        {
+            LanguageManager.Instance.LanguageChanged -= HandleLanguageChanged;
+        }
+    }
+
+    private void HandleLanguageChanged(string languageCode)
+    {
+        UpdateTitleLanguageState();
+    }
+
+    private void UpdateTitleLanguageState()
+    {
+        bool isEnglish = LanguageManager.Instance != null && LanguageManager.Instance.CurrentLanguageCode == "en";
+
+        if (koreanTitleObject != null)
+        {
+            koreanTitleObject.SetActive(!isEnglish);
+        }
+
+        if (englishTitleObject != null)
+        {
+            englishTitleObject.SetActive(isEnglish);
         }
     }
 

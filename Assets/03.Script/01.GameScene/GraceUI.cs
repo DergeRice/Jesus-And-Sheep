@@ -10,7 +10,7 @@ public class GraceUI : MonoBehaviour
     public void Init(Sprite sprite, string v,int index)
     {
         ballImage.sprite = sprite;
-        expainText.text = v;
+        LocalizedText.Attach(expainText).SetSource(v);
         indexText.text = index.ToString();
     }
 }

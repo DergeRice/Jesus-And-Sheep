@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEditor;
 using System.Collections.Generic;
 using System.Linq;
 using System.Collections;
@@ -78,7 +77,7 @@ public class GameLogicManager : MonoBehaviour
 
     void Update()
     {
-        if (isPlayerTurn == true) HandleInput();
+        if (isPlayerTurn && !isGameOver && (eventManager == null || !eventManager.IsSkippingTurns)) HandleInput();
         ballCountText.text = shootingBallDatas.Count.ToString();
         currentLevelText.text = currentLevel.ToString();
 
@@ -323,7 +322,7 @@ public class GameLogicManager : MonoBehaviour
     }
 
 
-    public void ShowSelectPanel(GameEvent a, GameEvent b, GameEvent c)
+    public void ShowSelectPanel(GameEventSelectionOption a, GameEventSelectionOption b, GameEventSelectionOption c)
     {
         gameCanvas.selectPanel.ShowPanel(a, b, c);
     }
@@ -337,10 +336,10 @@ public class GameLogicManager : MonoBehaviour
     public void ChangeBallCount(int amount)
     {
         if (amount > 0) GetCommonBall(amount);
-        else DelCommonBall(amount);
+        else if (amount < 0) DelCommonBall(-amount);
     }
 
-    public int GetBallCount => ballCount;
+    public int GetBallCount => shootingBallDatas.Count;
 
     public void GetCommonBall(int amount)
     {
@@ -352,11 +351,12 @@ public class GameLogicManager : MonoBehaviour
 
     public void DelCommonBall(int amount)
     {
+        if (amount <= 0) return;
         int removedCount = 0;
 
         for (int i = shootingBallDatas.Count - 1; i >= 0; i--) // 역순으로 순회
         {
-            if (shootingBallDatas[i] == BallType.Common)
+            if (shootingBallDatas[i] == BallType.Common && shootingBallDatas.Count > 1)
             {
                 shootingBallDatas.RemoveAt(i);
                 removedCount++;

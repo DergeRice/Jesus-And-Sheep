@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b52b6bff702f94671b425501e0df0e32, type: 3}
+  m_Name: "11_\uB79C\uB364_\uD55C\uAC1C_\uBE14\uB85D_\uCCB4\uB825_3\uBC30_\uACF52\uAC1C\uCD94\uAC00"
+  m_EditorClassIdentifier: Assembly-CSharp::GameEventDefinition
+  eventName: "\uB79C\uB364_\uD55C\uAC1C_\uBE14\uB85D_\uCCB4\uB825_3\uBC30_\uACF52\uAC1C\uCD94\uAC00"
+  eventNameEn: "Random_one_block_strength_3x_2 balls added"
+  explanation: "\uD558\uD2B8\uB97C 5\uAC1C \uC5BB\uB294 \uB300\uC2E0  \uBB34\uC791\uC704
+    \uC591\uC758 \uCCB4\uB825\uC744 3\uBC30\uB85C \uB298\uB9BD\uB2C8\uB2E4."
+  explanationEn: "Gain 5 hearts and\ntriple the HP of a random sheep."
+  icon: {fileID: 21300000, guid: 619b7fc0ab2954b5ea32430865b342a5, type: 3}
+  rank: 2
+  isSpecialBallEvent: 0
+  effects:
+  - effectType: 7
+    intValue: 1
+    floatValue: 0
+    ballType: 0
+  - effectType: 0
+    intValue: 5
+    floatValue: 0
+    ballType: 0

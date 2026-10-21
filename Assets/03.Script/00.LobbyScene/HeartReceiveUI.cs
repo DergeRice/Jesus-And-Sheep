@@ -11,17 +11,21 @@ public class HeartReceiveUI : MonoBehaviour
 
     public void Init(HeartData heartData)
     {
-        nickname.text =  $"{heartData.senderNickName}님이 사랑을 전해줬어요!";
+        LocalizedText.Attach(nickname).SetFormat("{0}님이 사랑을 전해줬어요!", heartData.senderNickName);
+
         hashValue = heartData.heartHash;
+        receiveButton.interactable = true;
+        receiveButton.onClick.RemoveAllListeners();
         Action success = ()=>
         {
-            GameManager.instance.heartManager.GainHeart();
+            if (!FirebaseSession.Enabled) GameManager.instance.heartManager.GainHeart();
             Destroy(gameObject);
         };
         
         receiveButton.onClick.AddListener(()=>
         {
-            NetworkManager.instance.HeartReceive(hashValue,success);
+            receiveButton.interactable = false;
+            NetworkManager.instance.HeartReceive(hashValue, success, () => receiveButton.interactable = true);
         });
     }
 }

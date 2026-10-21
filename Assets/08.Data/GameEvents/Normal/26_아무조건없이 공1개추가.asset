@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b52b6bff702f94671b425501e0df0e32, type: 3}
+  m_Name: "26_\uC544\uBB34\uC870\uAC74\uC5C6\uC774 \uACF51\uAC1C\uCD94\uAC00"
+  m_EditorClassIdentifier: Assembly-CSharp::GameEventDefinition
+  eventName: "\uC544\uBB34\uC870\uAC74\uC5C6\uC774 \uACF51\uAC1C\uCD94\uAC00"
+  eventNameEn: "Add 1 ball without any conditions"
+  explanation: "\uC8FC\uB2D8\uC758 \uC740\uD61C\uB85C \uD558\uD2B8\uB97C 5\uAC1C
+    \uC5BB\uC2B5\uB2C8\uB2E4."
+  explanationEn: "By the Lord's grace,\ngain 5 hearts."
+  icon: {fileID: 21300000, guid: 4fc0f97b826f64e39a35a5e38ca1a76a, type: 3}
+  rank: 0
+  isSpecialBallEvent: 0
+  effects:
+  - effectType: 0
+    intValue: 5
+    floatValue: 0
+    ballType: 0

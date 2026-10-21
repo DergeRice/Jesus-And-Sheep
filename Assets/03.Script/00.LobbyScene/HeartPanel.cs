@@ -85,7 +85,8 @@ public class HeartPanel : PanelBase
 
     private void UpdateUI()
     {
-        remainText.text = $"남은 광고 횟수 :{currentRemainAd}/{adMax}";
+        LocalizedText.Attach(remainText).SetFormat("남은 광고 횟수 :{0}/{1}", currentRemainAd, adMax);
+
         adButton.interactable = currentRemainAd > 0; // 광고 버튼 활성화/비활성화
     }
 }

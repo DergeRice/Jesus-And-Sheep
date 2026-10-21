@@ -1,0 +1,6 @@
+# Replace with the migration subdomain, then the production domain after verification.
+api.example.com {
+    encode gzip
+    # Preserve /api2: Unity sends requests to that prefix.
+    reverse_proxy 127.0.0.1:3000
+}

@@ -53,6 +53,7 @@ public class PlayerPrefsManager : MonoBehaviour
         settings[key] = valueString;
         ProtectedPlayerPrefs.SetString(key.ToString(), valueString);
         ProtectedPlayerPrefs.Save();
+        if (NetworkManager.instance != null) NetworkManager.instance.MarkCloudDirty();
     }
 
     // 설정값을 가져오는 메서드 (string으로 반환)

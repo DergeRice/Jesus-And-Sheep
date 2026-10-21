@@ -8,11 +8,11 @@ public class ShopManager : MonoBehaviour
 
     public void Start()
     {
-        iAPButtons[0].onPurchaseComplete.AddListener(PurchaseFirstItem);
-        iAPButtons[1].onPurchaseComplete.AddListener(Purchase1200Item);
-        iAPButtons[2].onPurchaseComplete.AddListener(Purchase2900Item);
-        iAPButtons[3].onPurchaseComplete.AddListener(Purchase6900Item);
-        iAPButtons[4].onPurchaseComplete.AddListener(Purchase12000Item);
+        iAPButtons[0].onPurchaseCompleteLegacy.AddListener(PurchaseFirstItem);
+        iAPButtons[1].onPurchaseCompleteLegacy.AddListener(Purchase1200Item);
+        iAPButtons[2].onPurchaseCompleteLegacy.AddListener(Purchase2900Item);
+        iAPButtons[3].onPurchaseCompleteLegacy.AddListener(Purchase6900Item);
+        iAPButtons[4].onPurchaseCompleteLegacy.AddListener(Purchase12000Item);
     }
 
     public void PurchaseFirstItem(Product product)

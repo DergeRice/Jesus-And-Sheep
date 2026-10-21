@@ -17,6 +17,11 @@ public class LobbyManager : MonoBehaviour
     
     public void Start()
     {
+        if (myNameText != null && myNameText.GetComponent<NonTranslatableText>() == null)
+        {
+            myNameText.gameObject.AddComponent<NonTranslatableText>();
+        }
+
         GameManager.instance.lobbyManager =this;
 
         NetworkManager.instance.Init();

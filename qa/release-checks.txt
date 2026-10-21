@@ -1,0 +1,5 @@
+Regression assertions passed: 131
+Assets/01.Scenes/00.LogoScene.unity: translated TMP labels checked = 0
+Assets/01.Scenes/01.LoadingSecne.unity: translated TMP labels checked = 0
+Assets/01.Scenes/01.LobbySceneSheep.unity: translated TMP labels checked = 91
+Assets/01.Scenes/02.GameScene.unity: translated TMP labels checked = 19

@@ -77,10 +77,13 @@ public class AdsInitializer : MonoBehaviour, IUnityAdsInitializationListener
     public void OnInitializationComplete()
     {
         Debug.Log("Unity Ads initialization complete.");
-        interstitialAd = GetComponent<InterstitialAd>();
+        if (interstitialAd == null) interstitialAd = GetComponent<InterstitialAd>();
+        if (bannerAd == null) bannerAd = GetComponent<BannerAd>();
+        if (rewardedAd == null) rewardedAd = GetComponent<RewardedAds>();
 
-        interstitialAd.LoadAd();
-        bannerAd.LoadBanner();
+        interstitialAd?.LoadAd();
+        bannerAd?.LoadBanner();
+        rewardedAd?.LoadAd();
     }
  
     public void OnInitializationFailed(UnityAdsInitializationError error, string message)

@@ -37,14 +37,22 @@ public class NickNameConfirmPanel : PanelBase
 
 
         Action successAction = () =>
-        {    
-            root.SetActive(false);
-            User temp = new User();
-            temp.nickname = nicknameField.text;
-            NetworkManager.instance.EnrollUser(temp);
-            PlayerPrefsManager.Instance.SetSetting(PlayerPrefsData.isFirstTime,true);
-            GameManager.instance.lobbyManager.LoadMySavedData();
-            tutorialPanel.SetActive(true);
+        {
+            checkButton.interactable = false;
+            User temp = new User { nickname = nicknameField.text };
+            NetworkManager.instance.EnrollUser(temp, () =>
+            {
+                checkButton.interactable = true;
+                root.SetActive(false);
+                PlayerPrefsManager.Instance.SetSetting(PlayerPrefsData.isFirstTime, true);
+                NetworkManager.instance.UpdateOwnData();
+                GameManager.instance.lobbyManager.LoadMySavedData();
+                tutorialPanel.SetActive(true);
+            }, () =>
+            {
+                checkButton.interactable = true;
+                cantEnroll.SetActive(true);
+            });
         };
 
         Action failAction = () =>

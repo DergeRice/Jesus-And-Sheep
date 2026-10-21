@@ -215,6 +215,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -869,6 +870,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -988,6 +990,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
+  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -1045,7 +1048,7 @@ MonoBehaviour:
   - "\uC591\uB4E4\uC774 \uD480\uC744 \uB72F\uC73C\uB7EC \uAC00\uB294 \uC911"
   - "\uC608\uC218\uB2D8\uC774 \uAE30\uC9C0\uAC1C\uB97C \uC77C\uC774\uD0A4\uC2DC\uB294
     \uC911"
-  - "\uC591\uB4E4\uC774 \uC124\uB808\uC5B4\uD558\uB294 \uC911"
+  - "\uC591\uB4E4\uC774 \uC124\uB808\uB294 \uC911"
   displayText: {fileID: 1554985577}
   interval: 1.2
 --- !u!1 &1083494018
@@ -1654,6 +1657,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1865,6 +1869,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0

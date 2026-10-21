@@ -48,14 +48,15 @@ public class BlockManager : MonoBehaviour
             return;
         }
 
-        int xIndex, yIndex;
-
-        do
-        {
-            xIndex = Random.Range(0, 7);
-            yIndex = Random.Range(1, 6);
-        }
-        while (blockGrid[xIndex, yIndex] != null); // �ش� ��ġ�� ������ ������ �ٽ� ���� ��ġ�� ã��
+        // Search the actual spawn area: other rows may be empty even when this area is full.
+        var available = new List<Vector2Int>();
+        for (int x = 0; x < Mathf.Min(blockGrid.GetLength(0), gridX.Length); x++)
+            for (int y = 1; y < Mathf.Min(6, Mathf.Min(blockGrid.GetLength(1), gridY.Length)); y++)
+                if (blockGrid[x, y] == null) available.Add(new Vector2Int(x, y));
+        if (available.Count == 0) return;
+        Vector2Int position = available[Random.Range(0, available.Count)];
+        int xIndex = position.x;
+        int yIndex = position.y;
 
         Block tempBlock = null;
         if(isCoinItem== false) tempBlock = Instantiate(blockPrefab, blockParent);
@@ -409,11 +410,12 @@ public class BlockManager : MonoBehaviour
         for (int i = 0; i < numberOfBlocksToSelect; i++)
         {
             int randomIndex = Random.Range(0, availableBlocks.Count);
-            randomBlocks.Add(availableBlocks[randomIndex]);
+            Block selected = availableBlocks[randomIndex];
+            randomBlocks.Add(selected);
             availableBlocks.RemoveAt(randomIndex); // �̹� ������ Block�� ����Ʈ���� ����
 
-            availableBlocks[randomIndex].transform.DOKill();
-            availableBlocks[randomIndex].transform.DOShakeScale(0.2f,1);
+            selected.transform.DOKill();
+            selected.transform.DOShakeScale(0.2f,1);
         }
 
         return randomBlocks;

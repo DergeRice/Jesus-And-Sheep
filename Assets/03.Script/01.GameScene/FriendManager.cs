@@ -64,6 +64,7 @@ public class FriendManager : MonoBehaviour
     {
         string json = JsonConvert.SerializeObject(userList, Formatting.Indented);
         File.WriteAllText(GetSaveFilePath(), json);
+        if (NetworkManager.instance != null) NetworkManager.instance.MarkCloudDirty();
     }
 
     public void LoadData()

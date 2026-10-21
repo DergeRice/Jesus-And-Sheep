@@ -1,0 +1,8 @@
+{
+  "enabled": false,
+  "apiBaseUrl": "",
+  "allowGuestSignIn": true,
+  "googleWebClientId": "",
+  "googleIosClientId": "",
+  "googleIosReversedClientId": ""
+}

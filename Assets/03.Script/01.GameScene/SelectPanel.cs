@@ -24,22 +24,22 @@ public class SelectPanel : PanelBase //,  IPointerDownHandler, IPointerUpHandler
         parent.alpha = 1;
     }
 
-    public void ShowPanel(GameEvent one, GameEvent two,GameEvent three)
+    public void ShowPanel(GameEventSelectionOption one, GameEventSelectionOption two, GameEventSelectionOption three)
     {
         root.SetActive(true);
 
         GameLogicManager.instance.isPlayerTurn = false;
 
-        this.one.InitSetting(one, GetRankSprite(one));
-        this.two.InitSetting(two, GetRankSprite(two));
-        this.three.InitSetting(three, GetRankSprite(three));
+        this.one.InitSetting(one, GetRankSprite(one.Definition));
+        this.two.InitSetting(two, GetRankSprite(two.Definition));
+        this.three.InitSetting(three, GetRankSprite(three.Definition));
 
         this.one.selectButton.onClick.AddListener(() =>{ root.SetActive(false);});
         this.two.selectButton.onClick.AddListener(() =>{ root.SetActive(false);});
         this.three.selectButton.onClick.AddListener(() =>{ root.SetActive(false);});
     }
 
-    public Sprite GetRankSprite(GameEvent gameEvent)
+    public Sprite GetRankSprite(GameEventDefinition gameEvent)
     {
         Sprite um = null;
         if (gameEvent.rank == GameEventRank.Legend) um = legend;

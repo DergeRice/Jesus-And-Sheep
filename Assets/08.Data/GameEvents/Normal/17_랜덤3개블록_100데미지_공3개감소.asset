@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b52b6bff702f94671b425501e0df0e32, type: 3}
+  m_Name: "17_\uB79C\uB3643\uAC1C\uBE14\uB85D_100\uB370\uBBF8\uC9C0_\uACF53\uAC1C\uAC10\uC18C"
+  m_EditorClassIdentifier: Assembly-CSharp::GameEventDefinition
+  eventName: "\uB79C\uB3643\uAC1C\uBE14\uB85D_100\uB370\uBBF8\uC9C0_\uACF53\uAC1C\uAC10\uC18C"
+  eventNameEn: "Random 3 blocks_100 damage_3 balls reduced"
+  explanation: "\uD558\uD2B8 5\uAC1C\uB97C \uC18C\uBAA8\uD558\uC5EC, \uBB34\uC791\uC704
+    3\uB9C8\uB9AC \uC591\uC5D0\uAC8C 100\uB9CC\uD07C \uC0AC\uB791\uC744 \uC90D\uB2C8\uB2E4."
+  explanationEn: "Spend 5 hearts to give\n100 love to 3 random sheep."
+  icon: {fileID: 21300000, guid: 6148338c961dc444584463aca9dc2b57, type: 3}
+  rank: 1
+  isSpecialBallEvent: 0
+  effects:
+  - effectType: 0
+    intValue: -5
+    floatValue: 0
+    ballType: 0
+  - effectType: 11
+    intValue: 100
+    floatValue: 0
+    ballType: 0

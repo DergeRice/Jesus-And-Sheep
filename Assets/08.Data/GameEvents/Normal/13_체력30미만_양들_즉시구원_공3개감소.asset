@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b52b6bff702f94671b425501e0df0e32, type: 3}
+  m_Name: "13_\uCCB4\uB82530\uBBF8\uB9CC_\uC591\uB4E4_\uC989\uC2DC\uAD6C\uC6D0_\uACF53\uAC1C\uAC10\uC18C"
+  m_EditorClassIdentifier: Assembly-CSharp::GameEventDefinition
+  eventName: "\uCCB4\uB82530\uBBF8\uB9CC_\uC591\uB4E4_\uC989\uC2DC\uAD6C\uC6D0_\uACF53\uAC1C\uAC10\uC18C"
+  eventNameEn: "Stamina less than 30_Sheep_Instant salvation_3 balls reduced"
+  explanation: "\uD558\uD2B8 2\uAC1C\uB97C \uC18C\uBAA8\uD558\uC5EC, \uCCB4\uB825
+    50\uBBF8\uB9CC\uC758 \uC591\uB4E4\uC744 \uBAA8\uB450 \uAD6C\uC6D0\uD569\uB2C8\uB2E4. "
+  explanationEn: "Spend 2 hearts to save\nall sheep with less than 50 HP."
+  icon: {fileID: 21300000, guid: a89ecb81d0b9345f29530b2b64ab2877, type: 3}
+  rank: 2
+  isSpecialBallEvent: 0
+  effects:
+  - effectType: 8
+    intValue: 50
+    floatValue: 0
+    ballType: 0
+  - effectType: 0
+    intValue: -2
+    floatValue: 0
+    ballType: 0

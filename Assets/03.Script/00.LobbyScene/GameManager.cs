@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
     {
         var toastText = Instantiate(toastUIPrefeb, toastRoot).GetComponent<ToastUI>();
 
-        toastText.toastText.text = text;
+        LocalizedText.Attach(toastText.toastText).SetSource(text);
         Destroy(toastText.gameObject, 2f);
     }
     

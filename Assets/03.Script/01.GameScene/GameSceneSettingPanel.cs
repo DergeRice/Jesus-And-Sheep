@@ -33,6 +33,7 @@ public class GameSceneSettingPanel : MonoBehaviour
 
     private void Start()
     {
+        _ = LanguageManager.Instance;
         ballListShowPanel = GetComponent<BallListShowPanel>();
         ///init datas
         activeStateText.text = "비활성화됨";
@@ -101,7 +102,7 @@ public class GameSceneSettingPanel : MonoBehaviour
         {
             GoHome();
         });
-        
+
     }
 
     public void ShowSpeedPopup(bool enable)

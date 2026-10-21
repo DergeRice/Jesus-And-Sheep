@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b52b6bff702f94671b425501e0df0e32, type: 3}
+  m_Name: "20_\uB79C\uB364\uC73C\uB85C\uBE14\uB85D15\uAC1C\uC124\uCE58_\uACF58\uAC1C\uCD94\uAC00"
+  m_EditorClassIdentifier: Assembly-CSharp::GameEventDefinition
+  eventName: "\uB79C\uB364\uC73C\uB85C\uBE14\uB85D15\uAC1C\uC124\uCE58_\uACF58\uAC1C\uCD94\uAC00"
+  eventNameEn: "Randomly install 15 blocks_Add 8 balls"
+  explanation: "\uD558\uD2B8 15\uAC1C\uB97C \uC5BB\uACE0, \uC591\uB4E4\uC744 \uBB34\uC791\uC704\uB85C
+    15 \uB9C8\uB9AC \uC18C\uD658\uD569\uB2C8\uB2E4."
+  explanationEn: "Gain 15 hearts and\nsummon 15 random sheep."
+  icon: {fileID: 21300000, guid: 42fa8e619ccbb4d95837d0577c7c3a96, type: 3}
+  rank: 0
+  isSpecialBallEvent: 0
+  effects:
+  - effectType: 13
+    intValue: 15
+    floatValue: 0
+    ballType: 0
+  - effectType: 0
+    intValue: 15
+    floatValue: 0
+    ballType: 0

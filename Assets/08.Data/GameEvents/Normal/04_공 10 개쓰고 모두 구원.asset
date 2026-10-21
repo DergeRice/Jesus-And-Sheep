@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b52b6bff702f94671b425501e0df0e32, type: 3}
+  m_Name: "04_\uACF5 10 \uAC1C\uC4F0\uACE0 \uBAA8\uB450 \uAD6C\uC6D0"
+  m_EditorClassIdentifier: Assembly-CSharp::GameEventDefinition
+  eventName: "\uACF5 10 \uAC1C\uC4F0\uACE0 \uBAA8\uB450 \uAD6C\uC6D0"
+  eventNameEn: "Use 10 balls and save everyone"
+  explanation: "\uD558\uD2B8\uB97C 7\uAC1C \uC18C\uBAA8\uD558\uC5EC \uD654\uBA74\uC5D0
+    \uBAA8\uB4E0 \uC591\uB4E4\uC744 \uAD6C\uC6D0\uD569\uB2C8\uB2E4."
+  explanationEn: "Spend 7 hearts to save\nevery sheep on screen."
+  icon: {fileID: 21300000, guid: 619b7fc0ab2954b5ea32430865b342a5, type: 3}
+  rank: 1
+  isSpecialBallEvent: 0
+  effects:
+  - effectType: 4
+    intValue: 0
+    floatValue: 0
+    ballType: 0
+  - effectType: 0
+    intValue: -7
+    floatValue: 0
+    ballType: 0

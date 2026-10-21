@@ -1,0 +1,6 @@
+home_region           = "ap-seoul-1" # Replace with YOUR tenancy's home region.
+compartment_ocid      = "ocid1.compartment.oc1..REPLACE"
+availability_domain   = "REPLACE:AP-SEOUL-1-AD-1"
+ubuntu_arm_image_ocid  = "ocid1.image.oc1.ap-seoul-1.REPLACE"
+ssh_public_key_path   = "~/.ssh/id_ed25519.pub"
+ssh_source_cidr        = "203.0.113.10/32" # Replace with your public IP.

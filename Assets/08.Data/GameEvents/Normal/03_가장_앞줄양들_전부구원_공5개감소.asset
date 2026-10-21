@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b52b6bff702f94671b425501e0df0e32, type: 3}
+  m_Name: "03_\uAC00\uC7A5_\uC55E\uC904\uC591\uB4E4_\uC804\uBD80\uAD6C\uC6D0_\uACF55\uAC1C\uAC10\uC18C"
+  m_EditorClassIdentifier: Assembly-CSharp::GameEventDefinition
+  eventName: "\uAC00\uC7A5_\uC55E\uC904\uC591\uB4E4_\uC804\uBD80\uAD6C\uC6D0_\uACF55\uAC1C\uAC10\uC18C"
+  eventNameEn: "The most_front row sheep_all saved_5 balls reduced"
+  explanation: "\uD558\uD2B8 2\uAC1C\uB97C \uC18C\uBAA8\uD558\uC5EC \uAC00\uC7A5
+    \uC55E\uC5D0 \uC788\uB294 \uC904\uC758 \uC591\uB4E4\uC744 \uBAA8\uB450 \uC989\uC2DC
+    \uAD6C\uC6D0\uD569\uB2C8\uB2E4."
+  explanationEn: "Spend 2 hearts to instantly\nsave every sheep in the front row."
+  icon: {fileID: 21300000, guid: 6148338c961dc444584463aca9dc2b57, type: 3}
+  rank: 2
+  isSpecialBallEvent: 0
+  effects:
+  - effectType: 3
+    intValue: 0
+    floatValue: 0
+    ballType: 0
+  - effectType: 0
+    intValue: -2
+    floatValue: 0
+    ballType: 0

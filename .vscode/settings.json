@@ -56,7 +56,7 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Jesus-And-Sheep.sln",
-    "dotnetAcquisitionExtension.sharedExistingDotnetPath": "/usr/local/share/dotnet/dotnet",
+    "dotnet.defaultSolution": "Jesus-And-Sheep.slnx",
+    "dotnetAcquisitionExtension.sharedExistingDotnetPath": "/usr/local/share/dotnet",
     "dotnetAcquisitionExtension.installTimeoutValue": 0
 }

@@ -10,6 +10,7 @@ public enum PlayerPrefsData
     hasLastGame,
     isBgmOff,
     isSfxOff,
+    languageCode,
     nickname,
     profileIndex,
     highScore,

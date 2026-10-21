@@ -1,0 +1,979 @@
+{
+  "entries": [
+    {
+      "source": "\"\\uC544\\uBB34\\uC870\\uAC74\\uC5C6\\uC774 \\uB79C\\uB364 \\uBE14\\uB7ED \\uD558\\uB098",
+      "en": "\"\\uC544\\uBB34\\uC870\\uAC74\\uC5C6\\uC774 \\uB79C\\uB364 \\uBE14\\uB7ED \\uD558\\uB098",
+      "ja": ""
+    },
+    {
+      "source": "\"아무조건없이 랜덤 블럭 하나",
+      "en": "\"One random block without any conditions",
+      "ja": ""
+    },
+    {
+      "source": "(200골드)",
+      "en": "(200 gold)",
+      "ja": "（200ゴールド）"
+    },
+    {
+      "source": "(메뉴에서 구체적인 효과를\n확인할 수 있습니다.)",
+      "en": "(See the menu for details.)",
+      "ja": "（メニューで具体的な効果\n確認できます。）"
+    },
+    {
+      "source": "(회원 등록에만 인터넷 연결이\n필요해요.)",
+      "en": "(Internet is required to register.)",
+      "ja": "（会員登録のみインターネット接続\n必要です。）"
+    },
+    {
+      "source": "1.손가락으로 위치를 잡고 떼면\n해당\n위치로 하트를 발사합니다.",
+      "en": "1. Drag to aim, then release\nto launch hearts.",
+      "ja": "1.指で位置を握って離すと\n該当\n場所にハートを発射します。"
+    },
+    {
+      "source": "2. 양의 머리 위에는 구원에 필요한\n사랑의 양이 표시됩니다.",
+      "en": "2. The number above each sheep\nshows how much love it needs.",
+      "ja": "2. 羊の頭の上には救いに必要\n愛の量が表示されます。"
+    },
+    {
+      "source": "3. 예수님 머리 위에는 보낼 수\n있는 하트의 갯수가 표시됩니다.",
+      "en": "3. The number above Jesus\nshows how many hearts you can fire.",
+      "ja": "3. イエス様の頭の上には送れる\nあるハートの数が表示されます。"
+    },
+    {
+      "source": "4. 양이 소환되면 아이템도 같이\n소환됩니다.",
+      "en": "4. Items appear along with\nnew sheep.",
+      "ja": "4. 羊が召喚されるとアイテムも一緒に\n召喚されます。"
+    },
+    {
+      "source": "5. 편의 기능으로 더욱 쉽게 플레이\n하세요",
+      "en": "5. Use the helper features\nto make playing easier.",
+      "ja": "5. 便利な機能でより簡単にプレイ\nしてください"
+    },
+    {
+      "source": "50% 확률로 특수 하트를 2개 얻거나,\n하트가 3개 감소합니다.",
+      "en": "50% chance to gain 3 special hearts.\nOtherwise, lose 3 hearts.",
+      "ja": ""
+    },
+    {
+      "source": "50% 확률로 특수 하트를 3개 얻거나,\n양을 7마리 소환합니다.",
+      "en": "50% chance to gain 3 special hearts.\nOtherwise, summon 7 sheep.",
+      "ja": ""
+    },
+    {
+      "source": "50% 확률로 하트를 8개 얻거나,\n양을 5마리 소환합니다.",
+      "en": "50% chance to gain 8 hearts.\nOtherwise, summon 5 sheep.",
+      "ja": ""
+    },
+    {
+      "source": "50% 확률로 하트를 8개 얻거나,\n하트가 3개 감소합니다.",
+      "en": "50% chance to gain 8 hearts.\nOtherwise, lose 3 hearts.",
+      "ja": ""
+    },
+    {
+      "source": "6. 레벨이 올라가면 다양한 양들이\n나타납니다.",
+      "en": "6. New types of sheep appear\nas you level up.",
+      "ja": "6. レベルが上がると様々な量が\n表示されます。"
+    },
+    {
+      "source": "7. 다양한 특수 하트들을 활용해\n전략적으로 구원시키세요!",
+      "en": "7. Use special hearts wisely\nto save more sheep!",
+      "ja": "7. 様々な特殊ハートを活用して\n戦略的に救いましょう！"
+    },
+    {
+      "source": "8.  누구보다 많은 양들을 구원해보세요!",
+      "en": "8. Save more sheep than anyone else!",
+      "ja": "8. 誰よりも多くの羊を救いましょう！"
+    },
+    {
+      "source": "Bomb",
+      "en": "Bomb",
+      "ja": ""
+    },
+    {
+      "source": "Drill",
+      "en": "Drill",
+      "ja": ""
+    },
+    {
+      "source": "Fail",
+      "en": "Fail",
+      "ja": "Fail"
+    },
+    {
+      "source": "High Score",
+      "en": "High Score",
+      "ja": "High Score"
+    },
+    {
+      "source": "Holly",
+      "en": "Holy",
+      "ja": ""
+    },
+    {
+      "source": "Horizontal",
+      "en": "Horizontal",
+      "ja": ""
+    },
+    {
+      "source": "KRW 1000",
+      "en": "KRW 1000",
+      "ja": "KRW 1000"
+    },
+    {
+      "source": "KRW 1200",
+      "en": "KRW 1200",
+      "ja": "KRW 1200"
+    },
+    {
+      "source": "KRW 12000",
+      "en": "KRW 12000",
+      "ja": "KRW 12000"
+    },
+    {
+      "source": "KRW 2900",
+      "en": "KRW 2900",
+      "ja": "KRW 2900"
+    },
+    {
+      "source": "KRW 6900",
+      "en": "KRW 6900",
+      "ja": "KRW 6900"
+    },
+    {
+      "source": "Lording...",
+      "en": "Loading...",
+      "ja": "Lording..."
+    },
+    {
+      "source": "Love",
+      "en": "Love",
+      "ja": "Love"
+    },
+    {
+      "source": "Never",
+      "en": "Never",
+      "ja": "Never"
+    },
+    {
+      "source": "Split",
+      "en": "Split",
+      "ja": ""
+    },
+    {
+      "source": "StringList가 비어있거나 Text 컴포넌트가 연결되지 않았습니다.",
+      "en": "StringList is empty or the Text component is not connected.",
+      "ja": "StringListが空であるか、Textコンポーネントが関連付けられていません。"
+    },
+    {
+      "source": "Vertical",
+      "en": "Vertical",
+      "ja": ""
+    },
+    {
+      "source": "[3% 즉시 구원 하트]를 얻습니다.",
+      "en": "Gain a heart with a 3% chance\nto save a sheep instantly.",
+      "ja": ""
+    },
+    {
+      "source": "[^a-zA-Z0-9가-힣 ]",
+      "en": "[^a-zA-Z0-9ga-hi]",
+      "ja": "[^a-zA-Z0-9ガ-ヒッ]"
+    },
+    {
+      "source": "[상하 무지개 하트]를 얻습니다.",
+      "en": "Gain a Vertical Rainbow Heart.",
+      "ja": ""
+    },
+    {
+      "source": "[십자가 하트]를 얻습니다.",
+      "en": "Gain a Cross Heart.",
+      "ja": ""
+    },
+    {
+      "source": "[양을 관통하는 하트]를 얻습니다.",
+      "en": "Gain a Piercing Heart.",
+      "ja": ""
+    },
+    {
+      "source": "[예수님과 양떼들]게임 문의",
+      "en": "[Jesus and the Sheep] Game Inquiry",
+      "ja": "[イエスと羊の群れ]ゲームのお問い合わせ"
+    },
+    {
+      "source": "[좌우 무지개 하트]를 얻습니다.",
+      "en": "Gain a Horizontal Rainbow Heart.",
+      "ja": ""
+    },
+    {
+      "source": "[폭발적인 하트]를 얻습니다.",
+      "en": "Gain an Explosive Heart.",
+      "ja": ""
+    },
+    {
+      "source": "[한번 쪼개지는 하트]를 얻습니다.",
+      "en": "Gain a Splitting Heart.",
+      "ja": ""
+    },
+    {
+      "source": "commonBall",
+      "en": "commonBall",
+      "ja": ""
+    },
+    {
+      "source": "crossBall",
+      "en": "crossBall",
+      "ja": ""
+    },
+    {
+      "source": "leesangjin2372@gmail.com으로 메일을 보냅니다.",
+      "en": "Send an email to leesangjin2372@gmail.com.",
+      "ja": "leesangjin2372@gmail.comにメールを送信します。"
+    },
+    {
+      "source": "{_code}로 request보냄",
+      "en": "Send request to {_code}",
+      "ja": "{_code}にリクエストを送信"
+    },
+    {
+      "source": "{heartData.senderNickName}님이 사랑을 전해줬어요!",
+      "en": "{heartData.senderNickName} sent us some love!",
+      "ja": "{heartData.senderNickName}さんが愛を伝えました！"
+    },
+    {
+      "source": "​",
+      "en": "​",
+      "ja": "​​"
+    },
+    {
+      "source": "가장_앞줄양들_전부구원_공5개감소",
+      "en": "The most_front row sheep_all saved_5 balls reduced",
+      "ja": ""
+    },
+    {
+      "source": "개인정보 처리 방침",
+      "en": "Privacy Policy",
+      "ja": "個人情報処理方針"
+    },
+    {
+      "source": "게임이 업데이트 되었습니다.\n마켓에서\n최신 버전으로 업데이트 해주세요.",
+      "en": "An update is available.\nPlease install the latest version\nfrom the app store.",
+      "ja": "ゲームが更新されました。\nマーケットから\n最新バージョンにアップデートしてください。"
+    },
+    {
+      "source": "계속하기",
+      "en": "Continue",
+      "ja": "Continue"
+    },
+    {
+      "source": "골드 +10",
+      "en": "Gold +10",
+      "ja": "ゴールド+10"
+    },
+    {
+      "source": "골드가 부족해요!",
+      "en": "Not enough gold!",
+      "ja": "ゴールドが足りません！"
+    },
+    {
+      "source": "공 10 개쓰고 모두 구원",
+      "en": "Use 10 balls and save everyone",
+      "ja": ""
+    },
+    {
+      "source": "공 2개 추가 + 다음 턴 1번 양 2배",
+      "en": "Add 2 balls + Double the amount for 1st turn next turn",
+      "ja": ""
+    },
+    {
+      "source": "공 2개 추가 + 다음 턴 6번 양 2배",
+      "en": "Add 2 balls + Double the amount for 6th turn next turn",
+      "ja": ""
+    },
+    {
+      "source": "공 5개 추가 + 다음 턴 3번 양 2배",
+      "en": "Add 5 balls + Double the amount for 3rd turn next turn",
+      "ja": ""
+    },
+    {
+      "source": "공지사항이 여기에 표시됩니다.",
+      "en": "Announcements will appear here.",
+      "ja": "お知らせがここに表示されます。"
+    },
+    {
+      "source": "광고 보고 1개 얻기",
+      "en": "Watch Ad: Get 1",
+      "ja": "広告レポートを1つ入手する"
+    },
+    {
+      "source": "광고제거 성공",
+      "en": "Ad removal successful",
+      "ja": "広告削除の成功"
+    },
+    {
+      "source": "교회 이름 입력",
+      "en": "Enter church name",
+      "ja": "教会名を入力"
+    },
+    {
+      "source": "귀요미!!!!!!\nㅋㅋㅋㅋㅋㅋㅋㅋㅋ\n\n\n눌러줘서 고마워 ㅎㅎㅎ \n저번\n테스트 도할때 설정 버튼 빼고\n줘서 눈치 챘으려나? \n\n아무튼 그래도\n이렇게 말을 전할 수 있게 되어서\n기쁘다.  눌러주고 궁금해해줘서\n고마워. 그리고 도와준것도 너무\n고맙구. \n\n잘 지내? 요즘 뭐 놀러가구\n학예회도 하구 잘 지내는거 같아보이더라\nㅎㅎ \n\n다행이야.  \n\n이젠 나에게\n그만 미안했으면 좋겠어. 내가\n말했었지? 나의 잘못으로 인해\n이 결과가 나오게 되어서 다행이라구.\n\n\n지금도 그래. 내 잘못이니까 너\n탓하지 말구 좀먹지 말았으면 좋겠어.\n\n\n너는 정말 너무 멋지거든!  \n\n이번\n게임도 너 덕분에 만들었어. 고마워.\n왜 너 덕이냐구? 너한테 잘 보이고\n싶었어. 그리고 모두에게도.  \n\n나는\n정말 좀생이에 찌질인가봐  너가\n행복했으면 좋겠다 했는데, 나\n없이 행복한걸 못보겠어.   \n\n내가\n연인에서 친구로 못지낸다고 얘기했었던거\n기억나?  \n\n응 근데, 너는 그러고\n싶더라. 친구로라도 남고 싶더라\n근데, 그게 잘 안되더라, 연락하면\n보고싶고, 보면 안고싶고, 안으면\n다시 시작하고 싶더라. \n\n너가 제일\n상황을 잘 알겠지, 다시 돌아갈\n수 없는 이유도 너가 더 잘 알거야.\n내가 꼬셔서 많이 힘들었지? 미안해.\n\n이젠\n안꼬실게. 프로필 음악으로 감정\n표현하는 것도 그만할게.  \n\n멀티\n프로필 걸어줄게, 너도 이제 나\n신경쓰지 말고, 앞으로에 집중해줘.\n\n\n나도 너를 숨김처리하려고, 더\n이상 너가 힘든것도, 행복한것도\n보기가 너무 힘들다.  \n\n교회에서\n나 보기도 힘들지? 나만 그런가?\nㅎㅎ..  \n\n그래서 이번 선교 끝나면\n교회를 옮기려 해.  \n\n너의 궁전이잖아.\n내가 들어와서 망쳐서 미안해.\n너가 가지말라하면 가지는 않겠지만,\n너도 알잖아. 나 너 포기못하는거.\n\n\n사랑해서 미안해.\n\n포기못해서\n미안해.  \n\n언젠간 돌아올게.  \n\n몇\n년이 지날지 모르겠지만, 말했지?\n하나님이 맺어주신 짝은 어떻게든\n만나게 해주실거라고, 난 이제\n그것만 보고 살려고 해.  \n\n그 동안\n잘 지내고 있어. 사랑하는 사람도\n만나고 말이야.  \n\n걱정마 나도 사랑하는\n사람 만날거야.\n   \n너랑 비슷한\n사람을 만날 수 있을지 모르겠다.\n\n너의 모든건 내 이상형이 되어버렸으니\n말이야.  \n\n\n사랑해 세은아.  \n\n\n사랑해서\n미안해.   \n\n\n\n다음엔 웃으며 보자.\n그날이 언제가 될지 모르겠지만\nㅎㅎ  \n\n눌러줘서, 내 이야기를 듣고싶어해줘서\n고마워. \n사랑해서 미안해.   \n\n나에게\n좋은 추억들을 너무 많이 남겨줘서\n고마워. \n\n이제 안녕 내 사랑.",
+      "en": "Cutie!!!!!!\nHahahahahahaha\n\n\nThank you for pressing it haha \nlast time\nWhen testing, remove the settings button\nDid you notice that I gave it to you? \n\nAnyway, still\nNow that I can say this,\nI'm happy.  For pressing and being curious\nThank you. And it helped me a lot too\nThank you. \n\nhow are you? What are you going to do these days?\nThey went to the school art festival and seemed to be doing well.\nHaha \n\nThank goodness.  \n\nNow to me\nI hope you stop feeling sorry. I\nDid I tell you? because of my fault\nI'm glad we got this result.\n\n\nIt's still like that. Because it's my fault you\nDon't blame me and I hope you don't eat away at me.\n\n\nYou are so, so cool!  \n\nthis time\nI made the game thanks to you. thank you.\nWhy are you virtuous? looks good to you\nI wanted to And to everyone too.  \n\nI\nYou really must be a mothball and a scumbag.\nI said I wanted you to be happy, but I\nI can't see you being happy without me.   \n\nI\nI said that we can't go from being lovers to being friends.\nDo you remember?  \n\nYeah, but you do that\nI thought so. I wanted to remain at least as friends\nBut, that didn't work out, so if you contact me\nI miss you, I want to hug you when I see you, and I want to hug you when you hug me\nI wanted to start again. \n\nyou are the best\nYou know the situation, I'll go back\nYou will know better why it is not possible.\nDid you have a hard time because I tricked you? Sorry.\n\nNow\nI won't tease you. Emotions with profile music\nI'll stop expressing myself.  \n\nmulti\nI'll put up a profile for you, now you too\nDon't worry, just focus on the future.\n\n\nI'm trying to hide you too, more\nEven when you are having a hard time and when you are happy\nIt's so hard to see.  \n\nat church\nIs it hard to even see me? Is it just me?\nHaha..  \n\nSo after this mission,\nTrying to move the church.  \n\nIt's your palace.\nI'm sorry I came in and ruined it.\nIf you tell me not to go, I won't go, but\nYou know. I can't give up on you.\n\n\nI'm sorry for loving you.\n\nBecause I can't give up\nI'm sorry.  \n\nI'll come back someday.  \n\nfew\nI don't know if the years will pass, but I said, right?\nThe match that God gave me is somehow\nYou said you would let me meet you, now I\nJust try to live by that.  \n\nIn the meantime\nI'm doing well. Even loved ones\nLet's meet.  \n\nDon't worry, I love you too\nI'm going to meet people.\n   \nsimilar to you\nI don't know if I'll be able to meet anyone.\n\nBecause everything about you has become my ideal type\nI mean.  \n\n\nI love you, Se-eun.  \n\n\nBecause I love you\nI'm sorry.   \n\n\n\nLet’s see each other with a smile next time.\nI don't know when that day will be\nHaha  \n\nFor clicking, for wanting to hear my story.\nThank you. \nI'm sorry for loving you.   \n\nto me\nFor leaving me with so many good memories\nThank you. \n\nGoodbye now my love.",
+      "ja": "耳よみ!!!!!!\nㅋㅋㅋㅋㅋㅋㅋㅋ\n\n\n押してくれてありがとう。 \n前回\nテストするときは設定ボタンを外してください。\n与えて気づいたか？ \n\nとにかく\nこのように言葉を伝えることができるようになって\n嬉しいです。  押して気になって\nありがとうございます。そして助けたことも\nありがとう。 \n\nお元気ですか？最近何をするのか\n学芸会も河口仲良くしているようです。\nㅎㅎ \n\n幸いです。  \n\n今私に\nやめてすみませんでした。私は\n言ってたの？私のせいで\nこの結果が出てくれて幸いだ。\n\n\n今でもそうです。私のせいだから\nせずにちょっと食べないでほしい。\n\n\nあなたは本当にとても素敵です！  \n\n今回\nゲームもおかげで作った。ありがとうございます。\nなぜあなたはおかしいのですか？あなたによく見えます。\nしたかった。そして皆にも。  \n\n私\n本当に少し生きているのを見てください。\n幸せだったらいいのに、\nなしで幸せなことを見ることはできません。   \n\n私は\n恋人から友達になれないと話していました。\n覚えてる？  \n\nええ、あなたはそうです。\nしたい。友達でも残りたい\nしかし、それはうまくいきませんでした。\n見たい、見たら抱きしめ、抱きしめたら\n再起動したい。 \n\nあなたが一番\n状況をよく知っているよ、また戻る\nできない理由もあなたがもっとよく知っています。\n私はひどくて大変でしたか？すみません。\n\n今\nしっかり。プロフィール音楽で感情\n表現するのもやめましょう。  \n\nマルチ\nプロフィールを歩きます。\n気にしないで、今後に集中してください。\n\n\n私もあなたを隠しようとします。\n以上あなたが大変なことも、幸せなものも\nビューがとても大変です。  \n\n教会で\n私は見るのが大変ですか？私だけですか？\nㅎㅎ..  \n\nだから今回の宣教が終わったら\n教会を移そうとする  \n\nあなたの宮殿です。\n入ってきて台無しにしてすみません。\n行かないと行かないけど、\nあなたもわかります。私はあきらめません。\n\n\n愛してすみません。\n\nあきらめない\nすみません。  \n\nいつか戻ってきます。  \n\nカップル\n年が経つかもしれないけど、言ったの？\n神様が結んでくださったペアはなんとか\nお会いします、私は今\nそれだけ見て生きようとします。  \n\nその間\n仲良くしてるよ。愛する人も\nお会いしましょう。  \n\n心配しないで私も愛する\n人に会うよ\n   \nあなたと似ています\n人に会えるかどうかはわかりません。\n\n君のすべては僕の理想型になってしまったから\nそうです。  \n\n\n愛してセウンア。  \n\n\n愛して\nすみません。   \n\n\n\n次は笑いましょう。\nその日がいつになるのか分からないけど\nㅎㅎ  \n\n押してくれて、私の話を聞きたくしてくれて\nありがとうございます。 \n愛してすみません。   \n\n私に\n良い思い出をたくさん残して\nありがとうございます。 \n\n今こんにちは私の愛。"
+    },
+    {
+      "source": "기본 양",
+      "en": "Standard sheep",
+      "ja": "基本量"
+    },
+    {
+      "source": "기본 양의 2.5배 체력",
+      "en": "2.5× a standard sheep's HP",
+      "ja": "基本量の2.5倍体力"
+    },
+    {
+      "source": "기본 양의 2배 체력",
+      "en": "2× a standard sheep's HP",
+      "ja": "基本量の2倍体力"
+    },
+    {
+      "source": "기본 양의 3배 체력",
+      "en": "3× a standard sheep's HP",
+      "ja": "基本量の3倍体力"
+    },
+    {
+      "source": "나가기",
+      "en": "Exit",
+      "ja": "出る"
+    },
+    {
+      "source": "남은 광고 시청 횟수가 없습니다!",
+      "en": "No ad views left today!",
+      "ja": "残りの広告視聴回数はありません！"
+    },
+    {
+      "source": "남은 광고 시청 횟수가 없습니다.",
+      "en": "No ad views left today!",
+      "ja": "残りの広告視聴回数はありません。"
+    },
+    {
+      "source": "남은 광고 횟수 :{currentRemainAd}/{adMax}",
+      "en": "Ads left: {currentRemainAd}/{adMax}",
+      "ja": "残りの広告数：{currentRemainAd} / {adMax}"
+    },
+    {
+      "source": "남은 횟수 5/5",
+      "en": "Remaining: 5/5",
+      "ja": "残り回数 5/5"
+    },
+    {
+      "source": "내용을 입력해주세요.",
+      "en": "Please enter the details.",
+      "ja": "内容を入力してください。"
+    },
+    {
+      "source": "네트워크 연결 상태를 확인해주세요.",
+      "en": "Please check your connection.",
+      "ja": "ネットワーク接続状態を確認してください。"
+    },
+    {
+      "source": "네트워크 연결을 확인하세요.",
+      "en": "Check your network connection.",
+      "ja": "ネットワーク接続を確認してください。"
+    },
+    {
+      "source": "네트워크 환경을 확인해주세요.",
+      "en": "Please check your connection.",
+      "ja": "ネットワーク環境を確認してください。"
+    },
+    {
+      "source": "눌러서 목장보기",
+      "en": "Tap to view the flock",
+      "ja": "押して牧場を見る"
+    },
+    {
+      "source": "닉네임을 입력해주세요",
+      "en": "Please enter your nickname",
+      "ja": "ニックネームを入力してください"
+    },
+    {
+      "source": "닉네임을 추후에 변경하실때\n에는 골드를 사용하니, 신중히\n정해주세요.",
+      "en": "Choose your nickname carefully.\nChanging it later costs gold.",
+      "ja": "ニックネームを今後変更するとき\nにはゴールドを使うので、慎重に\n決めてください。"
+    },
+    {
+      "source": "다음 업데이트를 기대해 주세요!",
+      "en": "Stay tuned for the next update!",
+      "ja": "次のアップデートをお楽しみください！"
+    },
+    {
+      "source": "닫기",
+      "en": "Close",
+      "ja": "閉じる"
+    },
+    {
+      "source": "두 턴을 건너 뛰고, 하트를\n10개 얻습니다.",
+      "en": "Skip 2 turns and gain 10 hearts.",
+      "ja": ""
+    },
+    {
+      "source": "두턴쉬고_공 6개추가",
+      "en": "Take a break and add 6 balls",
+      "ja": ""
+    },
+    {
+      "source": "랜덤3개블록_100데미지_공3개감소",
+      "en": "Random 3 blocks_100 damage_3 balls reduced",
+      "ja": ""
+    },
+    {
+      "source": "랜덤_한개_블록_체력_3배_공2개추가",
+      "en": "Random_one_block_strength_3x_2 balls added",
+      "ja": ""
+    },
+    {
+      "source": "랜덤으로블록15개설치_공8개추가",
+      "en": "Randomly install 15 blocks_Add 8 balls",
+      "ja": ""
+    },
+    {
+      "source": "랜덤으로블록5개설치_공3개추가",
+      "en": "Randomly install 5 blocks_Add 3 balls",
+      "ja": ""
+    },
+    {
+      "source": "랭킹",
+      "en": "Ranking",
+      "ja": "Ranking"
+    },
+    {
+      "source": "랭킹에 등록했어요!",
+      "en": "Score submitted!",
+      "ja": "ランキングに登録しました！"
+    },
+    {
+      "source": "랭킹은 매달 1일 초기화 됩니다.",
+      "en": "Rankings are reset on the 1st of every month.",
+      "ja": "ランキングは毎月1日初期化されます。"
+    },
+    {
+      "source": "랭킹을 등록할 수 없어요.",
+      "en": "Could not submit your score.",
+      "ja": "ランキングを登録できません。"
+    },
+    {
+      "source": "머해 \n\n나 잊고 다른 사람 만나고\n있으라니까  \n또 왔엉?  \n\n이번엔\n무슨 얘기를 해줄까~  떠나는 얘기\n해줄까?  \n나 진짜 쉬지 않고 달려왔어,\n고등학교 졸업하고 바로 대학가고,\n대학가서 휴학도 안하고, 군대도\n빽빽하게 딱 학기 맞춰서 쉬는\n학기 없이 가구, 졸업하고 쉬지않고\n바로 취직하고, 매 방학마다 쉬지않고\n프로젝트도 하고 말이야.   \n\n\n근데\n나 왜 이렇게 부족해 보일까. 왜\n날 사랑해주지 못할까.  \n\n\n그래서\n조금 쉬면서 프리랜서를 하고 그\n기회에 해외 연수나, 제주도에서\n할머니를 전도 해볼까 생각중이야.\n\n\n\n멋있지!!  \n\n나도 다~~ 계획이 있어~~\n변세은 하나 때문에 공동체를 버리는게\n아니다~ 이 말이야~  \n\n그리고 돌아올지\n미지수인데, 아마 지금과 같은\n상황이면, 옮길 생각이야. \n\n\n너나\n나나 자유롭지 못한것 같아.  \n\n너를\n위해, 나를 위해, 그리고 너를 조금\n더 위해. \n굴러온 돌인 내가 가는게\n맞다구 생각해.  \n\n\n나는 원래 이런\n인생을 살아왔으니까 괜찮아.\n\n\n떠돌이였고, 정착도 못했었어\n\n\n이 교회도 어떤 생각인지 가족들\n버리고 혼자 옮겼다? 그래서 여기까지\n왔어.  \n\n그러니 다음 교회에서도\n잘할거라고 나는 믿어.  \n\n그러니\n너도 이 교회에서 잘 지내고 있어.\n\n\n몇 년 후에 다시 올게.  \n\n그 때도\n우리의 상황은 변함 없겠지만,\n가끔 성장해서 다른 사람 만나고\n있는 너를 훔쳐보려 올게. 물론\n오지말라면 안올게거야.\n\n그게\n너를 흔들고 힘들게 하는거라면\n말이야.  \n\n\n\n크.. 사랑해서 미안하단말이\n좋은건 아닌거 아는데, 이 말 밖엔\n할 수가 없네.  \n\n\n\n\n사랑해서 미안해.\n\n\n\n\n정말 정말 정말 사랑해. \n\n미안.\n잘 지내. \n\n아 참 또 보고싶으면\n연락해! \n전화로 해! 목소리 오랜만에\n듣자!\n\n안녕.",
+      "en": "Oh my gosh \n\nForget me and meet someone else\nI told you to stay  \nAre you here again?  \n\nThis time\nWhat should I tell you about leaving?\nShall I do it?  \nI've been running non-stop,\nAfter graduating from high school, I went straight to college.\nI didn't take a leave of absence from college and went to the military.\nTaking a break just in time for the semester\nFurniture without a semester, no rest after graduation\nI got a job right away and didn’t rest during every vacation.\nI also do projects.   \n\n\nBut\nWhy do I seem so inadequate? why\nCan't you love me?  \n\n\nSo\nTake a break and do some freelance work\nOpportunity to study abroad or in Jeju Island\nI'm thinking about evangelizing to my grandmother.\n\n\n\nCool!!  \n\nI also have a plan~~\nByeon Se-eun is abandoning the community because of one thing.\nNo~ This is it~  \n\nAnd will it come back?\nIt's unknown, but it's probably the same as now\nIf that's the case, I'm thinking of moving. \n\n\nYou too\nI don't think I'm free either.  \n\nyou\nFor, for me, and a little for you\nFor more. \nI, the rolled stone, am leaving\nI think that's right.  \n\n\nI used to be like this\nIt's okay because I've lived my life.\n\n\nI was a wanderer and couldn't settle down.\n\n\nWhat do you think about this church?\nAbandoned and moved alone? So here we are\nI came.  \n\nSo at the next church\nI believe you will do well.  \n\nSo\nYou too are doing well at this church.\n\n\nI'll come back in a few years.  \n\nEven then\nOur situation will not change, but\nSometimes you grow up and meet other people\nI'll come to spy on you. Of course\nIf you don't come, I won't come.\n\nThat's it\nIf it shakes you and makes it difficult for you\nI mean.  \n\n\n\nBig... I'm sorry for loving you.\nI know it's not good, but that's all I can say\nI can't do it.  \n\n\n\n\nI'm sorry for loving you.\n\n\n\n\nI really, really love you. \n\nsorry.\nhow are you. \n\nOh, if I really want to see you again\nContact me! \nDo it over the phone! Voice after a long time\nLet's listen!\n\nhi.",
+      "ja": "遠く \n\n私を忘れて他の人に会う\nあるから  \nまた来ましたか？  \n\n今回は\nどんな話をしますか〜去る話\nやろうか？  \n私は本当に休まないで走ってきました、\n高校卒業してすぐに大学に行き、\n大学に行って休学もせず、軍隊も\nきちんと学ぶために休む\n学期なしで家具、卒業して休まない\nすぐに就職して、休みごとに休まないで\nプロジェクトもやってね。   \n\n\nしかし、\nなぜこんなに不足しているのだろうか。なぜ\n私を愛してくれないかな。  \n\n\nだから\n少し休んでフリーランサーをして、\n機会に海外研修や、済州島で\nおばあちゃんを伝道してみようか考え中だ。\n\n\n\nかっこいい！  \n\n私もすべて〜〜計画があります〜〜\n変勢は一つのためにコミュニティを捨てる\nいいえ〜これは〜  \n\nそして戻ってくる\n未知数ですが、おそらく今のように\n状況なら、移動するつもりだ。 \n\n\nあなた\n俺も自由じゃないと思う。  \n\nあなたを\nために、私のために、そしてあなたを少し\nより多くのため。 \n転がってきた石である私が行く\nそうだと思います。  \n\n\n私はもともと\n人生を生きてきたから大丈夫。\n\n\n浮かんで、定住もできなかった\n\n\nこの教会もどんな考えなのか家族\n捨てて一人で運んだ？だからここまで\n来ました。  \n\nだから次の教会でも\nうまくいくと信じています。  \n\nだから\nあなたもこの教会でよく過ごしています。\n\n\n数年後に戻ってきます。  \n\nその時も\n私たちの状況は変わりませんが、\n時々成長して他人に会う\nある君を盗んでみよう。もちろん\n来ないといけません。\n\nそれが\nあなたを振って苦労しているなら\nそうです。  \n\n\n\n大..愛してすみません。\n良いことではないことを知っていますが、この言葉の外では\nできません。  \n\n\n\n\n愛してすみません。\n\n\n\n\n本当に本当に本当に愛しています。 \n\nすみません。\nお元気です。 \n\nああ、また会いたい\n連絡してください！ \n電話してください！声久しぶりに\n聞こう！\n\nこんにちは。"
+    },
+    {
+      "source": "먼저 사용하실 닉네임을 정해주세요.",
+      "en": "Choose a nickname first.",
+      "ja": "まず使用するニックネームを決めてください。"
+    },
+    {
+      "source": "메인",
+      "en": "Main",
+      "ja": "Main"
+    },
+    {
+      "source": "메일함",
+      "en": "Inbox",
+      "ja": "Inbox"
+    },
+    {
+      "source": "모든애들에게10데미지_공1개감소",
+      "en": "10 damage to all kids_1 ball reduction",
+      "ja": ""
+    },
+    {
+      "source": "모든애들에게50데미지_공5개감소",
+      "en": "50 damage to all kids_5 balls reduced",
+      "ja": ""
+    },
+    {
+      "source": "문의",
+      "en": "Contact Us",
+      "ja": "お問い合わせ"
+    },
+    {
+      "source": "반반확률로_공5추가_블록3개소환",
+      "en": "Half-and-half probability_Add 5 balls_Summon 3 blocks",
+      "ja": ""
+    },
+    {
+      "source": "반반확률로_공_8추가_공_2감소",
+      "en": "Half-and-half probability adds 8 balls and reduces 2 balls",
+      "ja": ""
+    },
+    {
+      "source": "반반확률로_특수공1추가_공5감소",
+      "en": "5/5 chance_Add 1 special ball_Reduce 5 balls",
+      "ja": ""
+    },
+    {
+      "source": "반반확률로_특수공1추가_블록5개소환",
+      "en": "5/5 chance_Add 1 special ball_Summon 5 blocks",
+      "ja": ""
+    },
+    {
+      "source": "받은 은혜",
+      "en": "Blessings Received",
+      "ja": "受け取った恵み"
+    },
+    {
+      "source": "발사하는 하트량 +1",
+      "en": "+1 heart per shot",
+      "ja": "発射するハート量+1"
+    },
+    {
+      "source": "배경음",
+      "en": "Music",
+      "ja": "背景音"
+    },
+    {
+      "source": "버전 체크 요청 실패:",
+      "en": "Version check request failed:",
+      "ja": "バージョンチェック要求に失敗しました："
+    },
+    {
+      "source": "버전 호환되지 않음",
+      "en": "Version not compatible",
+      "ja": "バージョン互換性がない"
+    },
+    {
+      "source": "버전 호환됨",
+      "en": "Version compatible",
+      "ja": "バージョン互換"
+    },
+    {
+      "source": "비속어 리스트가 로드되지 않았습니다.",
+      "en": "The profanity list was not loaded.",
+      "ja": "非俗語リストがロードされていません。"
+    },
+    {
+      "source": "비속어는 사용할 수 없습니다.",
+      "en": "Profanity is not allowed.",
+      "ja": "非俗語は使用できません。"
+    },
+    {
+      "source": "비속어와 특수문자는 불가합니다.",
+      "en": "Profanity and special characters are not allowed.",
+      "ja": "非俗語と特殊文字は不可です。"
+    },
+    {
+      "source": "비활성화됨",
+      "en": "Off",
+      "ja": "無効"
+    },
+    {
+      "source": "사용자를 찾을 수 없습니다.",
+      "en": "User not found.",
+      "ja": "ユーザーが見つかりません。"
+    },
+    {
+      "source": "상점",
+      "en": "Shop",
+      "ja": "Shop"
+    },
+    {
+      "source": "상점에서 구매",
+      "en": "Visit Shop",
+      "ja": "店舗で購入"
+    },
+    {
+      "source": "새 게임",
+      "en": "New Game",
+      "ja": "New Game"
+    },
+    {
+      "source": "설정",
+      "en": "Settings",
+      "ja": "設定"
+    },
+    {
+      "source": "성공적으로 로그인했어요!",
+      "en": "Logged in!",
+      "ja": "正常にログインしました！"
+    },
+    {
+      "source": "성공적으로 하트를 받았어요!",
+      "en": "Heart received!",
+      "ja": "正常にハートをもらいました！"
+    },
+    {
+      "source": "성공적으로 하트를 보냈어요!",
+      "en": "Heart sent!",
+      "ja": "正常に心を過ごしました！"
+    },
+    {
+      "source": "세 턴을 건너 뛰고, 하트를\n15개 얻습니다.",
+      "en": "Skip 3 turns and gain 15 hearts.",
+      "ja": ""
+    },
+    {
+      "source": "세턴쉬고_공10개추가",
+      "en": "Seton Rest_Add 10 balls",
+      "ja": ""
+    },
+    {
+      "source": "스킨",
+      "en": "Skins",
+      "ja": "Skins"
+    },
+    {
+      "source": "아무조건없이 공1개추가",
+      "en": "Gain 1 heart.",
+      "ja": ""
+    },
+    {
+      "source": "아무조건없이 공2개추가",
+      "en": "Gain 2 hearts.",
+      "ja": ""
+    },
+    {
+      "source": "안녕 내 사랑!  \n\n\n머야 왜 못 잊고\n또 왔어  \n잊으라 했자나  ㅋㅋㅋㅋ\n\n\n놀랐지?  \n내가 이렇게 준비하려고\n설정 버튼도 빼고 그랬던거야~\n\n\n\n이번에 신경 좀 썼다!!  \n마지막이\n될지도 모르니까 말이야....\n\n너\n맨날 이거 볼거자나  아닌가? ㅋㅎㅋㅎ\n너무 내 바램인가? \n그래도 한 번\n더 내 이야기 듣고싶어해줘서 고마워.\n\n\n\n이걸 보는 시점이 언제일지 모르겠다.\n바로 볼지, 다음 날 볼지, 아예 보지\n않을지, 응 그래도 만들거야. 내가\n너를 좀 좋아하냐~  이상형 그 자첸데\n말이야. \n\n\n하.. 너의 그 집중할때\n혀 내미는 모습, 놀라서 뻘쭘해서\n머쓱해하며 도망 가는 모습. 그런\n모습 하나하나가 너무 사랑스러웠고,\n지금도 너무 보고싶다.  \n\n머리 쓰다듬어주며\n내 품에서 재우고 싶다. \n\n\n\n\n 으\n어때 전남친의 구질구질한 편지가?\nㅋㅋㅋㅋㅋ  \n\n너무 그렇지 않아?\nㅋㅋ \n\n내 잘못으로 이렇게 된건데\n말이야 당해도 싸지 뭐.  \n\n\n\n너무\n찌질해 나.   \n구질구질하고, 전 여친한테\n맨날 문자나 보내고.  \n\n아 근데\n진짜로 이 게임 테스트 시킨건\n뻥 아니고 너가 제일 잘해서 어쩔\n수 없었어. 그 빌미로 문자를 해서\n좋긴했지만, 답장 안올때마다 얼마나\n서러웠는지.  \n\n\n회사 밖에는 사람들이\n항상 많더라 그래서 울지도 못해.\n근데 속상해서 사람 엄청 지나다니는데\n엉엉 울어버렸어.\n\n\n에효 이런 얘기해서\n뭐해. 감성팔이 밖에 더 되겠냐!\n어차피 잘 될 수도 없는 사이가\n되어버렸는데 말이야. \n\n\n너는 행복해야해!!!\n\n\n나 없었을 때 행복했었자나!!!\n\n\n소중한 사람들도 많고!!  \n\n나는\n항상 굴러온 돌이라는 느낌이 매일\n들었었다? \n\n나에게 너는 너무나\n과분했어. 지금도 그러고 말이야.\n그러니 이제 그만 이거 보구! 나가서\n다른 사람들 만나서 행복하게 잊어버리기!\n\n\n지금 실시!!!  \n\n\n\n\n\n\n사랑해 세은아.\n\n\n\n\n고마웠다. 안녕.",
+      "en": "bye my love!  \n\n\nWhy can't I forget it?\nI'm here again  \nI told you to forget it lol\n\n\nAre you surprised?  \nI'm going to prepare like this\nI did that without the settings button.\n\n\n\nI paid some attention this time!!  \nThe last one\nBecause it might work...\n\nyou\nShouldn’t we be watching this every day? Hahahaha\nIs this too much of my wish? \nStill once\nThank you for wanting to hear more about me.\n\n\n\nI don't know when I'll ever see this.\nShould I see it right away, the next day, or not at all?\nMaybe not, yes, but I will still make it. I\nDo I like you? You’re my ideal type.\nI mean. \n\n\nHa... when you concentrate\nThe way he sticks out his tongue, I'm surprised and embarrassed\nHe looks embarrassed and runs away. like that\nEvery look was so lovely,\nI still miss you so much.  \n\nStroking my head\nI want to let you sleep in my arms. \n\n\n\n\n Ugh\nWhat about that crappy letter from your ex-boyfriend?\nHahahaha  \n\nIsn't it so?\nHaha \n\nIt's my fault it happened like this\nI mean, even if you get hurt, it's cheap.  \n\n\n\ntoo\nI'm boring.   \nTalking crappy, to my ex-girlfriend\nSending texts all the time.  \n\nAh, but\nI actually tested this game\nIt's not a lie, you're the best so what should I do?\nI couldn't do it. I sent a text message using that as an excuse.\nIt was good, but every time I didn't get a reply, how much\nWas it sad?  \n\n\nPeople outside the company\nThere's always so much, so I can't even cry.\nBut I'm so upset that a lot of people are passing by.\nI cried so hard.\n\n\nHey, talking like this\nWhat are you doing? Is there anything more than an emotional arm?\nThis relationship can't work out anyway\nIt's already happened. \n\n\nYou should be happy!!!\n\n\nYou were happy when I wasn’t there!!!\n\n\nThere are many precious people!!  \n\nI\nEvery day I feel like I'm a stone that's always been rolled around\nDid you hear that? \n\nyou are so much to me\nIt was too much. It's still like that now.\nSo stop watching this now! go out\nMeet other people and forget happily!\n\n\nDo it now!!!  \n\n\n\n\n\n\nI love you, Se-eun.\n\n\n\n\nThank you. hi.",
+      "ja": "こんにちは私の愛！  \n\n\nなぜ私は忘れないのですか\nまた来た  \n忘れようとしました。\n\n\n驚きましたか？  \n私はこのように準備しようとしています\n設定ボタンも抜いてしまったよ〜\n\n\n\n今回気になった！  \n最後\nなるかもしれないからね…。\n\nあなた\nいつもこれを見てみませんか？ ㅋㅎ\nあまりにも私の願いですか？ \nそれでも一度\nもっと私の話を聞きたいと思ってくれてありがとう。\n\n\n\nこれを見る時点がいつか分からない。\nまさに見て、次の日を見て、最初に見てください。\nそうではありません。私は\nあなたは少し好きですか〜理想のタイプ\nそうです。 \n\n\nハ..あなたのその焦点\n舌を突き出す姿、びっくりしていて\n痩せて逃げていく様子。そんな\n姿一つ一つがとても可愛かったし、\n今も見たいです。  \n\n髪をなでる\n私の胸から寝たい。 \n\n\n\n\n う\nどうして元彼氏の口質な手紙は？\nㅋㅋㅋㅋㅋ  \n\nそうじゃない？\n笑 \n\n私のせいでこんな感じ\nそうだって安いんだな。  \n\n\n\nあまり\n蒸します。   \n球状で、元彼女に\nいつも手紙を送ってください。  \n\nああ、しかし\n本当にこのゲームをテストしたのは\n뻥 아니고 너가 제일 잘해서 어떡\nできませんでした。その口実で文字をやって\nよかったけど、返信しない度にどれだけ\n冷たかったのか。  \n\n\n会社の外では、人々\nいつもたくさんあったので泣くこともできない。\nしかし、私は忙しくて人がとても過ぎました。\nごめんなさい。\n\n\nエヒョこんな話をして\n何してる感性腕が外になるのか！\nとにかくうまくいかない間\nなってしまったのです。 \n\n\nあなたは幸せでなければなりません！\n\n\n私がいなかったときに幸せでした！\n\n\n大切な人もたくさん！  \n\n私\nいつも転がってきた石という感じが毎日\n聞いた？ \n\n私にとってはあなたも\n過分だった。今もそうだね。\nだから今やめましょう！出て\n他の人に会って幸せに忘れてください！\n\n\n今実施！  \n\n\n\n\n\n\n愛してセウンア。\n\n\n\n\nありがとうございました。こんにちは。"
+    },
+    {
+      "source": "안드로이드 상점은 \n준비중입니다.",
+      "en": "The Android shop is coming soon.",
+      "ja": "Androidストアは \n準備中です。"
+    },
+    {
+      "source": "엄준식은 살아있다.",
+      "en": "Eom Jun-sik is alive.",
+      "ja": "オム・ジュンシクは生きている。"
+    },
+    {
+      "source": "업데이트!",
+      "en": "Update!",
+      "ja": "更新！"
+    },
+    {
+      "source": "예수님은 한 마리의 양도 포기하지\n않으십니다!",
+      "en": "Jesus never gives up\non a single sheep!",
+      "ja": "イエスは一匹の羊をあきらめない\nしません！"
+    },
+    {
+      "source": "오프라인으로 접속합니다.",
+      "en": "Playing offline.",
+      "ja": "オフラインで接続します。"
+    },
+    {
+      "source": "온라인으로 접속합니다.",
+      "en": "Connected online.",
+      "ja": "オンラインでアクセスします。"
+    },
+    {
+      "source": "은혜",
+      "en": "Grace",
+      "ja": "恵み"
+    },
+    {
+      "source": "이 메세지는 어디까지 있을까?\n\n\n이젠 궁금하지? ㅋㅋㅋㅋㅋ  여기에\n쓴 내용들, 전부 사실이야. 물론\n나 거짓말 못하는거 아니까 너도\n알겠지만 말이야.  \n\n이 게임을 만든것도,\n널 사랑하는 것도, 카톡 숨김과,\n교회 떠나는것 전부 다. \n\n아 맞다.\n너 사진이랑 영상 다 지울게.\n너는\n다 지웠으려나?  나는 아직 다 못지웠어.\n\n\n아직도 내 수면제는 내 옆에서\n잠을 자.  \n\n그 향기가 말이야. 원래는\n날 잠들게 했는데, 이제는 날 슬프게\n해. 울며 잠들게 해.  너무 보고싶어.\n\n\n\n으.. 너무 힘들다.  너는 첫 연애니까\n더 힘들겠지?  나는 이게 4번짼데\n왜이리 제일 아플까. 차라리 생각을\n못하는 상태였다면, 얼마나 좋을까.\n\n\n\n\n있지, 너가 밤에 취해서 연락\n온 날, 그 날 부터 내 마음이 너무\n흔들렸나봐.  \n\n\n나는 사귀면서도\n항상 늘 너에게 확인 받고싶어했던\n것 같아.  수련회를 갔을 때도, 너무\n너무 불안해서, 그랬던 것 같아.\n그럴때 마다 항상 너가 옆에서\n확인시켜주곤 했었는데, 너가 없으니\n너무 불안했던것 같아.  \n\n\n그래서\n질투도 그렇게 많이 하지 않았나\n싶어. 널 혹여나 조금이라도 잃고\n싶지 않은 마음에.  \n\n\n미안해 나\n때문에 많이 억압되어서 답답했겠다.\n\n\n\n\n귀찮았겠다.  \n\n\n흐.. 나는 왜이리\n불안에 빠지는지.. 참.. 6살 많은 오빠로써\n오빠 답지 못했네.  다음에는 늠름하고,\n재력 있구, 키 큰 더 좋은 사람 만나길\n바래.  \n\n\n너가 늘 말하는것 처럼\n나같은건 잊어버리고, 언제 였는지\n기억도 못할 정도로 행복하게 살아.\n\n\n\n난 매일 널 위해 기도해.  다시\n붙게 해달라는게 아니라 진정 너의\n행복을 위해.  \n\n\n그런데 아이러니하게\n너가 행복한 모습을 차마 볼 자신이\n없다.  \n\n\n\n히히. 도망칠게. 비겁하게.\n널 위한다고 핑계대고, 결국엔\n날 위한거지만, 예쁘게 포장하고\n도망쳐버릴게.  \n\n\n\n추하지?! 웅 이제\n마음 것 나를 씹어두 괜차나.  ㅎ...\n\n\n\n\n사랑해 세은아... \n\n안녕..",
+      "en": "How far will this message go?\n\n\nAre you curious now? Hahaha here\nEverything you wrote is true. Of course\nBecause you know I can’t lie, you too\nYou know, you know.  \n\nWhat made this game,\nLoving you is also about hiding KakaoTalk,\nEverything about leaving church. \n\nOh right.\nI will delete all your photos and videos.\nyou\nAre you trying to erase everything?  I haven't erased everything yet.\n\n\nMy sleeping pills are still by my side\nGet some sleep.  \n\nThat scent. Originally\nYou put me to sleep, now you make me sad\nDo it. Cry yourself to sleep  miss you so much.\n\n\n\nUgh... it's so hard.  Because it's your first relationship\nIt will be harder, right?  This is my 4th time\nWhy does it hurt so much? I'd rather think\nHow great would it be if you couldn't do it?\n\n\n\n\nYou know, you call me when you're drunk at night\nThe day I came, from that day on, my heart\nI must have been shaken.  \n\n\nEven though I'm dating\nI always wanted to get confirmation from you\nI think so.  Even when I went to a retreat, it was so\nI think it was because I was so anxious.\nWhenever that happens, you are always by my side\nI used to confirm, but since you weren't there\nI think I was so anxious.  \n\n\nSo\nAren’t you jealous too much?\nI want to. I might lose you even a little bit\nBecause I don't want to.  \n\n\nI'm sorry\nIt must have been frustrating because it was suppressed so much.\n\n\n\n\nIt must have been annoying.  \n\n\nHmm... why am I like this?\nI wonder if I’m getting anxious.. Well.. as an older brother who is 6 years older than me.\nI wasn't like my brother.  Next time, be dignified,\nI hope you meet a better person who is rich and tall.\nI hope.  \n\n\nLike you always say\nForget about me, when was it?\nLive so happily that you can't even remember.\n\n\n\nI pray for you every day.  again\nI'm not asking you to stick with me, but it's truly yours.\nFor happiness.  \n\n\nBut ironically\nI can't bear to see you happy\nNone.  \n\n\n\nHehe. I'll run away. Cowardly.\nI make excuses saying it's for you, but in the end\nIt's for me, but packaged nicely.\nI'll run away.  \n\n\n\nIsn’t it ugly?! Ugh now\nIt's okay to chew on me as much as you want.  Heh...\n\n\n\n\nI love you, Se-eun... \n\nHello..",
+      "ja": "このメッセージはどこまでありますか？\n\n\nもう気になりませんか？ ㅋㅋㅋㅋㅋ\n書いた内容、全部本当だ。もちろん\n私は嘘をついていないので、あなたも\nわかるけどね。  \n\nこのゲームを作ったのも、\n君を愛するのも、カトク隠しと、\n教会を去るすべてです。 \n\nああそうだ。\nあなたの写真とビデオをすべて消去します。\nあなたは\nすべて消したか？  まだ全部消えています。\n\n\nまだ私の睡眠薬は私の隣で\n眠りましょう。  \n\nあの香りがね。もともと\n私は眠りについたが、今は悲しい\nします。泣いて寝てください。  あまりにも見たいです。\n\n\n\nうーん…大変です。  あなたは初恋です。\nもっと難しいでしょうか？  私はこれを4回しました。\nなぜこんなに一番痛いのか。むしろ考えを\nできない状態だったら、どれほどいいか。\n\n\n\n\nあり、夜に酔って連絡\n来た日、その日から私の心がとても\n揺れたみたい。  \n\n\n私は付き合いながら\nいつもいつもあなたに確認されたかった\nそうだな  修練会に行った時も、\nあまりにも不安なので、そうだったと思います。\nそんな時はいつもあなたが横から\n確認してくれたんだけど、君がいないから\nあまりにも不安だったと思います。  \n\n\nだから\n嫉妬もそんなにやらなかったのか\nしたい。あなたを少しでも失う\nしたくない心に。  \n\n\nすみません。\nだからたくさん抑圧されて苦しい。\n\n\n\n\n面倒だった。  \n\n\nうー..私はなぜ\n不安に陥るか……本当に…6歳の兄弟として\n私の兄は答えられませんでした。  次は凛とし、\n才能あり、背の高いより良い人に会う\n欲しい。  \n\n\nいつも言うように\n私のようなものを忘れて、いつだったのか\n覚えられないほど幸せに生きる。\n\n\n\n私は毎日あなたのために祈ります。  再び\nつけてほしいのではなく、本当に君の\n幸せのために。  \n\n\nしかし皮肉なことに\nあなたが幸せな姿を見つめる自分が\nない。  \n\n\n\nヒヒ。逃げる。卑怯に。\n君のためだと言い訳し、結局は\n私のためですが、きれいに包んでください。\n逃げてしまいます。  \n\n\n\n醜いですか？うん今\n心事私を噛んでおいてもいい。  ㅎ...\n\n\n\n\n愛してる… \n\nこんにちは.."
+    },
+    {
+      "source": "이게 보이면 버그입니다.",
+      "en": "If you see this, it's a bug.",
+      "ja": ""
+    },
+    {
+      "source": "이름 입력",
+      "en": "Enter your name",
+      "ja": "名前を入力"
+    },
+    {
+      "source": "이미 사용중인 닉네임입니다.",
+      "en": "This nickname is already in use.",
+      "ja": "すでに使用しているニックネームです。"
+    },
+    {
+      "source": "이번 게임동안 게임 속도 2배\n기능을 해제합니다.\n(구매된 게임은\n저장됩니다.)",
+      "en": "Unlock 2× speed for this run.\nThis also applies when you\nresume the saved run.",
+      "ja": "今回のゲーム中にゲーム速度を2倍\n機能をオフにします。\n（購入したゲームは\n保存されます。）"
+    },
+    {
+      "source": "이번 게임동안 속도 x2",
+      "en": "2× Speed for This Run",
+      "ja": "今回のゲーム中のスピードx2"
+    },
+    {
+      "source": "입력해주세요",
+      "en": "Please enter a nickname.",
+      "ja": "入力してください"
+    },
+    {
+      "source": "자신은 친구가 될 수 없어요.",
+      "en": "You can't add yourself.",
+      "ja": "自分は友達になれません。"
+    },
+    {
+      "source": "주님의 은혜로 무작위 양 여섯\n마리를 구원합니다.",
+      "en": "By the Lord's grace,\nsave 6 random sheep.",
+      "ja": ""
+    },
+    {
+      "source": "주님의 은혜로 하트를 3개\n얻습니다.",
+      "en": "By the Lord's grace,\ngain 3 hearts.",
+      "ja": ""
+    },
+    {
+      "source": "주님의 은혜로 하트를 5개\n얻습니다.",
+      "en": "By the Lord's grace,\ngain 5 hearts.",
+      "ja": ""
+    },
+    {
+      "source": "주님의 은혜를 얻습니다.",
+      "en": "Receive the Lord's blessing.",
+      "ja": "主の恵みを得る。"
+    },
+    {
+      "source": "진동",
+      "en": "Vibration",
+      "ja": "振動"
+    },
+    {
+      "source": "진행 중인 게임을 종료하고\n홈으로 나갑니다.\n(진행중인 게임은\n저장됩니다.)",
+      "en": "Return to the home screen.\nYour progress will be saved.",
+      "ja": "進行中のゲームを終了して\nホームに出ます。\n（進行中のゲームは\n保存されます。）"
+    },
+    {
+      "source": "첫 구매 보너스!",
+      "en": "First purchase bonus!",
+      "ja": "初回購入ボーナス！"
+    },
+    {
+      "source": "첫구매 보너스!",
+      "en": "First purchase bonus!",
+      "ja": "初購入ボーナス！"
+    },
+    {
+      "source": "체력100미만_양들_즉시구원_공10개감소",
+      "en": "Health less than 100_Sheep_Instant salvation_10 balls reduced",
+      "ja": ""
+    },
+    {
+      "source": "체력30미만_양들_즉시구원_공3개감소",
+      "en": "Stamina less than 30_Sheep_Instant salvation_3 balls reduced",
+      "ja": ""
+    },
+    {
+      "source": "추가하실 친구의 닉네임을 입력해주세요.",
+      "en": "Enter your friend's nickname.",
+      "ja": "追加したい友達のニックネームを入力してください。"
+    },
+    {
+      "source": "친구",
+      "en": "Friends",
+      "ja": "Friends"
+    },
+    {
+      "source": "친구 추가",
+      "en": "Add Friend",
+      "ja": "友達を追加"
+    },
+    {
+      "source": "친구 추가하기",
+      "en": "Add Friend",
+      "ja": "友達を追加する"
+    },
+    {
+      "source": "친구에게 선물받기",
+      "en": "Gifts from Friends",
+      "ja": "友達にプレゼントをもらう"
+    },
+    {
+      "source": "키키\n\n말 안듣는건 여전하군!\n\n그게\n너 매력이였다. ㅋㅋㅋ\n그냥 너의\n모든게 다 매력이고 이상형이야\nㅋㅋㅋ 이젠 ㅋㅋㅋ\n미치겠다\n나도 ㅋㅋㅋ\n\n이번 편지가 마지막일거야.\n\n여기까지\n읽느라 고생했어.\n다음에 또 누르면\n처음으로 돌아가게 해놓을거야.\n\n\n멋있지?  이게 프로그래머야~\n선물로\n뭐라도 너의 앞길을 위해 만들어\n주고 싶었었는데, 나는 너의 앞길에\n전혀 도움이 안되어서, 너무 아쉽다.\n\n나\n글씨 악필이라 이걸로 적는거야\n어때 ㅋㅋ\n\n너의 글씨. 보고싶다.\n우리 집에 있는 그 편지는 날 너무\n아프게 해. 너도 그래서 나에게\n준거겠지.\n\n보고싶지만 보고싶지않아.\n그 편지는.\n\n이제 더 뭘 말해야 할지\n모르겠어.\n\n우리 이별만 몇번 째하고\n있잖아 ㅋㅋㅋㅋ\n그 만큼 사랑한다는\n거겠지.\n서로가 떨어지기 싫다는\n거겠지.\n\n이래 봤자 달라질 건 없자나\n\n힘들어도\n둘이여서 버틸 수 있었고, 너가\n날 사랑하는게 느껴져서 앞으로\n나아갈 수 있었어.\n\n정말 너무 행복했고,\n이제 생각해보면 정말 꿈만 같았던\n나날들, 선물 같은 나날들을 선물해준\n너에게 너무 감사해. \n\n덕분에 신앙도,\n교회 생활도 자신감도, 커리어도,\n다 좋아졌어. 나에게 넌 정말 선물\n같은 존재야.\n\n이제 나도 널 놓아줄게.\n\n우리\n아프지말자.\n\n혼자 잡고있던 고슴도치의\n손을 이제는 놓아줄게.\n\n가시로\n찔러서 그동안 미안했다.\n\n그래도\n나는 둘이여서 좋았어.\n\n빌런이\n되지 않으려면 여기서 그만해야지.\n\n정말\n정말 정말 정말 너무 너무 많이.\n\n\n\n\n사랑했고,\n\n\n사랑하고,\n\n\n사랑해.\n\n진짜\n안녕.\n\n\n\n\n\n\n\n\n\n\n너를 정말 많이 사랑하는\n이상진이. 12월 17일에 올림.",
+      "en": "Kiki\n\nYou're still not listening!\n\nThat's it\nYou were attractive. LOL\njust your\nEverything is attractive and my ideal type.\nHaha now haha\nI'm going crazy\nMe too lol\n\nThis letter will be my last.\n\nUntil here\nI had a hard time reading it.\nNext time I press it again\nI'll take you back to the beginning.\n\n\nCool, right?  This is a programmer~\nas a gift\nDo something for your future\nI wanted to give it to you, but I am in your path\nIt's so disappointing that it didn't help at all.\n\nme\nI'm writing this because my handwriting is bad.\nHow about it haha\n\nyour handwriting. miss you.\nThat letter at my house makes me so sad\nIt hurts. So do you to me too\nIt must have been given to you.\n\nI want to see you, but I don’t want to see you.\nThat letter.\n\nWhat more should I say now?\nI don't know.\n\nHow many times have we broken up?\nYou know, lol\nI love you that much\nI guess so.\nWe don't want to separate from each other\nI guess so.\n\nNothing will change like this\n\nEven if it's hard\nWe were able to endure it because it was the two of us, and you\nI feel like you love me so from now on\nI was able to move on.\n\nI was really, really happy,\nNow that I think about it, it really felt like a dream.\nYou gave me the days that were like gifts\nthank you so much \n\nThanks to you, faith\nChurch life, confidence, career,\nEverything got better. you are truly a gift to me\nThey are the same being.\n\nNow I will let you go too.\n\nus\nLet's not get sick.\n\nA hedgehog held alone\nI'll let go now.\n\nWith thorns\nI'm sorry for stabbing you all this time.\n\nStill\nI was glad there were two of us.\n\nThe villain\nIf you don't want to do it, you have to stop here.\n\nreally\nSo so so so so so so so much.\n\n\n\n\nI loved you,\n\n\nI love you,\n\n\nI love you.\n\nReally\nHello.\n\n\n\n\n\n\n\n\n\n\ni love you so much\nSangjin Lee. Posted on December 17th.",
+      "ja": "キキ\n\n言わないのは相変わらず！\n\nそれが\nあなたは魅力だった。笑\nただあなたの\nすべてが魅力的で理想的です。\nㅋㅋㅋㅋㅋㅋㅋㅋ\n狂う\n私も\n\n今回の手紙が最後になります。\n\nここまで\n読んで苦労しました。\n次にもう一度押す\n初めて戻すようにします。\n\n\n素敵ですか？  これはプログラマーです〜\n贈り物として\n何でも君の前道のために作って\n与えたかったのに、私はあなたの前に\nまったく役に立たなかったので、残念です。\n\n私\n文字の悪筆だからこれで書くんだ\nどうですか\n\nあなたの文字。見たい。\n私の家のその手紙は私も\n病気にしてください。あなたもだから私に\n与えただろう。\n\n見たいけど見たくない\nその手紙は。\n\n今何を言うべきか\nわからない。\n\n私たちの別れだけ何度も\nあります。\nそれだけ愛する\nだろう。\nお互いが落ちたくない\nだろう。\n\nこれから見たら変わることはありません。\n\n大変でも\n二人で耐えることができた、\n私を愛しているのを感じて、\n進むことができた。\n\n本当にとても幸せで、\n今考えてみると本当に夢みたいだった\n毎日、プレゼントなどの日々をプレゼント\nありがとうございます。 \n\nおかげで信仰も、\n教会生活も自信も、キャリアも、\nみんな良くなりました。私には本当にプレゼント\n同じ存在だ。\n\n今私も君を放してあげる。\n\n私たち\n病気にならないでください。\n\n一人で持っていたハリネズミの\n手を今は放してあげる。\n\nとげろ\n刺されてこれまで申し訳なかった。\n\nそれでも\n二人でよかったです。\n\nヴィラン\nされないようにするにはここでやめてください。\n\n本当に\n本当に本当に本当にあまりにも多く。\n\n\n\n\n愛し、\n\n\n愛し、\n\n\n大好きです。\n\n本物\nこんにちは。\n\n\n\n\n\n\n\n\n\n\n君を本当に愛してる\nイ・サンジン。 12月17日に投稿。"
+    },
+    {
+      "source": "특수문자는 사용할 수 없습니다.",
+      "en": "Special characters cannot be used.",
+      "ja": "特殊文字は使用できません。"
+    },
+    {
+      "source": "파일을 찾을 수 없습니다: BadWord.txt",
+      "en": "Cannot find file: BadWord.txt",
+      "ja": "ファイルが見つかりません: BadWord.txt"
+    },
+    {
+      "source": "하트 10개를 얻고, 양들을 무작위로\n10 마리 소환합니다.",
+      "en": "Gain 10 hearts and\nsummon 10 random sheep.",
+      "ja": ""
+    },
+    {
+      "source": "하트 10개를 얻는 대신, 다음\n3턴 동안 나오는 양들의 체력이\n2배가 됩니다.",
+      "en": "Gain 10 hearts. New sheep have\ndouble HP for the next 3 turns.",
+      "ja": ""
+    },
+    {
+      "source": "하트 15개를 얻고, 양들을 무작위로\n15 마리 소환합니다.",
+      "en": "Gain 15 hearts and\nsummon 15 random sheep.",
+      "ja": ""
+    },
+    {
+      "source": "하트 15개를 얻는 대신, 다음\n6턴 동안 나오는 양들의 체력이\n2배가 됩니다.",
+      "en": "Gain 15 hearts. New sheep have\ndouble HP for the next 6 turns.",
+      "ja": ""
+    },
+    {
+      "source": "하트 1개를 소모하여, 모든\n양들에게 30만큼의 사랑을 줍니다.",
+      "en": "Spend 1 heart to give\n30 love to every sheep.",
+      "ja": ""
+    },
+    {
+      "source": "하트 2개를 소모하여 가장\n앞에 있는 줄의 양들을 모두 즉시\n구원합니다.",
+      "en": "Spend 2 hearts to instantly\nsave every sheep in the front row.",
+      "ja": ""
+    },
+    {
+      "source": "하트 2개를 소모하여, 체력\n50미만의 양들을 모두 구원합니다. ",
+      "en": "Spend 2 hearts to save\nall sheep with less than 50 HP.",
+      "ja": ""
+    },
+    {
+      "source": "하트 3개를 소모하여, 모든\n양들에게 50만큼의 사랑을 줍니다.",
+      "en": "Spend 3 hearts to give\n50 love to every sheep.",
+      "ja": ""
+    },
+    {
+      "source": "하트 3개를 얻는 대신, 다음\n1턴 동안 나오는 양들의 체력이\n2배가 됩니다.",
+      "en": "Gain 3 hearts. New sheep have\ndouble HP on the next turn.",
+      "ja": ""
+    },
+    {
+      "source": "하트 5개를 소모하여, 무작위\n3마리 양에게 100만큼 사랑을 줍니다.",
+      "en": "Spend 5 hearts to give\n100 love to 3 random sheep.",
+      "ja": ""
+    },
+    {
+      "source": "하트 5개를 소모하여, 체력\n100미만의 양들을 모두 구원합니다. ",
+      "en": "Spend 5 hearts to save\nall sheep with less than 100 HP.",
+      "ja": ""
+    },
+    {
+      "source": "하트 5개를 얻고, 양들을 무작위로\n6 마리 소환합니다.",
+      "en": "Gain 5 hearts and\nsummon 6 random sheep.",
+      "ja": ""
+    },
+    {
+      "source": "하트 8개 얻고 5개 소환",
+      "en": "Get 8 hearts and summon 5",
+      "ja": ""
+    },
+    {
+      "source": "하트가 부족하신가요?",
+      "en": "Need more hearts?",
+      "ja": "心が足りませんか？"
+    },
+    {
+      "source": "하트가 부족합니다!",
+      "en": "Not enough hearts!",
+      "ja": "ハートが足りない！"
+    },
+    {
+      "source": "하트가 부족해요!",
+      "en": "Not enough hearts!",
+      "ja": "ハートが足りません！"
+    },
+    {
+      "source": "하트를 10개 얻는 대신  무작위\n양 3마리의 체력을 3배로 늘립니다.",
+      "en": "Gain 10 hearts and\ntriple the HP of 3 random sheep.",
+      "ja": ""
+    },
+    {
+      "source": "하트를 4개 얻는 대신, 랜덤으로\n최대 3마리 양들의 체력을 2배로\n증가시킵니다.",
+      "en": "Gain 4 hearts and double\nthe HP of up to 3 random sheep.",
+      "ja": ""
+    },
+    {
+      "source": "하트를 5개 얻는 대신  무작위\n양의 체력을 3배로 늘립니다.",
+      "en": "Gain 5 hearts and\ntriple the HP of a random sheep.",
+      "ja": ""
+    },
+    {
+      "source": "하트를 7개 소모하여 화면에\n모든 양들을 구원합니다.",
+      "en": "Spend 7 hearts to save\nevery sheep on screen.",
+      "ja": ""
+    },
+    {
+      "source": "하트를 8개 얻는 대신, 랜덤으로\n최대 5마리 양들의 체력을 2배로\n증가시킵니다.",
+      "en": "Gain 8 hearts and double\nthe HP of up to 5 random sheep.",
+      "ja": ""
+    },
+    {
+      "source": "하트를 바로 내립니다.",
+      "en": "Recall all hearts.",
+      "ja": "心をすぐ下ろします。"
+    },
+    {
+      "source": "한 턴을 건너 뛰고, 하트를\n5개 얻습니다.",
+      "en": "Skip 1 turn and gain 5 hearts.",
+      "ja": ""
+    },
+    {
+      "source": "한국어",
+      "en": "Korean",
+      "ja": "韓国語"
+    },
+    {
+      "source": "한턴쉬고_공3개추가",
+      "en": "Take a break and add 3 balls",
+      "ja": ""
+    },
+    {
+      "source": "홈으로",
+      "en": "Home",
+      "ja": "ホームへ"
+    },
+    {
+      "source": "화면에 있는 모든 양들의 체력을\n2배로 증가시키고, 하트를 10개 얻습니다.",
+      "en": "Double the HP of every sheep\non screen and gain 10 hearts.",
+      "ja": ""
+    },
+    {
+      "source": "화면에있는_모든양들_체력2배_공5개추가",
+      "en": "Double the health of all sheep on the screen and add 5 balls",
+      "ja": ""
+    },
+    {
+      "source": "환영합니다!",
+      "en": "Welcome!",
+      "ja": "ようこそ！"
+    },
+    {
+      "source": "활성화됨",
+      "en": "On",
+      "ja": "有効"
+    },
+    {
+      "source": "효과음",
+      "en": "Sound Effects",
+      "ja": "効果音"
+    },
+    {
+      "source": "선택하기",
+      "en": "Select",
+      "ja": ""
+    },
+    {
+      "source": "50% 확률로 특수 하트를 3개 얻거나,\n하트가 3개 감소합니다.",
+      "en": "50% chance to gain 3 special hearts.\nOtherwise, lose 3 hearts.",
+      "ja": ""
+    },
+    {
+      "source": "남은 광고 횟수 :{0}/{1}",
+      "en": "Ads left: {0}/{1}",
+      "ja": ""
+    },
+    {
+      "source": "{0}님이 사랑을 전해줬어요!",
+      "en": "{0} sent you love!",
+      "ja": ""
+    }
+  ]
+}

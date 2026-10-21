@@ -1,0 +1,10 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // All game data goes through authenticated Functions. Clients cannot forge
+    // ranks, nickname ownership, gifts, or read another player's private save.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

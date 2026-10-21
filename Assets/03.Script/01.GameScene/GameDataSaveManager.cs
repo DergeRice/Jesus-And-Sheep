@@ -78,6 +78,7 @@ public class GameDataSaveManager : MonoBehaviour
         string encryptedJson = Utils.Encrypt(json, encryptionKey);
 
         File.WriteAllText(savePath, encryptedJson);
+        if (NetworkManager.instance != null) NetworkManager.instance.MarkCloudDirty();
         
         // 공 던진 여부는 PlayerPrefs에 저장
         SaveShotStatus();
@@ -203,6 +204,7 @@ public class GameDataSaveManager : MonoBehaviour
         string filePath = Path.Combine(Application.persistentDataPath, "ShootData.json");
 
         File.WriteAllText(filePath, json);
+        if (NetworkManager.instance != null) NetworkManager.instance.MarkCloudDirty();
         Debug.Log($"Ball data saved: {filePath}");
 
     }

@@ -10,6 +10,7 @@ public class SettingPanel : MonoBehaviour
     public Button settingButton,closeButton;
     
     public RectTransform rectTransform;
+    public Transform contentRoot;
     private Vector3 initPos;
 
     public List<SettingButton> settingButtons = new List<SettingButton>();
@@ -24,10 +25,12 @@ public class SettingPanel : MonoBehaviour
 
     public EasterEgg easterEggPanel;
 
-
     private void Start()
     {
+        _ = LanguageManager.Instance;
         initPos = rectTransform.position;
+        GoogleLoginButton.AddToSettings(this);
+        ApplyAutoSizeToContentTexts();
         settingButton.onClick.AddListener(()=>
         {
             rectTransform.position = Vector3.zero;
@@ -72,7 +75,36 @@ public class SettingPanel : MonoBehaviour
                 easterEggPanelCount = 0;
             }
         };
+
     } 
+
+    private void ApplyAutoSizeToContentTexts()
+    {
+        Transform target = contentRoot;
+        if (target == null && rectTransform != null)
+        {
+            target = rectTransform.Find("Content");
+        }
+
+        if (target == null)
+        {
+            return;
+        }
+
+        TMP_Text[] texts = target.GetComponentsInChildren<TMP_Text>(true);
+        for (int i = 0; i < texts.Length; i++)
+        {
+            TMP_Text text = texts[i];
+            if (text == null)
+            {
+                continue;
+            }
+
+            text.enableAutoSizing = true;
+            if (text.fontSizeMin <= 0) text.fontSizeMin = 12;
+            if (text.fontSizeMax <= 0) text.fontSizeMax = Mathf.Max(12, text.fontSize);
+        }
+    }
 
 
 
@@ -103,5 +135,5 @@ public class SettingPanel : MonoBehaviour
 
     }
 
-    
+
 }

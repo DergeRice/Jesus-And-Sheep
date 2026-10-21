@@ -15,6 +15,11 @@ public class FriendUi : MonoBehaviour
 
     private void Start()
     {
+        if (nameText != null && nameText.GetComponent<NonTranslatableText>() == null)
+        {
+            nameText.gameObject.AddComponent<NonTranslatableText>();
+        }
+
         sendCoolTimeMinute = 360;
         timeText.gameObject.SetActive(false);
         CheckThisFriendSendAvailable();

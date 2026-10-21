@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b52b6bff702f94671b425501e0df0e32, type: 3}
+  m_Name: "00_\uACF5 5\uAC1C \uCD94\uAC00 + \uB2E4\uC74C \uD134 3\uBC88 \uC591 2\uBC30"
+  m_EditorClassIdentifier: Assembly-CSharp::GameEventDefinition
+  eventName: "\uACF5 5\uAC1C \uCD94\uAC00 + \uB2E4\uC74C \uD134 3\uBC88 \uC591 2\uBC30"
+  eventNameEn: "Add 5 balls + Double the amount for 3rd turn next turn"
+  explanation: "\uD558\uD2B8 10\uAC1C\uB97C \uC5BB\uB294 \uB300\uC2E0, \uB2E4\uC74C
+    3\uD134 \uB3D9\uC548 \uB098\uC624\uB294 \uC591\uB4E4\uC758 \uCCB4\uB825\uC774
+    2\uBC30\uAC00 \uB429\uB2C8\uB2E4."
+  explanationEn: "Gain 10 hearts. New sheep have\ndouble HP for the next 3 turns."
+  icon: {fileID: 21300000, guid: a89ecb81d0b9345f29530b2b64ab2877, type: 3}
+  rank: 1
+  isSpecialBallEvent: 0
+  effects:
+  - effectType: 0
+    intValue: 10
+    floatValue: 0
+    ballType: 0
+  - effectType: 2
+    intValue: 3
+    floatValue: 0
+    ballType: 0

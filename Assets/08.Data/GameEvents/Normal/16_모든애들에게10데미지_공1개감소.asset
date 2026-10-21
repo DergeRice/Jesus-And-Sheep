@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b52b6bff702f94671b425501e0df0e32, type: 3}
+  m_Name: "16_\uBAA8\uB4E0\uC560\uB4E4\uC5D0\uAC8C10\uB370\uBBF8\uC9C0_\uACF51\uAC1C\uAC10\uC18C"
+  m_EditorClassIdentifier: Assembly-CSharp::GameEventDefinition
+  eventName: "\uBAA8\uB4E0\uC560\uB4E4\uC5D0\uAC8C10\uB370\uBBF8\uC9C0_\uACF51\uAC1C\uAC10\uC18C"
+  eventNameEn: "10 damage to all kids_1 ball reduction"
+  explanation: "\uD558\uD2B8 1\uAC1C\uB97C \uC18C\uBAA8\uD558\uC5EC, \uBAA8\uB4E0
+    \uC591\uB4E4\uC5D0\uAC8C 30\uB9CC\uD07C\uC758 \uC0AC\uB791\uC744 \uC90D\uB2C8\uB2E4."
+  explanationEn: "Spend 1 heart to give\n30 love to every sheep."
+  icon: {fileID: 21300000, guid: 619b7fc0ab2954b5ea32430865b342a5, type: 3}
+  rank: 2
+  isSpecialBallEvent: 0
+  effects:
+  - effectType: 10
+    intValue: 30
+    floatValue: 0
+    ballType: 0
+  - effectType: 0
+    intValue: -1
+    floatValue: 0
+    ballType: 0

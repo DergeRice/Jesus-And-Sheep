@@ -45,6 +45,8 @@ public class HeartManager : MonoBehaviour
 
         heartFillText.text = $"{heartCount} / {maxHeartCount}";
     }
+    public void ReloadCloudData() { LoadHeartData(); }
+
     private void LoadHeartData()
     {
         // 하트 수 로드 (기본값은 최대 하트 수)
@@ -108,6 +110,7 @@ public class HeartManager : MonoBehaviour
         // 마지막 충전 시간을 string으로 저장
         ProtectedPlayerPrefs.SetString(LastHeartChargeTimeKey, lastHeartChargeTime.ToString("o")); // "o" 포맷은 ISO 8601 표준
         ProtectedPlayerPrefs.Save();
+        if (NetworkManager.instance != null) NetworkManager.instance.MarkCloudDirty();
     }
 
     [ContextMenu("UseHeart")]

@@ -10,6 +10,14 @@ public class RankingUI : MonoBehaviour
     public Image medalImg;
     public TMP_Text rankNumText,rankScore, rankNickName;
 
+    private void Awake()
+    {
+        if (rankNickName != null && rankNickName.GetComponent<NonTranslatableText>() == null)
+        {
+            rankNickName.gameObject.AddComponent<NonTranslatableText>();
+        }
+    }
+
     public void SettingUi(User rankingData)
     {
         // profileObj[rankingData.profileindex].SetActive(true);
